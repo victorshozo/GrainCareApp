@@ -17,7 +17,7 @@ public class View_Holder extends RecyclerView.ViewHolder {
     View_Holder(View itemView) {
         super(itemView);
         cv = (CardView) itemView.findViewById(R.id.RecyclerListBeacons);
-        //beacon_id = (TextView) itemView.findViewById(R.id.beaconID);
+        beacon_id = (TextView) itemView.findViewById(R.id.beaconID);
         temp = (TextView) itemView.findViewById(R.id.beaconTemperature);
         bat = (TextView) itemView.findViewById(R.id.beaconBattery);
         bat_icon = (ImageView) itemView.findViewById(R.id.beaconBatteryIcon);

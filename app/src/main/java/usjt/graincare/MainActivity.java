@@ -3,6 +3,7 @@ package usjt.graincare;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -52,19 +53,29 @@ public class MainActivity extends AppCompatActivity
             long bateria =  Math.round(Math.random() * 100);
             long temperatura = Math.round(Math.random() * 100);
             int icon = 0;
+
             if( bateria >= 65)
             {
-                icon = R.drawable.ic_bat_full_128x128;
+                icon = R.drawable.fullbattery64x64;
             }
             else if(bateria  >= 34 && bateria < 65)
             {
-                icon =R.drawable.ic_bat_mid_128x128;
+                icon =R.drawable.middlebattery64x64;
             }
             else
             {
-                icon =R.drawable.ic_bat_low_128x128;
+                icon =R.drawable.lowbattery64x64;
             }
-            beacons.add(new Beacon(i, icon,String.format("% 03d",bateria)+"%", temperatura+"ºC"));
+
+            if(temperatura >= 55)
+            {
+                beacons.add(new Beacon(Integer.toString(i), icon,String.format("% 03d",bateria)+"%", "Instavel : "+temperatura+"ºC"));
+                //AA4439
+            }
+            else if(temperatura <55)
+            {
+                beacons.add(new Beacon(Integer.toString(i), icon,String.format("% 03d",bateria)+"%", "Estavel : "+temperatura+"ºC"));
+            }
         }
 
 

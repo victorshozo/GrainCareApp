@@ -30,11 +30,10 @@ public class BeaconAdapter extends RecyclerView.Adapter<View_Holder>{
     @Override
     public void onBindViewHolder(View_Holder holder, int position)
     {
-        //holder.beacon_id.setText(beacons.get(position).getBeaconID());
+        holder.beacon_id.setText(beacons.get(position).getBeaconID());
         holder.temp.setText(beacons.get(position).getBeaconTemperature());
         holder.bat_icon.setImageResource(beacons.get(position).getBeaconBatteryIcon());
         holder.bat.setText(beacons.get(position).getBeaconBattery());
-
     }
 
     @Override
