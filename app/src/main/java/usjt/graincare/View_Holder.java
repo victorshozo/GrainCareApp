@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class View_Holder extends RecyclerView.ViewHolder {
-    private CardView cv;
+    CardView cv;
     TextView beacon_id;
     TextView temp;
     TextView bat;
@@ -16,7 +16,7 @@ public class View_Holder extends RecyclerView.ViewHolder {
 
     View_Holder(View itemView) {
         super(itemView);
-        cv = (CardView) itemView.findViewById(R.id.RecyclerListBeacons);
+        cv = (CardView) itemView.findViewById(R.id.beaconCardView);
         beacon_id = (TextView) itemView.findViewById(R.id.beaconID);
         temp = (TextView) itemView.findViewById(R.id.beaconTemperature);
         bat = (TextView) itemView.findViewById(R.id.beaconBattery);

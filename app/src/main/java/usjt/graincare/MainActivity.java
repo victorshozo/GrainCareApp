@@ -1,5 +1,6 @@
 package usjt.graincare;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,11 +47,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        RecyclerView recyclerView =  (RecyclerView) findViewById(R.id.RecyclerListBeacons);
+        CardView beaconCardView = (CardView) findViewById(R.id.beaconCardView);
+
         StringBuilder temp = new StringBuilder();
         List<Beacon> beacons = new ArrayList<>();
         for (int i = 0; i<=13; i++)
         {
-            long bateria =  Math.round(Math.random() * 100);
+            int bateria =  (int) (Math.round(Math.random() * 100));
             long temperatura = Math.round(Math.random() * 100);
             int icon = 0;
 
@@ -66,20 +71,20 @@ public class MainActivity extends AppCompatActivity
             {
                 icon =R.drawable.lowbattery64x64;
             }
-
+            //Usar variavel da classe de grãos
             if(temperatura >= 55)
             {
-                beacons.add(new Beacon(Integer.toString(i), icon,String.format("% 03d",bateria)+"%", "Instavel : "+temperatura+"ºC"));
+                beacons.add(new Beacon(i, icon,bateria,temperatura));
                 //AA4439
             }
             else if(temperatura <55)
             {
-                beacons.add(new Beacon(Integer.toString(i), icon,String.format("% 03d",bateria)+"%", "Estavel : "+temperatura+"ºC"));
+                beacons.add(new Beacon(i, icon,bateria,temperatura));
             }
+
         }
 
 
-        RecyclerView recyclerView =  (RecyclerView) findViewById(R.id.RecyclerListBeacons);
         BeaconAdapter beaconadapter = new BeaconAdapter(beacons, getApplication());
         recyclerView.setAdapter(beaconadapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

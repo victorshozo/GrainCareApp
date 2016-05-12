@@ -1,11 +1,11 @@
 package usjt.graincare;
 public class Beacon {
-    private String beaconID;
+    private int beaconID;
     private int beaconBatteryIcon;
-    private String beaconBattery;
-    private String beaconTemperature;
+    private int beaconBattery;
+    private long beaconTemperature;
     private int beaconColor;
-    public Beacon (String beaconID, int beaconBatteryIcon,String beaconBattery, String beaconTemperature)
+    public Beacon (int beaconID, int beaconBatteryIcon,int beaconBattery, long beaconTemperature)
     {
         this.beaconID = beaconID;
         this.beaconBatteryIcon = beaconBatteryIcon;
@@ -13,15 +13,15 @@ public class Beacon {
         this.beaconTemperature = beaconTemperature;
     }
 
-    public String  getBeaconID() {
+    public int  getBeaconID() {
         return beaconID;
     }
 
-    public String getBeaconBattery() {
+    public int getBeaconBattery() {
         return beaconBattery;
     }
 
-    public String getBeaconTemperature() {
+    public long getBeaconTemperature() {
         return beaconTemperature;
     }
 
