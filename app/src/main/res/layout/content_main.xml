@@ -16,6 +16,11 @@
 
     //Colocar o RecyclerView dos Silos aqui!
 
+      <android.support.v7.widget.RecyclerView
+      android:layout_width="fill_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/RecyclerListSilos" />
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"

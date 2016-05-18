@@ -3,7 +3,6 @@ package usjt.graincare;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +13,15 @@ import java.util.List;
 
 public class BeaconAdapter extends RecyclerView.Adapter<View_Holder>{
     List<Beacon> beacons = Collections.emptyList();
+    List<Grao> graos = Collections.emptyList();
+
     Context context;
 
-    public BeaconAdapter(List<Beacon> beacons, Context context)
+    public BeaconAdapter(List<Beacon> beacons, List<Grao> graos, Context context)
     {
         this.beacons = beacons;
         this.context = context;
+        this.graos = graos;
     }
 
     @Override
@@ -36,18 +38,19 @@ public class BeaconAdapter extends RecyclerView.Adapter<View_Holder>{
         long temperatura =  beacons.get(position).getBeaconTemperature();
         int bateria = beacons.get(position).getBeaconBattery();
         String id = Integer.toString(beacons.get(position).getBeaconID());
+
         holder.beacon_id.setText(id);
 
-        if(temperatura> 50)
+        if(temperatura> 55)
         {
 
-            holder.temp.setText(String.format("Crítico --- %dº", temperatura));
+            holder.temp.setText(String.format("Crítico --- %dºC", temperatura));
             holder.cv.setCardBackgroundColor(Color.rgb(255,75,75));
             holder.temp.setTypeface(null, Typeface.BOLD);
         }
         else
         {
-            holder.temp.setText(String.format("Estavel --- %dº",temperatura));
+            holder.temp.setText(String.format("Estável --- %dºC",temperatura));
             holder.temp.setTypeface(null, Typeface.BOLD);
             //holder.cv.setCardBackgroundColor(Color.rgb(82,226,115));
 
