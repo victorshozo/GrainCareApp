@@ -1,12 +1,14 @@
 package usjt.graincare;
 
-public class Grao {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Grao implements Parcelable {
     private int graoID;
     private String graoTipo;
     private int graoTempMax;
 
-    public Grao(int graoID, String graoTipo, int graoTempMax)
-    {
+    public Grao(int graoID, String graoTipo, int graoTempMax) {
         this.graoID = graoID;
         this.graoTempMax = graoTempMax;
         this.graoTipo = graoTipo;
@@ -35,4 +37,35 @@ public class Grao {
     public void setGraoTipo(String graoTipo) {
         this.graoTipo = graoTipo;
     }
+
+    protected Grao(Parcel in) {
+        graoID = in.readInt();
+        graoTipo = in.readString();
+        graoTempMax = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(graoID);
+        dest.writeString(graoTipo);
+        dest.writeInt(graoTempMax);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Grao> CREATOR = new Parcelable.Creator<Grao>() {
+        @Override
+        public Grao createFromParcel(Parcel in) {
+            return new Grao(in);
+        }
+
+        @Override
+        public Grao[] newArray(int size) {
+            return new Grao[size];
+        }
+    };
 }

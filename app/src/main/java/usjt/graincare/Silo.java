@@ -5,17 +5,18 @@ import java.util.Date;
 public class Silo {
     private int siloID;
     private int graoID;
-    private long siloCapacity;
-    private Date siloDataClose;
-    private Date siloDataOpen;
-    private String regiaoSilo;
+    private double siloCapacity;
+    //MUDAR DATAS PARA DATE
+    private String siloDataClose;
+    private String siloDataOpen;
+    private String siloRegion;
 
-    public Silo(int siloID, int graoID, long siloCapacity, Date siloDataClose, Date siloDataOpen, String regiaoSilo)
+    public Silo(int siloID, int graoID, double siloCapacity, String siloDataClose, String siloDataOpen, String siloRegion)
     {
         this.siloID = siloID;
         this.graoID = graoID;
         this.siloCapacity = siloCapacity;
-        this.regiaoSilo = regiaoSilo;
+        this.siloRegion = siloRegion;
         this.siloDataClose = siloDataClose;
         this.siloDataOpen = siloDataOpen;
     }
@@ -28,20 +29,20 @@ public class Silo {
             return graoID;
         }
 
-        public Date getSiloDataClose() {
+        public String getSiloDataClose() {
             return siloDataClose;
         }
 
-        public Date getSiloDataOpen() {
+        public String getSiloDataOpen() {
             return siloDataOpen;
         }
 
-        public long getSiloCapacity() {
+        public double getSiloCapacity() {
             return siloCapacity;
         }
 
-        public String getRegiaoSilo() {
-            return regiaoSilo;
+        public String getSiloRegion() {
+            return siloRegion;
         }
 
         public void setSiloID(int siloID) {
@@ -52,19 +53,19 @@ public class Silo {
             this.graoID = graoID;
         }
 
-        public void setRegiaoSilo(String regiaoSilo) {
-            this.regiaoSilo = regiaoSilo;
+        public void setSiloRegion(String siloRegion) {
+            this.siloRegion = siloRegion;
         }
 
-        public void setSiloCapacity(long siloCapacity) {
+        public void setSiloCapacity(double siloCapacity) {
             this.siloCapacity = siloCapacity;
         }
 
-        public void setSiloDataClose(Date siloDataClose) {
+        public void setSiloDataClose(String siloDataClose) {
             this.siloDataClose = siloDataClose;
         }
 
-        public void setSiloDataOpen(Date siloDataOpen) {
+        public void setSiloDataOpen(String siloDataOpen) {
             this.siloDataOpen = siloDataOpen;
         }
 }

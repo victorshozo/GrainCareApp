@@ -8,40 +8,41 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BeaconAdapter extends RecyclerView.Adapter<View_Holder>{
+public class BeaconAdapter extends RecyclerView.Adapter<View_Holder_Beacon>{
     List<Beacon> beacons = Collections.emptyList();
-    List<Grao> graos = Collections.emptyList();
-
+    ArrayList<Grao> graos = new ArrayList<Grao>();
+    int tempMax;
     Context context;
 
-    public BeaconAdapter(List<Beacon> beacons, List<Grao> graos, Context context)
+    public BeaconAdapter(List<Beacon> beacons, int tempMax, Context context)
     {
         this.beacons = beacons;
         this.context = context;
-        this.graos = graos;
+        this.tempMax = tempMax;
     }
 
     @Override
-    public View_Holder onCreateViewHolder(ViewGroup parent, int viewType)
+    public View_Holder_Beacon onCreateViewHolder(ViewGroup parent, int viewType)
     {
         //inflate the layout
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.beacon_row, parent, false);
-        View_Holder holder = new View_Holder(v);
+        View_Holder_Beacon holder = new View_Holder_Beacon(v);
         return holder;
     }
     @Override
-    public void onBindViewHolder(View_Holder holder, int position)
+    public void onBindViewHolder(View_Holder_Beacon holder, int position)
     {
         long temperatura =  beacons.get(position).getBeaconTemperature();
         int bateria = beacons.get(position).getBeaconBattery();
         String id = Integer.toString(beacons.get(position).getBeaconID());
 
-        holder.beacon_id.setText(id);
 
-        if(temperatura> 55)
+        holder.beacon_id.setText(id);
+        if(temperatura> tempMax)
         {
 
             holder.temp.setText(String.format("Crítico --- %dºC", temperatura));

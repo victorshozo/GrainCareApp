@@ -22,8 +22,8 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
- <!--
- Usar em SILOS
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_new_silo"
         android:layout_width="wrap_content"
@@ -31,5 +31,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:src="@mipmap/ic_add_new_silo" />
-    -->
+
 </android.support.design.widget.CoordinatorLayout>
