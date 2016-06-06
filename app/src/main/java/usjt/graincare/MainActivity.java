@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.test.ViewAsserts;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Add silo", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Add Silo, Alter Silo, Delete Silo", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.RecyclerListSilos);
         CardView silosCardView = (CardView) findViewById(R.id.silosCardView);
 
@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity
         SiloAdapter siloAdapter = new SiloAdapter(silos, graos, getApplication());
         recyclerView.setAdapter(siloAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     @Override
@@ -94,12 +93,10 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -107,26 +104,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        //View view=getCurrentFocus() ;
+        //int id = item.getItemId();
 
-        if (id == R.id.nav_silos) {
-            Snackbar.make(item.getActionView(),"TELA SILOS", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-
-        }
-          else if (id == R.id.nav_beacons) {
-
-            Snackbar.make(item.getActionView(),"TELA BEACONS", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        } else if (id == R.id.nav_grafic_temp_time) {
-
-            Snackbar.make(item.getActionView(),"TELA GRAFICO", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        } else if (id == R.id.nav_prevision) {
-
-            Snackbar.make(item.getActionView(), "TELA PREVISÃO", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
+        // else if (id == R.id.nav_grafic_temp_time)
+        //{
+        //    Snackbar.make(item.getActionView(),"TELA GRAFICO", Snackbar.LENGTH_LONG)
+        //            .setAction("Action", null).show();
+        //} else if (id == R.id.nav_prevision)
+        //{
+        //    Snackbar.make(item.getActionView(), "TELA PREVISÃO", Snackbar.LENGTH_LONG)
+        //            .setAction("Action", null).show();
+        //}
         //} else if (id == R.id.nav_share) {
 
         //} else if (id == R.id.nav_send) {
