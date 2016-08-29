@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Grain Care</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="state_temp_beacon">Estado: </string>
+    <string name="action_settings">Opções</string>
+</resources>
