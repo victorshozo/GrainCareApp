@@ -29,7 +29,7 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
     {
         this.beacons = beacons;
         this.context = context;
-        this.tempMax = tempMax;
+        this.tempMax = tempMax
     }
 
     @Override
