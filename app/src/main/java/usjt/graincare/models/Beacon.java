@@ -3,16 +3,15 @@ public class Beacon {
     private int beaconID;
     private int beaconBatteryIcon;
     private int beaconBattery;
+    private int beaconHumidity;
     private long beaconTemperature;
     private int beaconDistance;
     private int siloID;
-    public Beacon (int beaconID, int beaconBatteryIcon,int beaconBattery, long beaconTemperature, int siloID)
-    {
+
+    public Beacon(int beaconID, long beaconTemperature, int beaconHumidity) {
         this.beaconID = beaconID;
-        this.beaconBatteryIcon = beaconBatteryIcon;
-        this.beaconBattery = beaconBattery;
         this.beaconTemperature = beaconTemperature;
-        this.siloID = siloID;
+        this.beaconHumidity = beaconHumidity;
     }
 
     public int  getBeaconID() {
@@ -63,5 +62,12 @@ public class Beacon {
     public void setBeaconTemperature(long beaconTemperature) {
         this.beaconTemperature = beaconTemperature;
     }
-}
 
+    public int getBeaconHumidity() {
+        return beaconHumidity;
+    }
+
+    public void setBeaconHumidity(int beaconHumidity) {
+        this.beaconHumidity = beaconHumidity;
+    }
+}

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import usjt.graincare.R;
 import usjt.graincare.models.Beacon;
@@ -29,7 +30,7 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
     {
         this.beacons = beacons;
         this.context = context;
-        this.tempMax = tempMax
+        this.tempMax = tempMax;
     }
 
     @Override
@@ -40,32 +41,30 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
         View_Holder_Beacon holder = new View_Holder_Beacon(v);
         return holder;
     }
+
     @Override
     public void onBindViewHolder(View_Holder_Beacon holder, int position)
     {
         long temperatura =  beacons.get(position).getBeaconTemperature();
-        int bateria = beacons.get(position).getBeaconBattery();
+        int humidade = beacons.get(position).getBeaconHumidity();
+        holder.hum.setText(String.format("%s%%",humidade));
+        holder.hum.setTypeface(null, Typeface.BOLD);
+
         String id = Integer.toString(beacons.get(position).getBeaconID());
-
-
         holder.beacon_id.setText(id);
         if(temperatura> tempMax)
         {
-
-            holder.temp.setText(String.format("Crítico --- %dºC", temperatura));
+            holder.temp.setText(String.format(Locale.getDefault(),"Crítico --- %s ºC", temperatura));
             holder.cv.setCardBackgroundColor(Color.rgb(255,75,75));
             holder.temp.setTypeface(null, Typeface.BOLD);
         }
         else
         {
-            holder.temp.setText(String.format("Estável --- %dºC",temperatura));
+            holder.temp.setText(String.format(Locale.getDefault(),"Estável --- %s ºC",temperatura));
             holder.temp.setTypeface(null, Typeface.BOLD);
             //holder.cv.setCardBackgroundColor(Color.rgb(82,226,115));
 
         }
-        holder.bat_icon.setImageResource(beacons.get(position).getBeaconBatteryIcon());
-        holder.bat.setTypeface(null, Typeface.BOLD);
-        holder.bat.setText(String.format("%3d%%",bateria));
     }
 
     @Override
@@ -78,32 +77,19 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
     {
         super.onAttachedToRecyclerView(recyclerView);
     }
-    public void insert(int position, Beacon beacon)
-    {
-        beacons.add(position, beacon);
-        notifyItemInserted(position);
-    }
-    public void remove(Beacon beacon)
-    {
-        int position = beacons.indexOf(beacon);
-        beacons.remove(position);
-        notifyItemRemoved(position);
-    }
 
     public static class View_Holder_Beacon extends RecyclerView.ViewHolder {
         CardView cv;
         TextView beacon_id;
         TextView temp;
-        TextView bat;
-        ImageView bat_icon;
+        TextView hum;
 
         View_Holder_Beacon(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.beaconCardView);
+            cv = (CardView) itemView.findViewById(R.id.beaconCardViews);
             beacon_id = (TextView) itemView.findViewById(R.id.beaconID);
             temp = (TextView) itemView.findViewById(R.id.beaconTemperature);
-            bat = (TextView) itemView.findViewById(R.id.beaconBattery);
-            bat_icon = (ImageView) itemView.findViewById(R.id.beaconBatteryIcon);
+            hum = (TextView) itemView.findViewById(R.id.beaconHumidity);
         }
     }
 }

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import usjt.graincare.R;
 import usjt.graincare.adapters.SiloAdapter;
@@ -31,20 +30,18 @@ public class SilosFragment extends Fragment {
     }
 
     private void populateRecycler() {
-        List<Silo> silosFromApi = new ArrayList<>();
-
-        try {
-            silosFromApi = new GrainCareRest().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        List<Silo> silos = new ArrayList<>();
+        silos.add(new Silo(1,1,1, 1000.10 ,"10/03/2016", "20/06/2016", "Noroeste"));
+        silos.add(new Silo(2,1,1, 10000.0 ,"10/02/2016", "20/05/2016", "Agreste"));
+        silos.add(new Silo(3,3,1, 100000.0 ,"10/01/2016", "20/04/2016", "Inferno"));
+        silos.add(new Silo(4,2,2, 15000.0 ,"10/04/2016", "20/07/2016", "Satan"));
 
         ArrayList<Grao> graos = new ArrayList<>();
         graos.add(new Grao(1, "Milho", 30));
         graos.add(new Grao(2, "Soja", 43));
-        graos.add(new Grao(3, "Sordo", 56));
+        graos.add(new Grao(3, "Sordo", 56));//
 
-        adapter = new SiloAdapter(silosFromApi, graos, rootView.getContext());
+        adapter = new SiloAdapter(silos, graos, rootView.getContext());
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerListSilos);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setHasFixedSize(false);

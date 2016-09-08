@@ -1,4 +1,4 @@
-package usjt.graincare.fragments;
+package usjt.graincare.util;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -22,7 +22,7 @@ public class GrainCareRest extends AsyncTask<Void, Void, List<Silo>> {
                 .baseUrl(GrainCareConfig.BASE_URL)
                 .build();
     }
-
+    //Aparentemente não funfa sem método CALL
     @Override
     protected List<Silo> doInBackground(Void... params) {
         api = retrofit.create(GrainCareApi.class);

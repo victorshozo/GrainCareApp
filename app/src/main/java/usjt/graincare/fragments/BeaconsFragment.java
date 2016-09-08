@@ -37,10 +37,9 @@ public class BeaconsFragment extends Fragment {
             } else {
                 icon = R.drawable.lowbattery64x64;
             }
-            beacons.add(new Beacon(i, icon, bateria, temperatura,1));
             //AA4439
         }
-
+        beacons.add(new Beacon(1, 10, 27));
         ArrayList<Grao> graos = new ArrayList<>();
         int idGrao = 0;
 
@@ -65,4 +64,3 @@ public class BeaconsFragment extends Fragment {
         return rootView;
     }
 }
-
