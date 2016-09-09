@@ -1,37 +1,42 @@
 package usjt.graincare.util;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Silo;
-import usjt.graincare.util.GrainCareConfig;
 
-public class GrainCareRest extends AsyncTask<Void, Void, List<Silo>> {
+public class GrainCareRest  extends AsyncTask<Void, Void, List<Silo>> {
 
-    private Retrofit retrofit;
     private GrainCareApi api;
 
     @Override
     protected void onPreExecute() {
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GrainCareConfig.BASE_URL)
                 .build();
+        api = retrofit.create(GrainCareApi.class);
     }
-    //Aparentemente não funfa sem método CALL
+
     @Override
     protected List<Silo> doInBackground(Void... params) {
-        api = retrofit.create(GrainCareApi.class);
+        Call<List<Silo>> call = api.listSilos();
+
         try {
-            return api.listSilos();
-        } catch (Exception e) {
-            Log.d("onResponse", "There is an error");
+            Response<List<Silo>> response = call.execute();
+            if (response.isSuccessful()) {
+                return response.body();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
+
 }
