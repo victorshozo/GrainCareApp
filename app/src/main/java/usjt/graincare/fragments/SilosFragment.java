@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import usjt.graincare.R;
 import usjt.graincare.adapters.SiloAdapter;
 import usjt.graincare.models.Grao;
 import usjt.graincare.models.Silo;
+import usjt.graincare.util.GrainCareRest;
 
 public class SilosFragment extends Fragment {
     // @BindView (R.id.RecyclerListSilos) RecyclerView recyclerView;
@@ -30,7 +32,17 @@ public class SilosFragment extends Fragment {
     }
 
     private void populateRecycler() {
+
         List<Silo> silos = new ArrayList<>();
+
+try{
+    silos= new GrainCareRest().execute().get();
+}catch (InterruptedException e) {
+    e.printStackTrace();
+} catch (ExecutionException e) {
+    e.printStackTrace();
+}
+
         silos.add(new Silo(1,1,1, 1000.10 ,"10/03/2016", "20/06/2016", "Noroeste"));
         silos.add(new Silo(2,1,1, 10000.0 ,"10/02/2016", "20/05/2016", "Agreste"));
         silos.add(new Silo(3,3,1, 100000.0 ,"10/01/2016", "20/04/2016", "Inferno"));

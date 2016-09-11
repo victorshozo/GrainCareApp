@@ -9,6 +9,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Silo;
 
@@ -20,6 +21,7 @@ public class GrainCareRest  extends AsyncTask<Void, Void, List<Silo>> {
     protected void onPreExecute() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GrainCareConfig.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(GrainCareApi.class);
     }
