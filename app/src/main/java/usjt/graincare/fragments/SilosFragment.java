@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
 import usjt.graincare.R;
 import usjt.graincare.adapters.SiloAdapter;
 import usjt.graincare.models.Grao;
 import usjt.graincare.models.Silo;
-import usjt.graincare.util.GrainCareRest;
+import usjt.graincare.util.GraoRest;
+import usjt.graincare.util.SiloRest;
 
 public class SilosFragment extends Fragment {
     // @BindView (R.id.RecyclerListSilos) RecyclerView recyclerView;
@@ -35,24 +35,15 @@ public class SilosFragment extends Fragment {
 
         List<Silo> silos = new ArrayList<>();
 
-try{
-    silos= new GrainCareRest().execute().get();
-}catch (InterruptedException e) {
-    e.printStackTrace();
-} catch (ExecutionException e) {
-    e.printStackTrace();
-}
-
-        silos.add(new Silo(1,1,1, 1000.10 ,"10/03/2016", "20/06/2016", "Noroeste"));
-        silos.add(new Silo(2,1,1, 10000.0 ,"10/02/2016", "20/05/2016", "Agreste"));
-        silos.add(new Silo(3,3,1, 100000.0 ,"10/01/2016", "20/04/2016", "Inferno"));
-        silos.add(new Silo(4,2,2, 15000.0 ,"10/04/2016", "20/07/2016", "Satan"));
-
         ArrayList<Grao> graos = new ArrayList<>();
-        graos.add(new Grao(1, "Milho", 30));
-        graos.add(new Grao(2, "Soja", 43));
-        graos.add(new Grao(3, "Sordo", 56));//
-
+        try{
+            silos= new SiloRest().execute().get();
+            graos = new GraoRest().execute().get();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         adapter = new SiloAdapter(silos, graos, rootView.getContext());
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerListSilos);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
@@ -60,5 +51,4 @@ try{
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
-
 }

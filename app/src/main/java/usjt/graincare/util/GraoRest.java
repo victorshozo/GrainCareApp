@@ -1,19 +1,17 @@
 package usjt.graincare.util;
 
 import android.os.AsyncTask;
-
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
+import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import usjt.graincare.json.GrainCareApi;
-import usjt.graincare.models.Silo;
+import usjt.graincare.models.Grao;
 
-public class GrainCareRest  extends AsyncTask<Void, Void, List<Silo>> {
+
+public class GraoRest extends AsyncTask<Void, Void, ArrayList<Grao>>{
 
     private GrainCareApi api;
 
@@ -27,18 +25,18 @@ public class GrainCareRest  extends AsyncTask<Void, Void, List<Silo>> {
     }
 
     @Override
-    protected List<Silo> doInBackground(Void... params) {
-        Call<List<Silo>> call = api.listSilos();
+    protected ArrayList<Grao> doInBackground(Void... params) {
+        Call<ArrayList<Grao>> call = api.listGraos();
 
         try {
-            Response<List<Silo>> response = call.execute();
+            Response<ArrayList<Grao>> response = call.execute();
             if (response.isSuccessful()) {
                 return response.body();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Collections.emptyList();
+        return null;
     }
-
 }
+

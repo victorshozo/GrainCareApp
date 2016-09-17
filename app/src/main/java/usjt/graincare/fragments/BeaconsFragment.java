@@ -9,22 +9,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import usjt.graincare.R;
 import usjt.graincare.adapters.BeaconAdapter;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.Grao;
+import usjt.graincare.models.Silo;
+import usjt.graincare.util.BeaconRest;
+import usjt.graincare.util.GraoRest;
+import usjt.graincare.util.SiloRest;
 
 public class BeaconsFragment extends Fragment {
-    List<Beacon> beacons = new ArrayList<>();
     private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         rootView = inflater.inflate(R.layout.fragment_beacons, container, false);
         StringBuilder temp = new StringBuilder();
+        Bundle bundle = this.getArguments();
+        BeaconRest rest = new BeaconRest();
 
+        List<Beacon> beacons = rest.doShit(bundle.getLong("siloID"));
         for (int i = 0; i <= 13; i++) {
             int bateria = (int) (Math.round(Math.random() * 100));
             long temperatura = Math.round(Math.random() * 100);
@@ -43,7 +51,7 @@ public class BeaconsFragment extends Fragment {
         ArrayList<Grao> graos = new ArrayList<>();
         int idGrao = 0;
 
-        Bundle bundle = this.getArguments();
+
         if (bundle != null) {
             idGrao = bundle.getInt("siloGraoID");
             graos = bundle.getParcelableArrayList("graos");
