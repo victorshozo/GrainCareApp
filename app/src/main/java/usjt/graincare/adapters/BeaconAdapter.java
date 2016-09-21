@@ -46,7 +46,7 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
     public void onBindViewHolder(View_Holder_Beacon holder, int position)
     {
         long temperatura =  beacons.get(position).getBeaconTemperature();
-        int humidade = beacons.get(position).getBeaconHumidity();
+        long humidade = beacons.get(position).getBeaconHumidity();
         holder.hum.setText(String.format("%s%%",humidade));
         holder.hum.setTypeface(null, Typeface.BOLD);
 
@@ -83,6 +83,7 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
         TextView beacon_id;
         TextView temp;
         TextView hum;
+        TextView dist;
 
         View_Holder_Beacon(View itemView) {
             super(itemView);
@@ -90,6 +91,7 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
             beacon_id = (TextView) itemView.findViewById(R.id.beaconID);
             temp = (TextView) itemView.findViewById(R.id.beaconTemperature);
             hum = (TextView) itemView.findViewById(R.id.beaconHumidity);
+            dist = (TextView) itemView.findViewById(R.id.beaconDistance);
         }
     }
 }

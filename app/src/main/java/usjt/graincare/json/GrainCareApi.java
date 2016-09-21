@@ -18,6 +18,10 @@ public interface GrainCareApi {
     @GET("/graos")
     Call<ArrayList<Grao>> listGraos( );
 
-    @GET("silos/{siloID}/beacons")
+ /*   @GET("/silos/{siloID}/beacons")
     Call<List<Beacon>> listBeacons(@Path("siloID") Long siloID);
+*/
+    @GET("/beacons")
+    Call<List<Beacon>> listBeacons();
+
 }

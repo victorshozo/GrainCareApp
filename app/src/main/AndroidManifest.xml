@@ -20,10 +20,5 @@
             </intent-filter>
 
         </activity>
-        <activity
-            android:name=".BeaconActivity"
-            android:label="Beacons"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
 </manifest>

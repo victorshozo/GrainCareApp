@@ -63,7 +63,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.View_Holder_Si
         holder_silo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentJump(graoID);
+                fragmentJump(graoID, siloID);
 
 
 /*                                                    //Was beaconActivity
@@ -105,10 +105,11 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.View_Holder_Si
         }
     }
 
-    private void fragmentJump(int graoID) {
+    private void fragmentJump(int graoID, int siloID) {
         BeaconsFragment fragment= new BeaconsFragment();
         Bundle args = new Bundle();
         args.putInt("siloGraoID",graoID);
+        args.putInt("siloID",siloID);
         args.putParcelableArrayList("graos", graos);
         fragment.setArguments(args);
         switchContent(fragment);

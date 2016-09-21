@@ -1,10 +1,8 @@
 package usjt.graincare.util;
 
 import android.util.Log;
-
 import java.util.Collections;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,7 +14,7 @@ import usjt.graincare.models.Beacon;
 
 public class BeaconRest {
     private GrainCareApi api;
-
+    List<Beacon> beacons = Collections.emptyList();
     public List<Beacon> doShit(Long siloID) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GrainCareConfig.BASE_URL)
@@ -24,8 +22,8 @@ public class BeaconRest {
                 .build();
 
         api = retrofit.create(GrainCareApi.class);
-        final List<Beacon> beacons = Collections.emptyList();
-        Call<List<Beacon>> call = api.listBeacons(siloID);
+
+        Call<List<Beacon>> call = api.listBeacons();
         call.enqueue(new Callback<List<Beacon>>() {
 
             @Override

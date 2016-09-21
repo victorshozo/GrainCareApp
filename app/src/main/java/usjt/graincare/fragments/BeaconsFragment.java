@@ -33,21 +33,6 @@ public class BeaconsFragment extends Fragment {
         BeaconRest rest = new BeaconRest();
 
         List<Beacon> beacons = rest.doShit(bundle.getLong("siloID"));
-        for (int i = 0; i <= 13; i++) {
-            int bateria = (int) (Math.round(Math.random() * 100));
-            long temperatura = Math.round(Math.random() * 100);
-            int icon = 0;
-
-            if (bateria >= 65) {
-                icon = R.drawable.fullbattery64x64;
-            } else if (bateria >= 34 && bateria < 65) {
-                icon = R.drawable.middlebattery64x64;
-            } else {
-                icon = R.drawable.lowbattery64x64;
-            }
-            //AA4439
-        }
-        beacons.add(new Beacon(1, 10, 27));
         ArrayList<Grao> graos = new ArrayList<>();
         int idGrao = 0;
 
