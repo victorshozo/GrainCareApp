@@ -27,7 +27,7 @@
 
 
         <TextView
-                android:id="@+id/siloTipoGrao"
+                android:id="@+id/siloGraoType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8sp"
@@ -37,7 +37,7 @@
             android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/siloCapacidade"
+                android:id="@+id/siloCapacity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

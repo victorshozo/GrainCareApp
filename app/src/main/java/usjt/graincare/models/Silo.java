@@ -1,79 +1,78 @@
 package usjt.graincare.models;
 
 public class Silo {
-    private int siloID;
-    private int graoID;
-    private int farmID;
-    private double siloCapacity;
-    //MUDAR DATAS PARA DATE
-    private String siloDataClose;
-    private String siloDataOpen;
-    private String siloRegion;
+    private Long id;
+    private Long graoID;
+    private Long farmID;
+    private Double capacity;
+    private String data_close;
+    private String data_open;
+    private String region;
 
-    public Silo(int siloID, int graoID, int farmID, double siloCapacity, String siloDataClose, String siloDataOpen, String siloRegion)
+    public Silo(Long id, Long graoID, Long farmID, double capacity, String data_close, String data_open, String region)
     {
-        this.siloID = siloID;
+        this.id = id;
         this.graoID = graoID;
-        this.siloCapacity = siloCapacity;
-        this.siloRegion = siloRegion;
-        this.siloDataClose = siloDataClose;
-        this.siloDataOpen = siloDataOpen;
+        this.capacity = capacity;
+        this.region = region;
+        this.data_close = data_close;
+        this.data_open = data_open;
         this.farmID = farmID;
     }
 
-    public int getSiloID() {
-        return siloID;
+    public Long getId() {
+        return id;
     }
 
-    public int getGraoID() {
+    public Long getGraoID() {
         return graoID;
     }
 
-    public String getSiloDataClose() {
-        return siloDataClose;
+    public String getData_close() {
+        return data_close;
     }
 
-    public String getSiloDataOpen() {
-        return siloDataOpen;
+    public String getData_open() {
+        return data_open;
     }
 
-    public double getSiloCapacity() {
-        return siloCapacity;
+    public double getCapacity() {
+        return capacity;
     }
 
-    public String getSiloRegion() {
-        return siloRegion;
+    public String getRegion() {
+        return region;
     }
 
-    public void setSiloID(int siloID) {
-        this.siloID = siloID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setGraoID(int graoID) {
+    public void setGraoID(Long graoID) {
         this.graoID = graoID;
     }
 
-    public void setSiloRegion(String siloRegion) {
-        this.siloRegion = siloRegion;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
-    public void setSiloCapacity(double siloCapacity) {
-        this.siloCapacity = siloCapacity;
+    public void setCapacity(double capacity) {
+        this.capacity = capacity;
     }
 
-    public void setSiloDataClose(String siloDataClose) {
-        this.siloDataClose = siloDataClose;
+    public void setData_close(String data_close) {
+        this.data_close = data_close;
     }
 
-    public void setSiloDataOpen(String siloDataOpen) {
-        this.siloDataOpen = siloDataOpen;
+    public void setData_open(String data_open) {
+        this.data_open = data_open;
     }
 
-    public int getFarmID() {
+    public Long getFarmID() {
         return farmID;
     }
 
-    public void setFarmID(int farmID) {
+    public void setFarmID(Long farmID) {
         this.farmID = farmID;
     }
 }

@@ -4,44 +4,44 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Grao implements Parcelable {
-    private int graoID;
-    private String graoTipo;
-    private int graoTempMax;
+    private Long id;
+    private String type;
+    private Double maxtemperature;
 
-    public Grao(int graoID, String graoTipo, int graoTempMax) {
-        this.graoID = graoID;
-        this.graoTempMax = graoTempMax;
-        this.graoTipo = graoTipo;
+    public Grao(Long id, String type, Double maxtemperature) {
+        this.id = id;
+        this.maxtemperature = maxtemperature;
+        this.type = type;
     }
 
-    public int getGraoID() {
-        return graoID;
+    public Long getId() {
+        return id;
     }
 
-    public int getGraoTempMax() {
-        return graoTempMax;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getGraoTipo() {
-        return graoTipo;
+    public String getType() {
+        return type;
     }
 
-    public void setGraoID(int graoID) {
-        this.graoID = graoID;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setGraoTempMax(int graoTempMax) {
-        this.graoTempMax = graoTempMax;
+    public Double getMaxtemperature() {
+        return maxtemperature;
     }
 
-    public void setGraoTipo(String graoTipo) {
-        this.graoTipo = graoTipo;
+    public void setMaxtemperature(Double maxtemperature) {
+        this.maxtemperature = maxtemperature;
     }
 
     protected Grao(Parcel in) {
-        graoID = in.readInt();
-        graoTipo = in.readString();
-        graoTempMax = in.readInt();
+        id = in.readByte() == 0x00 ? null : in.readLong();
+        type = in.readString();
+        maxtemperature = in.readByte() == 0x00 ? null : in.readDouble();
     }
 
     @Override
@@ -51,13 +51,23 @@ public class Grao implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(graoID);
-        dest.writeString(graoTipo);
-        dest.writeInt(graoTempMax);
+        if (id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeLong(id);
+        }
+        dest.writeString(type);
+        if (maxtemperature == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeDouble(maxtemperature);
+        }
     }
 
     @SuppressWarnings("unused")
-    public static final Creator<Grao> CREATOR = new Creator<Grao>() {
+    public static final Parcelable.Creator<Grao> CREATOR = new Parcelable.Creator<Grao>() {
         @Override
         public Grao createFromParcel(Parcel in) {
             return new Grao(in);

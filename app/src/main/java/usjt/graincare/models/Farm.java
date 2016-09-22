@@ -2,14 +2,12 @@ package usjt.graincare.models;
 
 public class Farm {
 
-    private int farmID;
-    private String farmName;
-    //ID arduino?
-    //Nome proprietario?
+    private Long id;
+    private String name;
 
-    public Farm (int farmID,String farmName)
+    public Farm (Long id,String name)
     {
-        this.farmID = farmID;
-        this.farmName = farmName;
+        this.id = id;
+        this.name = name;
     }
 }

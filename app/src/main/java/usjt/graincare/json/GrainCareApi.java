@@ -21,7 +21,7 @@ public interface GrainCareApi {
  /*   @GET("/silos/{siloID}/beacons")
     Call<List<Beacon>> listBeacons(@Path("siloID") Long siloID);
 */
-    @GET("/beacons")
-    Call<List<Beacon>> listBeacons();
+    @GET("/silos/{siloid}/beacons")
+    Call<List<Beacon>> listBeacons(@Path("siloID") Long siloID);
 
 }

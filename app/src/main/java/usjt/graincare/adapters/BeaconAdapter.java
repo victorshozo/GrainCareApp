@@ -8,13 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import usjt.graincare.R;
 import usjt.graincare.models.Beacon;
@@ -23,21 +21,21 @@ import usjt.graincare.models.Grao;
 public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holder_Beacon>{
     List<Beacon> beacons = Collections.emptyList();
     ArrayList<Grao> graos = new ArrayList<Grao>();
-    int tempMax;
+    Double maxTemperature;
     Context context;
 
-    public BeaconAdapter(List<Beacon> beacons, int tempMax, Context context)
+    public BeaconAdapter(List<Beacon> beacons, Double maxTemperature, Context context)
     {
         this.beacons = beacons;
         this.context = context;
-        this.tempMax = tempMax;
+        this.maxTemperature = maxTemperature;
     }
 
     @Override
     public View_Holder_Beacon onCreateViewHolder(ViewGroup parent, int viewType)
     {
         //inflate the layout
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.beacon_row, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_beacons_details, parent, false);
         View_Holder_Beacon holder = new View_Holder_Beacon(v);
         return holder;
     }
@@ -45,26 +43,26 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
     @Override
     public void onBindViewHolder(View_Holder_Beacon holder, int position)
     {
-        long temperatura =  beacons.get(position).getBeaconTemperature();
-        long humidade = beacons.get(position).getBeaconHumidity();
-        holder.hum.setText(String.format("%s%%",humidade));
-        holder.hum.setTypeface(null, Typeface.BOLD);
+        Double temperature =  beacons.get(position).getTemperature();
+        Double humidity = beacons.get(position).getHumidity();
+        Double distance = beacons.get(position).getDistance();
+        String id = Long.toString(beacons.get(position).getId());
 
-        String id = Integer.toString(beacons.get(position).getBeaconID());
-        holder.beacon_id.setText(id);
-        if(temperatura> tempMax)
+        //Formatar temperatura e definir cor do cardview
+        if(temperature> maxTemperature)
         {
-            holder.temp.setText(String.format(Locale.getDefault(),"Crítico --- %s ºC", temperatura));
-            holder.cv.setCardBackgroundColor(Color.rgb(255,75,75));
-            holder.temp.setTypeface(null, Typeface.BOLD);
+            holder.temperature.setText(String.format(temperature+" Cº"));
+            holder.cardView.setCardBackgroundColor(Color.rgb(255,75,75));
+            holder.temperature.setTypeface(null, Typeface.BOLD);
         }
         else
         {
-            holder.temp.setText(String.format(Locale.getDefault(),"Estável --- %s ºC",temperatura));
-            holder.temp.setTypeface(null, Typeface.BOLD);
-            //holder.cv.setCardBackgroundColor(Color.rgb(82,226,115));
-
+            holder.temperature.setText(String.format(""+temperature+" Cº"));
+            holder.temperature.setTypeface(null, Typeface.BOLD);
         }
+        holder.distance.setText(String.format(distance+"m"));
+        holder.humidity.setText(String.format("%s%%",humidity));
+        holder.id.setText(id);
     }
 
     @Override
@@ -79,19 +77,19 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.View_Holde
     }
 
     public static class View_Holder_Beacon extends RecyclerView.ViewHolder {
-        CardView cv;
-        TextView beacon_id;
-        TextView temp;
-        TextView hum;
-        TextView dist;
+        CardView cardView;
+        TextView id;
+        TextView temperature;
+        TextView humidity;
+        TextView distance;
 
         View_Holder_Beacon(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.beaconCardViews);
-            beacon_id = (TextView) itemView.findViewById(R.id.beaconID);
-            temp = (TextView) itemView.findViewById(R.id.beaconTemperature);
-            hum = (TextView) itemView.findViewById(R.id.beaconHumidity);
-            dist = (TextView) itemView.findViewById(R.id.beaconDistance);
+            cardView = (CardView) itemView.findViewById(R.id.beaconCardViews);
+            id = (TextView) itemView.findViewById(R.id.beaconID);
+            temperature = (TextView) itemView.findViewById(R.id.beaconTemperature);
+            humidity = (TextView) itemView.findViewById(R.id.beaconHumidity);
+            distance = (TextView) itemView.findViewById(R.id.beaconDistance);
         }
     }
 }

@@ -1,6 +1,5 @@
-
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/beaconCardView"
+    android:id="@+id/beaconCardViews"
     android:layout_width="match_parent"
     android:layout_height="80dp">
 
@@ -14,42 +13,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25sp"
-            android:layout_marginLeft="15sp"
+            android:layout_marginLeft="25sp"
+            android:text="ID: 1"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/beaconHumidity"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:layout_marginTop="25sp"
+            android:layout_marginLeft="35sp"
+            android:text="27%"
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/beaconTemperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="25dp"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/beaconBattery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/beaconTemperature"
-                android:layout_toLeftOf="@+id/beaconBatteryIcon"
-                android:layout_marginTop="4dp"
-
-                android:textSize="20sp" />
-
-            <ImageView
-                android:id="@+id/beaconBatteryIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/beaconTemperature"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="25dp"
-                />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/beaconTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25sp"
+            android:layout_marginLeft="35sp"
+            android:text="32ºC"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/beaconDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25sp"
+            android:layout_marginLeft="35sp"
+            android:text="12 m"
+            android:textColor="#000000"
+            android:textSize="20sp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

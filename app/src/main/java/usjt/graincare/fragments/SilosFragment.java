@@ -39,9 +39,7 @@ public class SilosFragment extends Fragment {
         try{
             silos= new SiloRest().execute().get();
             graos = new GraoRest().execute().get();
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        }catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         adapter = new SiloAdapter(silos, graos, rootView.getContext());

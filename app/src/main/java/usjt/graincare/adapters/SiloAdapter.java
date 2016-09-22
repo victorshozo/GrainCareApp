@@ -3,7 +3,6 @@ package usjt.graincare.adapters;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,43 +36,34 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.View_Holder_Si
     public View_Holder_Silo onCreateViewHolder(ViewGroup parent, int viewType)
     {
         //inflate the layout
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.silo_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_silos_details, parent, false);
         View_Holder_Silo holder_silo = new View_Holder_Silo(view);
         return holder_silo;
     }
     @Override
     public void onBindViewHolder(View_Holder_Silo holder_silo, final int position)
     {
-        final int siloID =  silos.get(position).getSiloID();
-        final int graoID =  silos.get(position).getGraoID();
-        String siloCapacity =  Double.toString(silos.get(position).getSiloCapacity());
-        String siloRegion =  silos.get(position).getSiloRegion();
-        String siloDataClose =  silos.get(position).getSiloDataClose();
-        String siloDataOpen =  silos.get(position).getSiloDataOpen();
+        final Long id =  silos.get(position).getId();
+        final Long graoID =  silos.get(position).getGraoID();
+        String capacity =  Double.toString(silos.get(position).getCapacity());
+        String region =  silos.get(position).getRegion();
+        String data_close =  silos.get(position).getData_close();
+        String data_open =  silos.get(position).getData_open();
 
-        holder_silo.siloIcon.setImageResource(R.mipmap.ic_silo);
-        holder_silo.siloID.setText(String.format("ID - %s",siloID));
-        holder_silo.siloCapacity.setText(String.format("%s kg",siloCapacity));
+        holder_silo.icon.setImageResource(R.mipmap.ic_silo);
+        holder_silo.id.setText(String.format("ID - %s",id));
+        holder_silo.capacity.setText(String.format("%s kg",capacity));
         for(Grao grao : graos) {
-            if (grao.getGraoID() == (graoID))
+            if (grao.getId() == (graoID))
             {
-                holder_silo.graoTipo.setText(grao.getGraoTipo());
+                holder_silo.graoType.setText(grao.getType());
             }
         }
         holder_silo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentJump(graoID, siloID);
+                fragmentJump(graoID, id);
 
-
-/*                                                    //Was beaconActivity
-                Intent intent = new Intent(context, BeaconsFragment.class);
-                intent.putExtra("siloGraoID",graoID);
-                intent.putParcelableArrayListExtra("graos", graos);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //ARRUMAR AQUI NÃO DA PRA INICIAR ACTIVITE PRECISO INICIAR FRAG
-                context.(intent);
-                //Toast.makeText(context, "SILO: "+ siloID, Toast.LENGTH_SHORT).show();*/
             }
         });
     }
@@ -90,26 +80,26 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.View_Holder_Si
     }
     public static class View_Holder_Silo extends RecyclerView.ViewHolder {
         CardView cv;
-        ImageView siloIcon;
-        TextView siloID;
-        TextView graoTipo;
-        TextView siloCapacity;
+        ImageView icon;
+        TextView id;
+        TextView graoType;
+        TextView capacity;
 
         View_Holder_Silo(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.silosCardView);
-            siloIcon = (ImageView) itemView.findViewById(R.id.siloIcon);
-            siloID = (TextView) itemView.findViewById(R.id.siloID);
-            siloCapacity= (TextView) itemView.findViewById(R.id.siloCapacidade);
-            graoTipo = (TextView) itemView.findViewById(R.id.siloTipoGrao);
+            icon = (ImageView) itemView.findViewById(R.id.siloIcon);
+            id = (TextView) itemView.findViewById(R.id.siloID);
+            capacity = (TextView) itemView.findViewById(R.id.siloCapacity);
+            graoType = (TextView) itemView.findViewById(R.id.siloGraoType);
         }
     }
 
-    private void fragmentJump(int graoID, int siloID) {
+    private void fragmentJump(Long graoID, Long siloId) {
         BeaconsFragment fragment= new BeaconsFragment();
         Bundle args = new Bundle();
-        args.putInt("siloGraoID",graoID);
-        args.putInt("siloID",siloID);
+        args.putLong("graoId",graoID);
+        args.putLong("siloId",siloId);
         args.putParcelableArrayList("graos", graos);
         fragment.setArguments(args);
         switchContent(fragment);
@@ -123,6 +113,5 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.View_Holder_Si
             Fragment frag = fragment;
             mainActivity.switchContent(frag);
         }
-
     }
 }

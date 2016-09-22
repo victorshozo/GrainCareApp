@@ -1,56 +1,56 @@
 package usjt.graincare.models;
 public class Beacon {
-    private int beaconID;
-    private long beaconHumidity;
-    private long beaconTemperature;
-    private long beaconDistance;
-    private int siloID;
+    private Long id;
+    private Double humidity;
+    private Double temperature;
+    private Double distance;
+    private Long siloID;
 
-    public Beacon(int beaconID, int siloID, long beaconTemperature, long beaconHumidity, long beaconDistance) {
-        this.beaconID = beaconID;
+    public Beacon(Long id, Long siloID, Double temperature, Double humidity, Double distance) {
+        this.id = id;
         this.siloID = siloID;
-        this.beaconTemperature = beaconTemperature;
-        this.beaconHumidity = beaconHumidity;
-        this.beaconDistance = beaconDistance;
+        this.temperature = temperature;
+        this.humidity = humidity;
+        this.distance = distance;
     }
 
-    public int  getBeaconID() {
-        return beaconID;
+    public Long getId() {
+        return id;
     }
 
-    public long getBeaconTemperature() {
-        return beaconTemperature;
+    public Double getTemperature() {
+        return temperature;
     }
 
-    public long getBeaconDistance() {
-        return beaconDistance;
+    public Double getDistance() {
+        return distance;
     }
 
-    public int getSiloID() {
+    public Long getSiloID() {
         return siloID;
     }
 
-    public void setBeaconDistance(long beaconDistance) {
-        this.beaconDistance = beaconDistance;
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 
-    public void setSiloID(int siloID) {
+    public void setSiloID(Long siloID) {
         this.siloID = siloID;
     }
 
-    public void setBeaconID(int beaconID) {
-        this.beaconID = beaconID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setBeaconTemperature(long beaconTemperature) {
-        this.beaconTemperature = beaconTemperature;
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
     }
 
-    public long getBeaconHumidity() {
-        return beaconHumidity;
+    public Double getHumidity() {
+        return humidity;
     }
 
-    public void setBeaconHumidity(long beaconHumidity) {
-        this.beaconHumidity = beaconHumidity;
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
     }
 }
