@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import usjt.graincare.R;
@@ -36,12 +37,15 @@ public class SilosFragment extends Fragment {
         List<Silo> silos = new ArrayList<>();
 
         ArrayList<Grao> graos = new ArrayList<>();
-        try{
+        silos.add(1,new Silo(1L, 1L, 1L, 1000.10, "10/03/2016", "20/06/2016", "Noroeste"));
+        graos.add(new Grao(1L, "Milho", 30D));
+
+        /*try{
             silos= new SiloRest().execute().get();
             graos = new GraoRest().execute().get();
         }catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-        }
+        }*/
         adapter = new SiloAdapter(silos, graos, rootView.getContext());
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerListSilos);
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());

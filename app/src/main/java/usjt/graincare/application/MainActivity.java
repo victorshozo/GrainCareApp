@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import usjt.graincare.R;
 import usjt.graincare.fragments.BeaconsFragment;
 import usjt.graincare.fragments.SilosFragment;
+import usjt.graincare.util.PrevisionDialog;
 
 public class MainActivity extends AppCompatActivity {
     //@BindView(R.id.) FloatingActionButton floatButtonSilo;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = SilosFragment.class;
                 break;
             case R.id.nav_prevision:
+                PrevisionDialog dialog = new PrevisionDialog();
+                dialog.showPrediction(this.getApplicationContext());
                 fragmentClass = BeaconsFragment.class;
                 break;
             default:
