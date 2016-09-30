@@ -37,7 +37,7 @@ public class SilosFragment extends Fragment {
         List<Silo> silos = new ArrayList<>();
 
         ArrayList<Grao> graos = new ArrayList<>();
-        silos.add(1,new Silo(1L, 1L, 1L, 1000.10, "10/03/2016", "20/06/2016", "Noroeste"));
+        silos.add(new Silo(1L, 1L, 1L, 1000.10D, "10/03/2016", "20/06/2016", "Noroeste"));
         graos.add(new Grao(1L, "Milho", 30D));
 
         /*try{

@@ -1,14 +1,17 @@
 package usjt.graincare.application;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -90,9 +93,16 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = SilosFragment.class;
                 break;
             case R.id.nav_prevision:
-                PrevisionDialog dialog = new PrevisionDialog();
-                dialog.showPrediction(this.getApplicationContext());
-                fragmentClass = BeaconsFragment.class;
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Alert");
+                alertDialog.setMessage("Alert message to be shown");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
                 break;
             default:
                 fragmentClass = SilosFragment.class;

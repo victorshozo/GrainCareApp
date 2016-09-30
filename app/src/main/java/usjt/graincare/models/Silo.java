@@ -9,7 +9,7 @@ public class Silo {
     private String data_open;
     private String region;
 
-    public Silo(Long id, Long graoID, Long farmID, double capacity, String data_close, String data_open, String region)
+    public Silo(Long id, Long graoID, Long farmID, Double capacity, String data_close, String data_open, String region)
     {
         this.id = id;
         this.graoID = graoID;
@@ -36,7 +36,7 @@ public class Silo {
         return data_open;
     }
 
-    public double getCapacity() {
+    public Double getCapacity() {
         return capacity;
     }
 
@@ -56,7 +56,7 @@ public class Silo {
         this.region = region;
     }
 
-    public void setCapacity(double capacity) {
+    public void setCapacity(Double capacity) {
         this.capacity = capacity;
     }
 
