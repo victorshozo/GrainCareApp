@@ -2,6 +2,7 @@ package usjt.graincare.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -12,17 +13,19 @@ import android.widget.Toast;
 
 import usjt.graincare.R;
 
-public class PrevisionDialog {
+public class PredictionDialog {
 
     public static void showDialog(Context context, String title, String message) {
         try {
-            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-            alertDialog.setTitle(title);
-            alertDialog.setMessage(message);
-            alertDialog.setButton("OK", (dialog, which) -> {
-            });
-            alertDialog.setIcon(R.drawable.icon_alert_info);
-            alertDialog.show();
+            new AlertDialog.Builder(context)
+                    .setIcon(R.drawable.information_icon_64x64)
+                    .setMessage(message)
+                    .setTitle(title)
+                    .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }})
+                    .show();
         } catch (Exception e) {
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }

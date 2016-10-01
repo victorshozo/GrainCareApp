@@ -1,31 +1,28 @@
 package usjt.graincare.application;
 
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import usjt.graincare.R;
-import usjt.graincare.fragments.BeaconsFragment;
 import usjt.graincare.fragments.SilosFragment;
-import usjt.graincare.util.PrevisionDialog;
+import usjt.graincare.util.PredictionDialog;
 
 public class MainActivity extends AppCompatActivity {
     //@BindView(R.id.) FloatingActionButton floatButtonSilo;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
+    private PredictionDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,46 +78,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
+        boolean isFrag = false;
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
-        Class fragmentClass;
         switch (menuItem.getItemId()) {
             case R.id.silo_item:
                 //fragmentClass = GraphFragment.class;
-                fragmentClass = SilosFragment.class;
+                fragment = new  SilosFragment();
+                isFrag = true;
                 break;
             case R.id.nav_grafic_temp_time:
-                fragmentClass = SilosFragment.class;
                 break;
             case R.id.nav_prevision:
-                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                alertDialog.setTitle("Alert");
-                alertDialog.setMessage("Alert message to be shown");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+                //String message = getPrediction(); Fazer chamada web e pegar data de previsão
+                PredictionDialog.showDialog(this, "Previsão", "Abre saporra");
                 break;
             default:
-                fragmentClass = SilosFragment.class;
+                isFrag = false;
+                break;
         }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(isFrag)
+        {
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frameLayout_content, fragment).commit();
+
+            // Highlight the selected item has been done by NavigationView
+            menuItem.setChecked(true);
+            // Set action bar title
+
         }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frameLayout_content, fragment).commit();
-
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
