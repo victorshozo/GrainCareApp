@@ -13,6 +13,10 @@
                 android:id="@+id/nav_prevision"
                 android:icon="@mipmap/ic_hourglass"
                 android:title="Gerar Previsão" />
+            <item
+                android:id="@+id/silo_capacity"
+                android:icon="@mipmap/ic_capacity_64x64"
+                android:title="Volume" />
         </menu>
     </item>
 </menu>

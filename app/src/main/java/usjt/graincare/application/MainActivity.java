@@ -91,7 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_prevision:
                 //String message = getPrediction(); Fazer chamada web e pegar data de previsão
-                PredictionDialog.showDialog(this, "Previsão", "Abre saporra");
+                PredictionDialog.showDialog(this, "Estimativa", "O silo poderá ser aberto em 53 dias.");
+                break;
+            case R.id.silo_capacity:
+                //String message = getPrediction(); Fazer chamada web e pegar data de previsão
+                PredictionDialog.showDialog(this, "Volume de Grãos", "O silo está 86% cheio.");
                 break;
             default:
                 isFrag = false;
