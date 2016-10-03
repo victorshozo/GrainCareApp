@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Novo Silo"
+        android:text="Fechar novo Silo"
         android:paddingBottom="15sp"
         android:textSize="30sp"/>
 
@@ -16,29 +16,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/new_silo_id"
+        android:text="Selecione o silo:"
         android:paddingBottom="15sp"
         android:textSize="30sp"/>
+    <!--https://android-arsenal.com/details/1/1839-->
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_silo_spinner"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data de Fechamento:"
         android:textSize="20sp"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
         android:id="@+id/new_silo_date_closing" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Grão:"
         android:textSize="20sp"/>
+
     <Spinner
         android:id="@+id/new_grao_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
