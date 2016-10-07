@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import usjt.graincare.R;
+import usjt.graincare.fragments.SiloAddFragment;
 import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.util.PredictionDialog;
 
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 isFrag = true;
                 break;
             case R.id.nav_grafic_temp_time:
+                fragment = new SiloAddFragment();
+                isFrag = true;
                 break;
             case R.id.nav_prevision:
                 //String message = getPrediction(); Fazer chamada web e pegar data de previsão
@@ -111,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
             // Highlight the selected item has been done by NavigationView
             menuItem.setChecked(true);
             // Set action bar title
-
         }
+
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();

@@ -14,7 +14,6 @@ import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Silo;
 
 public class SiloRest extends AsyncTask<Void, Void, List<Silo>> {
-
     private GrainCareApi api;
 
     @Override
@@ -40,5 +39,4 @@ public class SiloRest extends AsyncTask<Void, Void, List<Silo>> {
         }
         return Collections.emptyList();
     }
-
 }
