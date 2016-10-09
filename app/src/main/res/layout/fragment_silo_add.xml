@@ -1,95 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20sp"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fechar novo Silo"
-        android:paddingBottom="15sp"
-        android:textSize="30sp"/>
+    android:orientation="vertical"
+    android:padding="20sp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/new_silo_id"
-        android:text="Selecione o silo:"
         android:paddingBottom="15sp"
-        android:textSize="20sp"/>
+        android:text="Fechar novo Silo"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/new_silo_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15sp"
+        android:text="Selecione o silo:"
+        android:textSize="20sp" />
     <!--https://android-arsenal.com/details/1/1839-->
     <Spinner
+        android:id="@+id/spinner_silo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner_silo"
         android:spinnerMode="dropdown" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Beacons"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
     <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner_beacons"
-        android:spinnerMode="dropdown" />
-    <!--
-    <com.thomashaertel.widget.MultiSpinner
-        android:id="@+id/spinnerMulti"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    -->
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/spinner_beacons"
+          android:spinnerMode="dropdown" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data de Fechamento:"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <!--android arsenal 3779-->
-    <EditText
+    <DatePicker
+        android:id="@+id/new_silo_date_closing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/new_silo_date_closing" />
+        android:inputType="date" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Grão:"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <Spinner
+        android:id="@+id/spinner_graos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner_graos"
         android:spinnerMode="dropdown" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Capacidade(kg):"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <EditText
+        android:id="@+id/new_silo_capacity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:ems="10"
-        android:id="@+id/new_silo_capacity" />
+        android:inputType="number" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Região:"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <EditText
+        android:id="@+id/new_silo_region"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:id="@+id/new_silo_region" />
+        android:inputType="text" />
 </LinearLayout>
