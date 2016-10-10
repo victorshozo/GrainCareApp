@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class SiloHistory {
+
     private Long id;
     private Grao grao;
     private List<BeaconHistory> beacons;
@@ -12,7 +13,7 @@ public class SiloHistory {
     private Boolean open;
     private Silo silo;
 
-    public SiloHistory(Long id, Grao grao, List<BeaconHistory> beacons, Calendar openedAt, Calendar closedAt, Boolean open, Silo silo){
+    public SiloHistory(Long id, Grao grao, List<BeaconHistory> beacons, Calendar openedAt, Calendar closedAt, Boolean open, Silo silo) {
 
         this.id = id;
         this.grao = grao;
@@ -22,6 +23,7 @@ public class SiloHistory {
         this.open = open;
         this.silo = silo;
     }
+
 
     public Long getId() {
         return id;
@@ -35,8 +37,16 @@ public class SiloHistory {
         return grao;
     }
 
-    public List<BeaconHistory> getBeacons() {
+    public void setGrao(Grao grao) {
+        this.grao = grao;
+    }
+
+    public List<BeaconHistory> getBeaconsHistory() {
         return beacons;
+    }
+
+    public void setBeaconsHistory(List<BeaconHistory> beacons) {
+        this.beacons = beacons;
     }
 
     public Calendar getOpenedAt() {
@@ -66,4 +76,9 @@ public class SiloHistory {
     public Silo getSilo() {
         return silo;
     }
+
+    public void setSilo(Silo silo) {
+        this.silo = silo;
+    }
+
 }

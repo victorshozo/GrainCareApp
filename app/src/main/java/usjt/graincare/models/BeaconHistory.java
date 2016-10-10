@@ -7,18 +7,7 @@ public class BeaconHistory {
     private Double temperature;
     private Double distance;
     private Double humidity;
-
-    public BeaconHistory(){
-    }
-
-    public BeaconHistory(Long id, Beacon beacon, SiloHistory siloHistory, Double temperature, Double distance, Double humidity) {
-        this.id = id;
-        this.beacon = beacon;
-        this.siloHistory = siloHistory;
-        this.temperature = temperature;
-        this.distance = distance;
-        this.humidity = humidity;
-    }
+    private boolean deleted;
 
 
     public Long getId() {
@@ -33,8 +22,16 @@ public class BeaconHistory {
         return beacon;
     }
 
+    public void setBeacon(Beacon beacon) {
+        this.beacon = beacon;
+    }
+
     public SiloHistory getSiloHistory() {
         return siloHistory;
+    }
+
+    public void setSiloHistory(SiloHistory siloHistory) {
+        this.siloHistory = siloHistory;
     }
 
     public Double getTemperature() {
@@ -60,4 +57,14 @@ public class BeaconHistory {
     public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+
 }
