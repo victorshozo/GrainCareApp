@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import usjt.graincare.R;
 
-public class PredictionDialog {
+public class GrainDialog {
 
     public static void showDialog(Context context, String title, String message) {
         try {

@@ -12,18 +12,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import usjt.graincare.R;
 import usjt.graincare.fragments.SiloAddFragment;
 import usjt.graincare.fragments.SilosFragment;
-import usjt.graincare.util.PredictionDialog;
+import usjt.graincare.util.GrainDialog;
 
 public class MainActivity extends AppCompatActivity {
     //@BindView(R.id.) FloatingActionButton floatButtonSilo;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
-    private PredictionDialog pDialog;
+    private GrainDialog pDialog;
+    private ImageView ivArrow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.frameLayout_content, new SilosFragment());
         tx.commit();
-
     }
+
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.silo_item:
                 //fragmentClass = GraphFragment.class;
-                fragment = new  SilosFragment();
+                fragment = new SilosFragment();
                 isFrag = true;
                 break;
             case R.id.nav_grafic_temp_time:
@@ -94,19 +96,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_prevision:
                 //String message = getPrediction(); Fazer chamada web e pegar data de previsão
-                PredictionDialog.showDialog(this, "Estimativa", "O silo poderá ser aberto em 53 dias.");
                 break;
             case R.id.silo_capacity:
                 //String message = getPrediction(); Fazer chamada web e pegar data de previsão
-                PredictionDialog.showDialog(this, "Volume de Grãos", "O silo está 86% cheio.");
-                break;
+                 break;
             default:
                 isFrag = false;
                 break;
         }
 
-        if(isFrag)
-        {
+        if (isFrag) {
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frameLayout_content, fragment).commit();
