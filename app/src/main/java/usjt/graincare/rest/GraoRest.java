@@ -1,4 +1,4 @@
-package usjt.graincare.util;
+package usjt.graincare.rest;
 
 import android.os.AsyncTask;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Grao;
+import usjt.graincare.util.GrainCareConfig;
 
 
 public class GraoRest extends AsyncTask<Void, Void, ArrayList<Grao>>{

@@ -16,7 +16,7 @@ import usjt.graincare.R;
 import usjt.graincare.adapters.BeaconAdapter;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.Grao;
-import usjt.graincare.util.BeaconRest;
+import usjt.graincare.rest.BeaconRest;
 
 public class BeaconsFragment extends Fragment {
     private View rootView;

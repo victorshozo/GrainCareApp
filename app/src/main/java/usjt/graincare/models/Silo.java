@@ -1,15 +1,15 @@
 package usjt.graincare.models;
 
 public class Silo {
+
     private Long id;
     private Double capacity;
     private String region;
 
-    public Silo(Long id, Double capacity, String region)
-    {
+    public Silo(Long id, Double capacity, String region) {
         this.id = id;
-        this. capacity = capacity;
-        this. region = region;
+        this.capacity = capacity;
+        this.region = region;
     }
 
     public Long getId() {

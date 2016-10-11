@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.fragments.SiloAddFragment;
 import usjt.graincare.fragments.SilosFragment;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

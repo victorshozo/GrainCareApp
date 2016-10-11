@@ -24,10 +24,9 @@ public interface GrainCareApi {
     @GET("/silos/abertos")
     Call<List<Silo>> listSilosAbertos( );
 
-    @POST("/silo/open/{siloId}")
+    @POST("/silos/open/{siloId}")
     Call<Silo> openSilo(@Path("siloId") Long siloID );
 
-    //don't get it...
     @POST("/silo/history")
     Call<List<Silo>> closeSilo( );
 
@@ -49,10 +48,5 @@ public interface GrainCareApi {
     //neither this...
     @POST("/beacon")
     Call<Beacon> sendBeacon( );
-
-
- /*   @GET("/silos/{siloID}/beacons")
-    Call<List<Beacon>> listBeacons(@Path("siloID") Long siloID);
-*/
 
 }
