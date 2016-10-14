@@ -30,13 +30,11 @@ import usjt.graincare.util.GrainDialog;
 
 public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo> {
     private List<SiloHistory> silos = Collections.emptyList();
-    private ArrayList<Grao> graos = new ArrayList<Grao>();
     private Context context;
 
-    public SiloAdapter(List<SiloHistory> silos, ArrayList<Grao> graos, Context context) {
+    public SiloAdapter(List<SiloHistory> silos, Context context) {
         this.silos = silos;
         this.context = context;
-        this.graos = graos;
     }
 
     @Override
@@ -128,19 +126,17 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                     //when user's hand released.
                 }
             });
-
         }
     }
 
-    //HELP
     @OnClick(R.id.bt_prediction)
-    private void predictionDialog() {
+    public void predictionDialog() {
         //USAR ENDPOINT /PREDICTION
         GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em 53 dias.");
     }
 
     @OnClick(R.id.bt_capacity)
-    private void capacityDialog() {
+    public void capacityDialog() {
         //USAR ENDPOINT /CAPACITY
         GrainDialog.showDialog(context, "Volume de Grãos", "O silo está 86% cheio.");
     }
@@ -148,9 +144,8 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     private void fragmentJump(Long siloId, Grao grao) {
         BeaconsFragment fragment = new BeaconsFragment();
         Bundle args = new Bundle();
-        args.putLong("graoId", grao.getId());
         args.putLong("siloId", siloId);
-        args.putDouble("graoTemp", grao.getMaxTemperature());
+        args.putDouble("graoMaxTemperature", grao.getMaxTemperature());
         fragment.setArguments(args);
         switchContent(fragment);
     }

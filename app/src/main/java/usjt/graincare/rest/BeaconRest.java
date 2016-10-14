@@ -1,34 +1,19 @@
 package usjt.graincare.rest;
 
-import android.os.AsyncTask;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Beacon;
-import usjt.graincare.util.GrainCareConfig;
 
-public class BeaconRest extends AsyncTask<Long, Void, List<Beacon>> {
-    private GrainCareApi api;
-
+public class BeaconRest extends BaseCall<Long, Void, ArrayList<Beacon>> {
     @Override
-    protected void onPreExecute() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(GrainCareConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        api = retrofit.create(GrainCareApi.class);
-    }
-
-    @Override
-    protected List<Beacon> doInBackground(Long... params) {
-        Call<List<Beacon>> call = api.listBeacons(params[0]);
+    protected ArrayList<Beacon> doInBackground(Long... params) {
+        Call<ArrayList<Beacon>> call = api.listBeacon();
 
         try {
-            Response<List<Beacon>> response = call.execute();
+            Response<ArrayList<Beacon>> response = call.execute();
             if (response.isSuccessful()) {
                 return response.body();
             }

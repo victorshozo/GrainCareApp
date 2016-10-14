@@ -12,52 +12,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.adapters.BeaconAdapter;
-import usjt.graincare.models.Beacon;
-import usjt.graincare.models.Grao;
+import usjt.graincare.models.BeaconHistory;
+import usjt.graincare.rest.BeaconHistoryRest;
 import usjt.graincare.rest.BeaconRest;
 
 public class BeaconsFragment extends Fragment {
-    private View rootView;
+    @BindView(R.id.RecyclerListBeacons)
+    RecyclerView recyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        rootView = inflater.inflate(R.layout.fragment_beacons, container, false);
-        StringBuilder temp = new StringBuilder();
-        Long graoId = null;
-        BeaconRest rest = new BeaconRest();
-        List<Beacon> beacons = new ArrayList<>();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_beacons, container, false);
+        ButterKnife.bind(this, rootView);
+
+        List<BeaconHistory> beacons = new ArrayList<>();
 
         Bundle bundle = this.getArguments();
-        Long id = bundle.getLong("siloId");
+        Double graoMaxTemperature = bundle.getDouble("graoMaxTemperature");
+        Long siloId = bundle.getLong("siloId");
 
-        try{
-            beacons= rest.execute(id).get();
-        }catch (InterruptedException e) {
+        try {
+            beacons = new BeaconHistoryRest(siloId).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        ArrayList<Grao> graos = new ArrayList<>();
-
-        if (bundle != null) {
-            graoId = bundle.getLong("graoId");
-            graos = bundle.getParcelableArrayList("graos");
         }
 
-        for(Grao grao : graos)
-        {
-            if(grao.getId() == (graoId))
-            {
-                BeaconAdapter adapter = new BeaconAdapter(beacons, grao.getMaxtemperature(), rootView.getContext());
-                RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.RecyclerListBeacons);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
-                recyclerView.setHasFixedSize(false);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
-            }
-        }
+        BeaconAdapter adapter = new BeaconAdapter(beacons, graoMaxTemperature, rootView.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
         return rootView;
     }
 }

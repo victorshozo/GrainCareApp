@@ -18,47 +18,53 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.models.Beacon;
+import usjt.graincare.models.BeaconHistory;
 import usjt.graincare.models.Grao;
 
 public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolderBeacon> {
-    List<Beacon> beacons = Collections.emptyList();
-    ArrayList<Grao> graos = new ArrayList<>();
-    Double maxTemperature;
-    Context context;
+    private Double graoMaxTemperature;
+    private List<BeaconHistory> beacons;
+    private Context context;
 
-    public BeaconAdapter(List<Beacon> beacons, Double maxTemperature, Context context) {
+    public BeaconAdapter(List<BeaconHistory> beacons, Double graoMaxTemperature, Context context) {
         this.beacons = beacons;
         this.context = context;
-        this.maxTemperature = maxTemperature;
+        this.graoMaxTemperature = graoMaxTemperature;
     }
 
     @Override
     public ViewHolderBeacon onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflate the layout
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_beacons_details, parent, false);
-        ViewHolderBeacon holder = new ViewHolderBeacon(v);
-        return holder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_beacons_details, parent, false);
+        ButterKnife.bind(this, view);
+        return new ViewHolderBeacon(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolderBeacon holder, int position) {
+        String id = Long.toString(beacons.get(position).getBeacon().getId());
         Double temperature = beacons.get(position).getTemperature();
         Double humidity = beacons.get(position).getHumidity();
         Double distance = beacons.get(position).getDistance();
-        String id = Long.toString(beacons.get(position).getId());
 
         //Formatar temperatura e definir cor do cardview
-        if (temperature > maxTemperature) {
+        if (temperature > graoMaxTemperature) {
+            holder.id.setText(id);
             holder.temperature.setText(String.format(temperature + " Cº"));
+            holder.distance.setText(String.format(distance + "m"));
+            holder.humidity.setText(String.format("%s%%", humidity));
+
+            //Format cardview to Critical Red temperature
             holder.cardView.setCardBackgroundColor(Color.rgb(255, 75, 75));
             holder.temperature.setTypeface(null, Typeface.BOLD);
         } else {
-            holder.temperature.setText(String.format("" + temperature + " Cº"));
+            holder.id.setText(id);
+            holder.temperature.setText(String.format(temperature + " Cº"));
+            holder.distance.setText(String.format(distance + "m"));
+            holder.humidity.setText(String.format("%s%%", humidity));
             holder.temperature.setTypeface(null, Typeface.BOLD);
         }
-        holder.distance.setText(String.format(distance + "m"));
-        holder.humidity.setText(String.format("%s%%", humidity));
-        holder.id.setText(id);
+
     }
 
     @Override
@@ -72,11 +78,16 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolder
     }
 
     class ViewHolderBeacon extends RecyclerView.ViewHolder {
-        @BindView(R.id.beaconCardViews) CardView cardView;
-        @BindView(R.id.beaconID) TextView id;
-        @BindView(R.id.beaconTemperature) TextView temperature;
-        @BindView(R.id.beaconHumidity) TextView humidity;
-        @BindView(R.id.beaconDistance) TextView distance;
+        @BindView(R.id.beaconCardViews)
+        CardView cardView;
+        @BindView(R.id.beaconID)
+        TextView id;
+        @BindView(R.id.beaconTemperature)
+        TextView temperature;
+        @BindView(R.id.beaconHumidity)
+        TextView humidity;
+        @BindView(R.id.beaconDistance)
+        TextView distance;
 
         ViewHolderBeacon(View itemView) {
             super(itemView);

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import butterknife.ButterKnife;
 import usjt.graincare.R;
+import usjt.graincare.fragments.BeaconsFragment;
 import usjt.graincare.fragments.SiloAddFragment;
 import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.util.GrainDialog;

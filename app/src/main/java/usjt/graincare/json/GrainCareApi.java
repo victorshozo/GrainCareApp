@@ -37,11 +37,12 @@ public interface GrainCareApi {
     Call<ArrayList<Beacon>> listBeacon( );
 
     @GET("/beacon/history")
-    Call<ArrayList<BeaconHistory>> listBeaconHistory( );
+    Call<List<BeaconHistory>> listBeaconHistory( );
 
     @GET("/beacon/disponivel")
     Call<ArrayList<Beacon>> listBeaconDisponivel( );
 
+    //QUestionar, achei que voltaria uma lista de beaconsHistory para poder verificar temp e etc.
     @GET("/beacons/silo-history/{siloHistoryId}")
     Call<ArrayList<Beacon>> listBeaconBySilo(@Path("siloHistoryId") Long SiloID );
 

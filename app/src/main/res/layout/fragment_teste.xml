@@ -1,5 +1,5 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/beaconCardViewsS"
+    android:id="@+id/beaconCardViews"
     android:layout_width="match_parent"
     android:layout_height="80dp">
 
@@ -9,7 +9,7 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/beaconID"
+            android:id="@+id/beaconIDD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25sp"
@@ -19,32 +19,14 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/beaconHumidity"
+            android:id="@+id/beaconOk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25sp"
             android:layout_marginLeft="35sp"
-            android:text="27%"
+            android:text="OK"
             android:textColor="#000000"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/beaconTemperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25sp"
-            android:layout_marginLeft="35sp"
-            android:text="32ºC"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/beaconDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25sp"
-            android:layout_marginLeft="35sp"
-            android:text="12 m"
-            android:textColor="#000000"
-            android:textSize="20sp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

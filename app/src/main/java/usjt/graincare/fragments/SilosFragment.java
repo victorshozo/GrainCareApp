@@ -17,10 +17,9 @@ import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.adapters.SiloAdapter;
 import usjt.graincare.models.Grao;
-import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.GraoRest;
-import usjt.graincare.rest.SiloRest;
+import usjt.graincare.rest.SiloHistoryRest;
 
 public class SilosFragment extends Fragment {
 
@@ -33,15 +32,13 @@ public class SilosFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_silos, container, false);
         ButterKnife.bind(this, rootView);
         List<SiloHistory> silos = new ArrayList<>();
-        ArrayList<Grao> graos = new ArrayList<>();
 
         try {
-            silos = new SiloHistory().execute().get();
-            graos = new GraoRest().execute().get();
+            silos = new SiloHistoryRest().execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        SiloAdapter adapter = new SiloAdapter(silos, graos, rootView.getContext());
+        SiloAdapter adapter = new SiloAdapter(silos, rootView.getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(layoutManager);
