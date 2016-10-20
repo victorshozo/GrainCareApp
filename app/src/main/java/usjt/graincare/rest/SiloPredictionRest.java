@@ -7,15 +7,15 @@ import retrofit2.Call;
 import retrofit2.Response;
 import usjt.graincare.models.PredictionSiloDTO;
 
-public class SiloPredictionRest extends BaseCall<Long, Void, Calendar> {
+public class SiloPredictionRest extends BaseCall<Long, Void, SiloPredictionDTO> {
 
     @Override
-    protected Calendar doInBackground(Long... params) {
-        Call<Calendar> call;
+    protected SiloPredictionDTO doInBackground(Long... params) {
+        Call<SiloPredictionDTO> call;
         call = api.getPredictionSilo(params[0]);
 
         try {
-            Response<Calendar> response = call.execute();
+            Response<SiloPredictionDTO> response = call.execute();
             if (response.isSuccessful()) {
                 return response.body();
             }
