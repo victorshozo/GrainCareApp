@@ -13,23 +13,32 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.internal.http.RequestException;
 import usjt.graincare.R;
 import usjt.graincare.application.MainActivity;
 import usjt.graincare.fragments.BeaconsFragment;
 import usjt.graincare.models.Grao;
+import usjt.graincare.models.PredictionSiloDTO;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
+import usjt.graincare.rest.SiloCapacityRest;
+import usjt.graincare.rest.SiloPredictionRest;
 import usjt.graincare.util.GrainDialog;
 
 public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo> {
     private List<SiloHistory> silos = Collections.emptyList();
     private Context context;
+    private Grao grao;
+    private Long idSilo;
 
     public SiloAdapter(List<SiloHistory> silos, Context context) {
         this.silos = silos;
@@ -46,18 +55,18 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     @Override
     public void onBindViewHolder(ViewHolderSilo holderSilo, final int position) {
         Silo silo = silos.get(position).getSilo();
-        final Grao grao = silos.get(position).getGrao();
-        final Long id = silo.getId();
+        grao = silos.get(position).getGrao();
+        idSilo = silo.getId();
         Double capacity = silo.getCapacity();
 
         holderSilo.icon.setImageResource(R.mipmap.ic_silo);
-        holderSilo.id.setText(java.lang.String.format("Silo %s", id + " - "));
-        holderSilo.capacity.setText(java.lang.String.format("%s kg", capacity));
+        holderSilo.id.setText(java.lang.String.format("Silo %s", idSilo + " - "));
+        holderSilo.capacity.setText(java.lang.String.format("- %s kg", capacity));
         holderSilo.graoType.setText(grao.getType().getType());
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentJump(id, grao);
+                fragmentJump(idSilo, grao);
 
             }
         });
@@ -89,12 +98,19 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
 
         ViewHolderSilo(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
 
             SwipeLayout swipeLayout = (SwipeLayout) itemView.findViewById(R.id.lt_swipe);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             swipeLayout.setLeftSwipeEnabled(false);
             swipeLayout.addDrag(SwipeLayout.DragEdge.Left, itemView.findViewById(R.id.bottom_wrapper));
+            swipeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fragmentJump(idSilo, grao);
+
+                }
+            });
             swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
                 @Override
                 public void onClose(SwipeLayout layout) {
@@ -128,16 +144,28 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
             });
         }
     }
+
     @OnClick(R.id.bt_prediction)
-    public void predictionDialog() {
-        //USAR ENDPOINT /PREDICTION
-        GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em 53 dias.");
+    void predictionDialog() {
+        try {
+            Calendar pSilo = new SiloPredictionRest().execute(idSilo).get();
+            GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " + pSilo.toString() + ".");
+        } catch (ExecutionException | InterruptedException e) {
+            GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
+        }
     }
 
+
     @OnClick(R.id.bt_capacity)
-    public void capacityDialog() {
-        //USAR ENDPOINT /CAPACITY
-        GrainDialog.showDialog(context, "Volume de Grãos", "O silo está 86% cheio.");
+    void capacityDialog() {
+        try {
+            Double cap = new SiloCapacityRest().execute(idSilo).get();
+            GrainDialog.showDialog(context, "Volume de Grãos", "O silo está " +
+                    new DecimalFormat("##.##").format(cap) + "% cheio.");
+
+        } catch (ExecutionException | InterruptedException e) {
+            GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
+        }
     }
 
     private void fragmentJump(Long siloId, Grao grao) {

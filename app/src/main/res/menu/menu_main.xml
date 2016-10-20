@@ -1,12 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <menu>
         <item
             android:id="@+id/silo_item"
             android:icon="@mipmap/ic_silo"
             android:title="Silos" />
         <item
-            android:id="@+id/nav_grafic_temp_time"
-            android:icon="@mipmap/ic_chart_temp_time"
-            android:title="Gráfico Temp. x Tempo" />
-    </menu>
+            android:id="@+id/add_new_silo"
+            android:icon="@mipmap/ic_add_button_128x128"
+            android:title="Cadastrar/Fechar Silo" />
 </menu>

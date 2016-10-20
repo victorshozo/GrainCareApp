@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new SilosFragment();
                 isFrag = true;
                 break;
-            case R.id.nav_grafic_temp_time:
+            case R.id.add_new_silo:
                 fragment = new SiloAddFragment();
                 isFrag = true;
                 break;
