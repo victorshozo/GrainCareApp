@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,9 +51,9 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         Double capacity = silo.getCapacity();
 
         holderSilo.icon.setImageResource(R.mipmap.ic_silo);
-        holderSilo.id.setText(String.format("Silo %s", id + " - "));
-        holderSilo.capacity.setText(String.format("%s kg", capacity));
-        holderSilo.graoType.setText(grao.getGrainType().name());
+        holderSilo.id.setText(java.lang.String.format("Silo %s", id + " - "));
+        holderSilo.capacity.setText(java.lang.String.format("%s kg", capacity));
+        holderSilo.graoType.setText(grao.getType().getType());
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +89,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
 
         ViewHolderSilo(View itemView) {
             super(itemView);
+            ButterKnife.bind(this,itemView);
 
             SwipeLayout swipeLayout = (SwipeLayout) itemView.findViewById(R.id.lt_swipe);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
@@ -128,7 +128,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
             });
         }
     }
-
     @OnClick(R.id.bt_prediction)
     public void predictionDialog() {
         //USAR ENDPOINT /PREDICTION

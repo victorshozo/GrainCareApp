@@ -9,7 +9,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.BeaconHistory;
-import usjt.graincare.models.Grao;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
 
@@ -29,9 +28,6 @@ public interface GrainCareApi {
 
     @POST("/silo/history")
     Call<List<Silo>> closeSilo( );
-
-    @GET("/graos")
-    Call<ArrayList<Grao>> listGraos( );
 
     @GET("/beacon")
     Call<ArrayList<Beacon>> listBeacon( );

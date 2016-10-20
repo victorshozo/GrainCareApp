@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -96,12 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new SiloAddFragment();
                 isFrag = true;
                 break;
-            case R.id.nav_prevision:
-                //String message = getPrediction(); Fazer chamada web e pegar data de previsão
-                break;
-            case R.id.silo_capacity:
-                //String message = getPrediction(); Fazer chamada web e pegar data de previsão
-                 break;
             default:
                 isFrag = false;
                 break;

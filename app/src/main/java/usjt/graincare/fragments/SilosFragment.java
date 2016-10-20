@@ -16,13 +16,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.adapters.SiloAdapter;
-import usjt.graincare.models.Grao;
 import usjt.graincare.models.SiloHistory;
-import usjt.graincare.rest.GraoRest;
 import usjt.graincare.rest.SiloHistoryRest;
 
 public class SilosFragment extends Fragment {
-
+    /* @BindView(R.id.floatButtonSilo)
+     FloatingActionButton floatButtonSilo;*/
     boolean silosFechados = false;
     @BindView(R.id.RecyclerListSilos)
     RecyclerView recyclerView;
@@ -38,6 +37,17 @@ public class SilosFragment extends Fragment {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
+     /*   floatButtonSilo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SiloAddFragment fragment = new SiloAddFragment();
+                MainActivity mainActivity = (MainActivity) getContext();
+                mainActivity.switchContent(fragment);
+
+            }
+        });
+*/
         SiloAdapter adapter = new SiloAdapter(silos, rootView.getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setHasFixedSize(false);

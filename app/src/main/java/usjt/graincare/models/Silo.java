@@ -1,15 +1,13 @@
 package usjt.graincare.models;
 
 public class Silo {
-
     private Long id;
     private Double capacity;
-    private String region;
+    private GrainType region;
+    private Double size = 30d;
 
-    public Silo(Long id, Double capacity, String region) {
-        this.id = id;
-        this.capacity = capacity;
-        this.region = region;
+    @Deprecated
+    Silo() {
     }
 
     public Long getId() {
@@ -20,7 +18,7 @@ public class Silo {
         return capacity;
     }
 
-    public String getRegion() {
+    public GrainType getRegion() {
         return region;
     }
 
@@ -32,7 +30,15 @@ public class Silo {
         this.capacity = capacity;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(GrainType region) {
         this.region = region;
+    }
+
+    public Double getSize() {
+        return size;
+    }
+
+    public void setSize(Double size) {
+        this.size = size;
     }
 }

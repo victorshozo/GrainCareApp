@@ -7,8 +7,10 @@ public class BeaconHistory {
     private Double temperature;
     private Double distance;
     private Double humidity;
-    private boolean deleted;
 
+    @Deprecated
+    public BeaconHistory() {
+    }
 
     public Long getId() {
         return id;
@@ -57,14 +59,4 @@ public class BeaconHistory {
     public void setHumidity(Double humidity) {
         this.humidity = humidity;
     }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-
 }

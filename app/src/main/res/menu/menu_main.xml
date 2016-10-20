@@ -1,23 +1,12 @@
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Estatísticas">
-        <menu>
-            <item
-                android:id="@+id/silo_item"
-                android:icon="@mipmap/ic_silo"
-                android:title="Silos" />
-            <item
-                android:id="@+id/nav_grafic_temp_time"
-                android:icon="@mipmap/ic_chart_temp_time"
-                android:title="Gráfico Temp. x Tempo" />
-            <item
-                android:id="@+id/nav_prevision"
-                android:icon="@mipmap/ic_hourglass"
-                android:title="Gerar Previsão" />
-            <item
-                android:id="@+id/silo_capacity"
-                android:icon="@mipmap/ic_capacity_64x64"
-                android:title="Volume" />
-        </menu>
-    </item>
+    <menu>
+        <item
+            android:id="@+id/silo_item"
+            android:icon="@mipmap/ic_silo"
+            android:title="Silos" />
+        <item
+            android:id="@+id/nav_grafic_temp_time"
+            android:icon="@mipmap/ic_chart_temp_time"
+            android:title="Gráfico Temp. x Tempo" />
+    </menu>
 </menu>

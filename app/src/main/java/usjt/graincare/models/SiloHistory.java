@@ -1,29 +1,20 @@
 package usjt.graincare.models;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class SiloHistory {
 
     private Long id;
     private Grao grao;
-    private List<BeaconHistory> beacons;
-    private Calendar openedAt;
-    private Calendar closedAt;
+    private List<BeaconHistory> beaconsHistory;
+    private String openedAt;
+    private String closedAt;
     private Boolean open;
     private Silo silo;
 
-    public SiloHistory(Long id, Grao grao, List<BeaconHistory> beacons, Calendar openedAt, Calendar closedAt, Boolean open, Silo silo) {
-
-        this.id = id;
-        this.grao = grao;
-        this.beacons = beacons;
-        this.openedAt = openedAt;
-        this.closedAt = closedAt;
-        this.open = open;
-        this.silo = silo;
+    @Deprecated
+    SiloHistory() {
     }
-
 
     public Long getId() {
         return id;
@@ -42,26 +33,26 @@ public class SiloHistory {
     }
 
     public List<BeaconHistory> getBeaconsHistory() {
-        return beacons;
+        return beaconsHistory;
     }
 
-    public void setBeaconsHistory(List<BeaconHistory> beacons) {
-        this.beacons = beacons;
+    public void setBeaconsHistory(List<BeaconHistory> beaconsHistory) {
+        this.beaconsHistory = beaconsHistory;
     }
 
-    public Calendar getOpenedAt() {
+    public String getOpenedAt() {
         return openedAt;
     }
 
-    public void setOpenedAt(Calendar openedAt) {
+    public void setOpenedAt(String openedAt) {
         this.openedAt = openedAt;
     }
 
-    public Calendar getClosedAt() {
+    public String getClosedAt() {
         return closedAt;
     }
 
-    public void setClosedAt(Calendar closedAt) {
+    public void setClosedAt(String closedAt) {
         this.closedAt = closedAt;
     }
 
@@ -80,5 +71,4 @@ public class SiloHistory {
     public void setSilo(Silo silo) {
         this.silo = silo;
     }
-
 }

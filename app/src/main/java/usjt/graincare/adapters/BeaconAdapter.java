@@ -10,16 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import usjt.graincare.R;
-import usjt.graincare.models.Beacon;
 import usjt.graincare.models.BeaconHistory;
-import usjt.graincare.models.Grao;
 
 public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolderBeacon> {
     private Double graoMaxTemperature;
