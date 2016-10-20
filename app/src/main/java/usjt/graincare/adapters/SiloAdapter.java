@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 
 import java.text.DecimalFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -22,16 +21,16 @@ import java.util.concurrent.ExecutionException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.internal.http.RequestException;
 import usjt.graincare.R;
 import usjt.graincare.application.MainActivity;
 import usjt.graincare.fragments.BeaconsFragment;
 import usjt.graincare.models.Grao;
-import usjt.graincare.models.PredictionSiloDTO;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.SiloCapacityRest;
+import usjt.graincare.rest.SiloPredictionDTO;
 import usjt.graincare.rest.SiloPredictionRest;
+import usjt.graincare.util.GrainCareFormatter;
 import usjt.graincare.util.GrainDialog;
 
 public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo> {
@@ -148,8 +147,10 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     @OnClick(R.id.bt_prediction)
     void predictionDialog() {
         try {
-            Calendar pSilo = new SiloPredictionRest().execute(idSilo).get();
-            GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " + pSilo.toString() + ".");
+            SiloPredictionDTO dto = new SiloPredictionRest().execute(idSilo).get();
+            String formattedDate = GrainCareFormatter.from(dto.getPredictionDate());
+
+            GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " + formattedDate + ".");
         } catch (ExecutionException | InterruptedException e) {
             GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
         }

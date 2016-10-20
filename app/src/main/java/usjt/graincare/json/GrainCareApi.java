@@ -13,6 +13,7 @@ import usjt.graincare.models.BeaconHistory;
 import usjt.graincare.models.PredictionSiloDTO;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
+import usjt.graincare.rest.SiloPredictionDTO;
 
 public interface GrainCareApi {
 
@@ -29,7 +30,7 @@ public interface GrainCareApi {
     Call<Double> getCapacitySilo(@Path("siloId") Long siloID);
 
     @GET("/silo/{siloId}/prediction")
-    Call<Calendar> getPredictionSilo(@Path("siloId") Long siloID);
+    Call<SiloPredictionDTO> getPredictionSilo(@Path("siloId") Long siloID);
 
     @POST("/silos/open/{siloId}")
     Call<Silo> openSilo(@Path("siloId") Long siloID );
