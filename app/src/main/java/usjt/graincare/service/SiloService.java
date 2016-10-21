@@ -13,6 +13,7 @@ import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.rest.SiloHistoryDTO;
+import usjt.graincare.silo.SiloChangedCallback;
 
 public class SiloService {
 
@@ -41,6 +42,25 @@ public class SiloService {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 //TODO FAZ alguma coisa que deu pau..
+            }
+        });
+    }
+
+    public void open(Long siloId, final SiloChangedCallback callback) {
+
+        api.openSilo(siloId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    callback.success();
+                    return;
+                }
+                callback.invalidData();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.error();
             }
         });
     }

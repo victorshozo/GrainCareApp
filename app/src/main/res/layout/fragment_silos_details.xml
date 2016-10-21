@@ -8,7 +8,7 @@
         android:layout_width="160dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="3">
 
         <ImageButton
             android:id="@+id/bt_prediction"
@@ -16,6 +16,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorAccent"
+            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingRight="15dp"
             android:clickable="true"
             android:src="@mipmap/ic_crystal_ball_128x128" />
 
@@ -24,6 +28,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingRight="15dp"
             android:background="@color/colorAccent"
             android:clickable="true"
             android:src="@mipmap/ic_grain_128x128" />
@@ -33,6 +41,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingRight="15dp"
             android:background="@color/colorAccent"
             android:clickable="true"
             android:src="@mipmap/ic_open_128x128" />

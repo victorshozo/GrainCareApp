@@ -35,8 +35,8 @@ public interface GrainCareApi {
     @GET("/silo/{siloId}/prediction")
     Call<SiloPredictionDTO> getPredictionSilo(@Path("siloId") Long siloID);
 
-    @POST("/silos/{siloId}/open")
-    Call<Silo> openSilo(@Path("siloId") Long siloID );
+    @POST("/silo/{siloId}/open")
+    Call<Void> openSilo(@Path("siloId") Long siloId );
 
     @POST("/silo/history")
     Call<Void> closeSilo(@Body SiloHistoryDTO body);

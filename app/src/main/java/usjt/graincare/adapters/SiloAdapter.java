@@ -30,10 +30,14 @@ import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.SiloCapacityRest;
 import usjt.graincare.rest.SiloPredictionDTO;
 import usjt.graincare.rest.SiloPredictionRest;
+import usjt.graincare.service.SiloService;
+import usjt.graincare.silo.SiloChangedCallback;
 import usjt.graincare.util.GrainCareFormatter;
 import usjt.graincare.util.GrainDialog;
 
 public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo> {
+
+    private final SiloService siloService;
     private List<SiloHistory> silos = Collections.emptyList();
     private Context context;
     private Grao grao;
@@ -42,6 +46,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     public SiloAdapter(List<SiloHistory> silos, Context context) {
         this.silos = silos;
         this.context = context;
+        siloService = new SiloService();
     }
 
     @Override
@@ -94,12 +99,13 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         TextView capacity;
         @BindView(R.id.iv_arrow)
         ImageView ivArrow;
+        @BindView(R.id.lt_swipe)
+        SwipeLayout swipeLayout;
 
         ViewHolderSilo(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-            SwipeLayout swipeLayout = (SwipeLayout) itemView.findViewById(R.id.lt_swipe);
             swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
             swipeLayout.setLeftSwipeEnabled(false);
             swipeLayout.addDrag(SwipeLayout.DragEdge.Left, itemView.findViewById(R.id.bottom_wrapper));
@@ -167,6 +173,33 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         } catch (ExecutionException | InterruptedException e) {
             GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
         }
+    }
+
+    @OnClick(R.id.bt_open_silo)
+    void openSiloDialog() {
+        siloService.open(idSilo, new SiloChangedCallback() {
+
+            @Override
+            public void success() {
+                for (SiloHistory siloHistory : silos) {
+                    if (siloHistory.getId() == idSilo) {
+                        silos.remove(siloHistory);
+                    }
+                }
+                notifyDataSetChanged();
+                GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
+            }
+
+            @Override
+            public void invalidData() {
+                GrainDialog.showDialog(context, "Erro", "Silo não encontrado ou ja aberto.");
+            }
+
+            @Override
+            public void error() {
+                GrainDialog.showDialog(context, "Erro", "Não foi possível abrir este silo.");
+            }
+        });
     }
 
     private void fragmentJump(Long siloId, Grao grao) {
