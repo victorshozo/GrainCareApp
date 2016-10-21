@@ -39,7 +39,7 @@ public interface GrainCareApi {
     Call<Silo> openSilo(@Path("siloId") Long siloID );
 
     @POST("/silo/history")
-    Call<SiloHistoryDTO> closeSilo(@Body SiloHistoryDTO body);
+    Call<Void> closeSilo(@Body SiloHistoryDTO body);
 
     @GET("/beacon")
     Call<ArrayList<Beacon>> listBeacon( );

@@ -6,10 +6,6 @@ public class Silo {
     private GrainType region;
     private Double size = 30d;
 
-    @Deprecated
-    Silo() {
-    }
-
     public Long getId() {
         return id;
     }
@@ -40,5 +36,10 @@ public class Silo {
 
     public void setSize(Double size) {
         this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return "Silo" + this.id;
     }
 }

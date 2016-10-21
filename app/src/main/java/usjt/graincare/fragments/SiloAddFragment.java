@@ -6,75 +6,89 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import usjt.graincare.R;
 import usjt.graincare.models.Beacon;
+import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.BeaconAvailablesRest;
-import usjt.graincare.rest.SiloHistoryPostRest;
 import usjt.graincare.rest.SilosAvailablesRest;
+import usjt.graincare.service.SiloService;
+
+import static java.util.Arrays.asList;
+import static usjt.graincare.models.GrainType.MILHO;
+import static usjt.graincare.models.GrainType.SOJA;
 
 public class SiloAddFragment extends Fragment {
+
     private View rootView;
-    private ArrayAdapter<String> adapterSilos;
-    private ArrayAdapter<String> adapterBeacons;
-    private ArrayAdapter<String> adapterGrao;
-    Button btn;
-    List<Silo> silos;
-    List<Beacon> beacons;
+    private static final SiloService siloService = new SiloService();
+
+    @BindView(R.id.spinner_silo)
+    Spinner spSilo;
+    @BindView(R.id.spinner_beacons)
+    Spinner spBeacon;
+    @BindView(R.id.spinner_graos)
+    Spinner spGrao;
+    @BindView(R.id.new_silo_date_closing)
+    DatePicker datePicker;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
-        // create spinner list elements
-        adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item);
+        ButterKnife.bind(this, rootView);
+
+        List<Silo> silos = Collections.emptyList();
+
         try {
             silos = new SilosAvailablesRest().execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
-        for (Silo silo : silos) {
-            adapterSilos.add("Silo " + silo.getId());
-            adapterSilos.notifyDataSetChanged();
-        }
-        Spinner spn = (Spinner) rootView.findViewById(R.id.spinner_silo);
-        spn.setAdapter(adapterSilos);
+        ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, silos);
+        spSilo.setAdapter(adapterSilos);
 
-
-        adapterBeacons = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
+        List<Beacon> beacons = Collections.emptyList();
         try {
             beacons = new BeaconAvailablesRest().execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        for (Beacon beacon : beacons) {
-            adapterBeacons.add("Beacon " + beacon.getId());
-            adapterBeacons.notifyDataSetChanged();
-        }
-        Spinner spnB = (Spinner) rootView.findViewById(R.id.spinner_beacons);
-        spnB.setAdapter(adapterBeacons);
 
-        adapterGrao = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line);
-        adapterGrao.add("Milho");
-        adapterGrao.add("Soja");
-        Spinner spnGrao = (Spinner) rootView.findViewById(R.id.spinner_graos);
-        spnGrao.setAdapter(adapterGrao);
+        ArrayAdapter<Beacon> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, beacons);
+        spBeacon.setAdapter(adapterBeacons);
 
-        DatePicker datePicker = (DatePicker) rootView.findViewById(R.id.new_silo_date_closing);
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth() + 1;
-        int year = datePicker.getYear();
-
-        //datePickerDialog.show(suppor, "date_picker");
-       btn = (Button) rootView.findViewById(R.id.btnCadSilo);
+        ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA));
+        spGrao.setAdapter(adapterGrao);
 
         return rootView;
+    }
+
+    @OnClick(R.id.bt_confirm_register)
+    public void confirmRegister() {
+
+        Calendar selectedDate = new GregorianCalendar(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
+        Silo selectedSilo = (Silo) spSilo.getSelectedItem();
+        Beacon selectedBeacon = (Beacon) spBeacon.getSelectedItem();
+        GrainType selectedGrainType = (GrainType) spGrao.getSelectedItem();
+
+        List<Beacon> selectedBeacons = new ArrayList<>();
+        selectedBeacons.add(selectedBeacon);
+
+        siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate);
     }
 
 }

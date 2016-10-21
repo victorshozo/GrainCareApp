@@ -1,44 +1,38 @@
 package usjt.graincare.rest;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
-import usjt.graincare.models.Beacon;
 import usjt.graincare.models.GrainType;
 
 public class SiloHistoryDTO {
 
-	private Long siloId;
-	private List<Beacon> beacons;
-	private GrainType grainType;
+    @SerializedName("siloId")
+	private final Long siloId;
 
-	public SiloHistoryDTO(Long siloId, List<Beacon> beacons,GrainType grainType){
+    @SerializedName("beaconsId")
+    private List<Long> beaconsId;
+
+    @SerializedName("grainType")
+    private final String grainType;
+
+    public SiloHistoryDTO(Long siloId, List<Long> beaconsId, GrainType grainType){
 		this.siloId = siloId;
-		this.beacons = beacons;
-		this.grainType = grainType;
-	}
+        this.beaconsId = beaconsId;
+        this.grainType = grainType.name();
+    }
 
 	public Long getSiloId() {
 		return siloId;
 	}
 
-	public void setSiloId(Long siloId) {
-		this.siloId = siloId;
-	}
+    public List<Long> getBeaconsId() {
+        return beaconsId;
+    }
 
-	public List<Beacon> getBeacons() {
-		return beacons;
-	}
-
-	public void setBeacons(List<Beacon> beacons) {
-		this.beacons = beacons;
-	}
-
-	public GrainType getGrain() {
-		return grainType;
-	}
-
-	public void setGrain(GrainType grain) {
-		this.grainType = grain;
-	}
+    public String getGrainType() {
+        return grainType;
+    }
 
 }

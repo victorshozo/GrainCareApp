@@ -13,42 +13,90 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:paddingBottom="15sp"
             android:text="Fechar novo Silo"
+            android:textColor="@color/white"
             android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/new_silo_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="15sp"
-            android:text="Selecione o silo:"
-            android:textSize="20sp" />
-        <!--https://android-arsenal.com/details/1/1839-->
-        <Spinner
-            android:id="@+id/spinner_silo"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown" />
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Beacons"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/new_silo_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="15sp"
+                android:text="Selecione o silo:"
+                android:textColor="@color/text_gray"
+                android:textSize="20sp" />
 
-        <Spinner
-            android:id="@+id/spinner_beacons"
+            <Spinner
+                android:id="@+id/spinner_silo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown" />
+            android:orientation="horizontal"
+            android:padding="10dp">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Beacons"
+                android:textColor="@color/text_gray"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner_beacons"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Grão:"
+                android:textColor="@color/text_gray"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner_graos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
             android:text="Data de Fechamento:"
-            android:textSize="20sp" />
+            android:textColor="@color/white"
+            android:textSize="24sp" />
 
         <!--android arsenal 3779-->
         <DatePicker
@@ -57,24 +105,14 @@
             android:layout_height="wrap_content"
             android:inputType="date" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Grão:"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/spinner_graos"
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_confirm_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:spinnerMode="dropdown" />
-        <Button
-            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Cadastrar"
-            android:textSize="20sp"
-            android:id="@+id/btnCadSilo"
-            />
+            android:background="@color/white"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Confirmar"
+            android:textSize="20sp" />
 
     </LinearLayout>
 </ScrollView>

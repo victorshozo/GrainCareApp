@@ -1,5 +1,7 @@
 package usjt.graincare.models;
+
 public class Beacon {
+
     private Long id;
     private Boolean available;
 
@@ -16,4 +18,8 @@ public class Beacon {
     }
 
 
+    @Override
+    public String toString() {
+        return "Beacon " + this.id;
+    }
 }

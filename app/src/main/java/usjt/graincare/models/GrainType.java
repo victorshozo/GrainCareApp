@@ -1,7 +1,7 @@
 package usjt.graincare.models;
 
 public enum GrainType {
-    MILHO(46.0, "MILHO"),
+    MILHO(36.0, "MILHO"),
     SOJA(55.0, "SOJA");
 
     private Double maxTemperature;
