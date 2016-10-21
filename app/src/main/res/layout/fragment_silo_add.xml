@@ -68,30 +68,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown" />
-
-        <TextView
+        <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Capacidade(kg):"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            android:text="Cadastrar"
+            android:textSize="20sp"
+            android:id="@+id/btnCadSilo"
+            />
 
-        <EditText
-            android:id="@+id/new_silo_capacity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Região:"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/new_silo_region"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
     </LinearLayout>
 </ScrollView>

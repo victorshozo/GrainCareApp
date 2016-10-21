@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.adapters.SiloAdapter;
 import usjt.graincare.models.SiloHistory;
-import usjt.graincare.rest.SiloHistoryRest;
+import usjt.graincare.rest.SiloHistoryClosedRest;
 
 public class SilosFragment extends Fragment {
     /* @BindView(R.id.floatButtonSilo)
@@ -33,7 +33,7 @@ public class SilosFragment extends Fragment {
         List<SiloHistory> silos = new ArrayList<>();
 
         try {
-            silos = new SiloHistoryRest().execute().get();
+            silos = new SiloHistoryClosedRest().execute().get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

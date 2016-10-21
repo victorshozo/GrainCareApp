@@ -28,6 +28,14 @@
             android:clickable="true"
             android:src="@mipmap/ic_grain_128x128" />
 
+        <ImageButton
+            android:id="@+id/bt_open_silo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:clickable="true"
+            android:src="@mipmap/ic_open_128x128" />
     </LinearLayout>
     <!--Surface view-->
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

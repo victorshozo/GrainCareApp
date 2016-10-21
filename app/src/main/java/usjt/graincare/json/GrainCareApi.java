@@ -1,18 +1,18 @@
 package usjt.graincare.json;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.BeaconHistory;
-import usjt.graincare.models.PredictionSiloDTO;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
+import usjt.graincare.rest.SiloHistoryDTO;
 import usjt.graincare.rest.SiloPredictionDTO;
 
 public interface GrainCareApi {
@@ -23,7 +23,10 @@ public interface GrainCareApi {
     @GET("/silos/history")
     Call<List<SiloHistory>> listSilosHistory( );
 
-    @GET("/silos/abertos")
+    @GET("/silos/history/closed")
+    Call<List<SiloHistory>> listSilosHistoryFechados( );
+
+    @GET("/silos/available")
     Call<List<Silo>> listSilosAbertos( );
 
     @GET("/silo/{siloId}/capacity")
@@ -32,11 +35,11 @@ public interface GrainCareApi {
     @GET("/silo/{siloId}/prediction")
     Call<SiloPredictionDTO> getPredictionSilo(@Path("siloId") Long siloID);
 
-    @POST("/silos/open/{siloId}")
+    @POST("/silos/{siloId}/open")
     Call<Silo> openSilo(@Path("siloId") Long siloID );
 
     @POST("/silo/history")
-    Call<List<Silo>> closeSilo( );
+    Call<SiloHistoryDTO> closeSilo(@Body SiloHistoryDTO body);
 
     @GET("/beacon")
     Call<ArrayList<Beacon>> listBeacon( );
@@ -44,8 +47,8 @@ public interface GrainCareApi {
     @GET("/beacons/history")
     Call<List<BeaconHistory>> listBeaconHistory( );
 
-    @GET("/beacon/disponivel")
-    Call<ArrayList<Beacon>> listBeaconDisponivel( );
+    @GET("/beacons/available")
+    Call<List<Beacon>> listBeaconDisponivel( );
 
     //QUestionar, achei que voltaria uma lista de beaconsHistory para poder verificar temp e etc.
     @GET("/beacons/silo-history/{siloHistoryId}")
