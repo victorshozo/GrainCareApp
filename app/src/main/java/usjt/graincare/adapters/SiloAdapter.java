@@ -70,6 +70,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.getId();
                 fragmentJump(idSilo, grao);
 
             }
@@ -112,7 +113,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
             swipeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    fragmentJump(idSilo, grao);
+                    //fragmentJump(idSilo, grao);
 
                 }
             });

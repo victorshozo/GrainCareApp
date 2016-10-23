@@ -19,6 +19,7 @@ import usjt.graincare.adapters.BeaconAdapter;
 import usjt.graincare.models.BeaconHistory;
 import usjt.graincare.rest.BeaconHistoryRest;
 import usjt.graincare.rest.BeaconRest;
+import usjt.graincare.util.GrainDialog;
 
 public class BeaconsFragment extends Fragment {
     @BindView(R.id.RecyclerListBeacons)
@@ -38,6 +39,7 @@ public class BeaconsFragment extends Fragment {
         try {
             beacons = new BeaconHistoryRest(siloId).execute().get();
         } catch (InterruptedException | ExecutionException e) {
+            GrainDialog.showDialog(this.getContext(), "Erro","Deu merda");
             e.printStackTrace();
         }
 
@@ -46,7 +48,6 @@ public class BeaconsFragment extends Fragment {
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
         return rootView;
     }
 }

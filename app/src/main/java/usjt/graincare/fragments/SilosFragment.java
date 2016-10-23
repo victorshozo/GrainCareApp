@@ -20,8 +20,6 @@ import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.SiloHistoryClosedRest;
 
 public class SilosFragment extends Fragment {
-    /* @BindView(R.id.floatButtonSilo)
-     FloatingActionButton floatButtonSilo;*/
     boolean silosFechados = false;
     @BindView(R.id.RecyclerListSilos)
     RecyclerView recyclerView;
@@ -38,16 +36,6 @@ public class SilosFragment extends Fragment {
             e.printStackTrace();
         }
 
-     /*   floatButtonSilo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SiloAddFragment fragment = new SiloAddFragment();
-                MainActivity mainActivity = (MainActivity) getContext();
-                mainActivity.switchContent(fragment);
-
-            }
-        });
-*/
         SiloAdapter adapter = new SiloAdapter(silos, rootView.getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setHasFixedSize(false);

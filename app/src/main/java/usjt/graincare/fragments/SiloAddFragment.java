@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,9 +24,12 @@ import usjt.graincare.R;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
+import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.BeaconAvailablesRest;
 import usjt.graincare.rest.SilosAvailablesRest;
 import usjt.graincare.service.SiloService;
+import usjt.graincare.silo.SiloChangedCallback;
+import usjt.graincare.util.GrainDialog;
 
 import static java.util.Arrays.asList;
 import static usjt.graincare.models.GrainType.MILHO;
@@ -33,9 +37,7 @@ import static usjt.graincare.models.GrainType.SOJA;
 
 public class SiloAddFragment extends Fragment {
 
-    private View rootView;
     private static final SiloService siloService = new SiloService();
-
     @BindView(R.id.spinner_silo)
     Spinner spSilo;
     @BindView(R.id.spinner_beacons)
@@ -47,7 +49,7 @@ public class SiloAddFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
         ButterKnife.bind(this, rootView);
 
         List<Silo> silos = Collections.emptyList();
@@ -84,11 +86,25 @@ public class SiloAddFragment extends Fragment {
         Silo selectedSilo = (Silo) spSilo.getSelectedItem();
         Beacon selectedBeacon = (Beacon) spBeacon.getSelectedItem();
         GrainType selectedGrainType = (GrainType) spGrao.getSelectedItem();
-
         List<Beacon> selectedBeacons = new ArrayList<>();
         selectedBeacons.add(selectedBeacon);
 
-        siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate);
-    }
+        siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate, new SiloChangedCallback() {
 
+            @Override
+            public void success() {
+                GrainDialog.showDialog(getContext(), "Pronto!", "Silo fechado com sucesso");
+            }
+
+            @Override
+            public void invalidData() {
+                GrainDialog.showDialog(getContext(), "Erro", "Erro inválido");
+            }
+
+            @Override
+            public void error() {
+                GrainDialog.showDialog(getContext(), "Erro", "Erro erro.");
+            }
+        });
+    }
 }

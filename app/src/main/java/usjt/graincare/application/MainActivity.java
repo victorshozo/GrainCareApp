@@ -1,6 +1,9 @@
 package usjt.graincare.application;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import usjt.graincare.R;
@@ -31,15 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-       /* floatButtonSilo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Add Silo, Alter Silo, Delete Silo", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -65,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.frameLayout_content, new SilosFragment());
         tx.commit();
+        if (!isNetworkStatusAvailable(getApplicationContext())) {
+            GrainDialog.showDialog(getApplicationContext(), "Conexão", "Habilite a internet para poder usar o aplicativo.");
+        }
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -153,5 +151,16 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.frameLayout_content, fragment);
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    public static boolean isNetworkStatusAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
+            if (netInfos != null)
+                if (netInfos.isConnected())
+                    return true;
+        }
+        return false;
     }
 }

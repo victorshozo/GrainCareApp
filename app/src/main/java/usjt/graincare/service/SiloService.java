@@ -14,6 +14,7 @@ import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.rest.SiloHistoryDTO;
 import usjt.graincare.silo.SiloChangedCallback;
+import usjt.graincare.util.GrainDialog;
 
 public class SiloService {
 
@@ -23,25 +24,30 @@ public class SiloService {
         api = GrainCareRestGenerator.create(GrainCareApi.class);
     }
 
-    public void close(Silo silo, List<Beacon> beacons, GrainType grainType, Calendar closed_at) {
+    public void close(Silo silo, List<Beacon> beacons, GrainType grainType, Calendar closed_at, final SiloChangedCallback callback) {
         List<Long> beaconsId = new ArrayList<>();
         for (Beacon beacon : beacons) {
             beaconsId.add(beacon.getId());
         }
 
-        SiloHistoryDTO siloHistoryDTO = new SiloHistoryDTO(silo.getId(), beaconsId, grainType);
-
+        SiloHistoryDTO siloHistoryDTO = new SiloHistoryDTO(silo.getId(), beaconsId, grainType, closed_at);
         api.closeSilo(siloHistoryDTO).enqueue(new Callback<Void>() {
+
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    //TODO FAZ alguma coisa que deu certo..
+                    callback.success();
+                } else {
+                    Integer test = response.code();
+                    String tes = response.raw().toString();
+
+                    callback.invalidData();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                //TODO FAZ alguma coisa que deu pau..
+                callback.error();
             }
         });
     }
