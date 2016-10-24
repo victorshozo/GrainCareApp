@@ -40,7 +40,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     private final SiloService siloService;
     private List<SiloHistory> silos = Collections.emptyList();
     private Context context;
-    private Grao grao;
     private Long idSilo;
 
     public SiloAdapter(List<SiloHistory> silos, Context context) {
@@ -59,7 +58,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     @Override
     public void onBindViewHolder(ViewHolderSilo holderSilo, final int position) {
         Silo silo = silos.get(position).getSilo();
-        grao = silos.get(position).getGrao();
+        final Grao grao = silos.get(position).getGrao();
         idSilo = silo.getId();
         Double capacity = silo.getCapacity();
 

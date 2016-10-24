@@ -1,7 +1,7 @@
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lt_swipe"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <!--Bottom view-->
     <LinearLayout
         android:id="@+id/bottom_wrapper"
@@ -16,11 +16,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorAccent"
-            android:paddingLeft="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingRight="15dp"
             android:clickable="true"
+            android:paddingEnd="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/ic_crystal_ball_128x128" />
 
         <ImageButton
@@ -28,12 +28,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingLeft="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingRight="15dp"
             android:background="@color/colorAccent"
             android:clickable="true"
+            android:paddingEnd="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/ic_grain_128x128" />
 
         <ImageButton
@@ -41,12 +41,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingLeft="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingRight="15dp"
             android:background="@color/colorAccent"
             android:clickable="true"
+            android:paddingEnd="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingStart="15dp"
             android:src="@mipmap/ic_open_128x128" />
     </LinearLayout>
     <!--Surface view-->
@@ -60,11 +60,11 @@
         card_view:cardElevation="3sp"
         card_view:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:orientation="horizontal">
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/siloIcon"
@@ -78,8 +78,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="8sp"
-                android:layout_marginRight="8sp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@id/siloIcon"
+                android:layout_toRightOf="@id/siloIcon"
+                android:text="123"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -88,8 +90,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="8sp"
-                android:layout_marginRight="8sp"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@id/siloID"
+                android:layout_toRightOf="@id/siloID"
+                android:text="MILHO"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -98,6 +102,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@id/siloGraoType"
+                android:layout_toRightOf="@id/siloGraoType"
+                android:text="5L"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -105,11 +113,12 @@
                 android:id="@+id/iv_arrow"
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
                 android:src="@drawable/arrow" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 </com.daimajia.swipe.SwipeLayout>
