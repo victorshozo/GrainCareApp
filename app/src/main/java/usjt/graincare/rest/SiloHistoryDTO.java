@@ -1,15 +1,20 @@
 package usjt.graincare.rest;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Calendar;
 import java.util.List;
 
 import usjt.graincare.models.GrainType;
 
 public class SiloHistoryDTO {
-
+    @SerializedName("siloId")
     private Long siloId;
+    @SerializedName("beaconsId")
     private List<Long> beaconsId;
+    @SerializedName("grainType")
     private GrainType grainType;
+    @SerializedName("closedAt")
     private Calendar closedAt;
 
     public SiloHistoryDTO(Long siloId, List<Long> beaconsId, GrainType grainType, Calendar closedAt){

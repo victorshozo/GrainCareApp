@@ -40,7 +40,6 @@ public class SiloService {
                 } else {
                     Integer test = response.code();
                     String tes = response.raw().toString();
-
                     callback.invalidData();
                 }
             }
