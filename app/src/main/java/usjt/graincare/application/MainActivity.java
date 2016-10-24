@@ -16,22 +16,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import butterknife.ButterKnife;
 import usjt.graincare.R;
-import usjt.graincare.fragments.BeaconsFragment;
 import usjt.graincare.fragments.SiloAddFragment;
 import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.util.GrainDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements DrawerInteraction {
     //@BindView(R.id.) FloatingActionButton floatButtonSilo;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
     private GrainDialog pDialog;
     private ImageView ivArrow;
+
+    private NavigationView nvDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.addDrawerListener(drawerToggle);
 
         // Find our drawer view
-        NavigationView nvDrawer = (NavigationView) findViewById(R.id.nav_view);
+        nvDrawer = (NavigationView) findViewById(R.id.nav_view);
 
         // Setup drawer view
         setupDrawerContent(nvDrawer);
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 isFrag = true;
                 break;
             case R.id.add_new_silo:
-                fragment = new SiloAddFragment();
+                fragment = new SiloAddFragment(this);
                 isFrag = true;
                 break;
             default:
@@ -162,5 +161,14 @@ public class MainActivity extends AppCompatActivity {
                     return true;
         }
         return false;
+    }
+
+    @Override
+    public void changeFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout_content, fragment);
+        transaction.commit();
+        //toolbarTitle.setText(title);
+        mDrawer.closeDrawer(nvDrawer);
     }
 }

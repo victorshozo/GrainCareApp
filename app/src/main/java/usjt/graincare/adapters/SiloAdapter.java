@@ -46,7 +46,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     public SiloAdapter(List<SiloHistory> silos, Context context) {
         this.silos = silos;
         this.context = context;
-        siloService = new SiloService();
+        this.siloService = new SiloService();
     }
 
     @Override

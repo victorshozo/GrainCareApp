@@ -6,14 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -21,10 +17,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import usjt.graincare.R;
+import usjt.graincare.application.DrawerInteraction;
+import usjt.graincare.application.MainActivity;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
-import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.BeaconAvailablesRest;
 import usjt.graincare.rest.SilosAvailablesRest;
 import usjt.graincare.service.SiloService;
@@ -44,6 +41,12 @@ public class SiloAddFragment extends Fragment {
     Spinner spBeacon;
     @BindView(R.id.spinner_graos)
     Spinner spGrao;
+
+    private DrawerInteraction drawerInteraction;
+
+    public SiloAddFragment(DrawerInteraction drawerInteraction) {
+        this.drawerInteraction = drawerInteraction;
+    }
    /* @BindView(R.id.new_silo_date_closing)
     DatePicker datePicker;*/
 
@@ -94,6 +97,7 @@ public class SiloAddFragment extends Fragment {
             @Override
             public void success() {
                 GrainDialog.showDialog(getContext(), "Pronto!", "Silo fechado com sucesso");
+                drawerInteraction.changeFragment(new SilosFragment());
             }
 
             @Override
