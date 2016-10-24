@@ -17,8 +17,8 @@ public class BeaconHistoryRest extends BaseCall<Long, Void, List<BeaconHistory>>
     @Override
     protected List<BeaconHistory> doInBackground(Long... params) {
         //Tirar comentario quando retornar lista de beaconHistory
-        //Call<ArrayList<BeaconHistory>> call = api.listBeaconBySilo(siloID);
-        Call<List<BeaconHistory>> call = api.listBeaconHistory();
+        Call<List<BeaconHistory>> call = api.listBeaconBySilo(siloID);
+        //Call<List<BeaconHistory>> call = api.listBeaconHistory();
 
         try {
             Response<List<BeaconHistory>> response = call.execute();
