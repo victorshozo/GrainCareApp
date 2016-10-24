@@ -99,12 +99,12 @@
             android:textSize="24sp" />
 
         <!--android arsenal 3779-->
-        <DatePicker
+        <!--<DatePicker
             android:id="@+id/new_silo_date_closing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="date" />
-
+-->
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bt_confirm_register"
             android:layout_width="match_parent"

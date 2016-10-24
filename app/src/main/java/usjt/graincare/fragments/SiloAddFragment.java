@@ -44,8 +44,8 @@ public class SiloAddFragment extends Fragment {
     Spinner spBeacon;
     @BindView(R.id.spinner_graos)
     Spinner spGrao;
-    @BindView(R.id.new_silo_date_closing)
-    DatePicker datePicker;
+   /* @BindView(R.id.new_silo_date_closing)
+    DatePicker datePicker;*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,14 +82,14 @@ public class SiloAddFragment extends Fragment {
     @OnClick(R.id.bt_confirm_register)
     public void confirmRegister() {
 
-        Calendar selectedDate = new GregorianCalendar(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
+        //Calendar selectedDate = new GregorianCalendar(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
         Silo selectedSilo = (Silo) spSilo.getSelectedItem();
         Beacon selectedBeacon = (Beacon) spBeacon.getSelectedItem();
         GrainType selectedGrainType = (GrainType) spGrao.getSelectedItem();
         List<Beacon> selectedBeacons = new ArrayList<>();
         selectedBeacons.add(selectedBeacon);
-
-        siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate, new SiloChangedCallback() {
+        //siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate, new SiloChangedCallback()
+        siloService.close(selectedSilo, selectedBeacons, selectedGrainType, new SiloChangedCallback() {
 
             @Override
             public void success() {

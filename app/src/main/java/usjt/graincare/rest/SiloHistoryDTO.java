@@ -14,16 +14,22 @@ public class SiloHistoryDTO {
     private List<Long> beaconsId;
     @SerializedName("grainType")
     private GrainType grainType;
-    @SerializedName("closedAt")
-    private Calendar closedAt;
+    //@SerializedName("closedAt")
+    //private Calendar closedAt;
 
-    public SiloHistoryDTO(Long siloId, List<Long> beaconsId, GrainType grainType, Calendar closedAt){
+    public SiloHistoryDTO(Long siloId, List<Long> beaconsId, GrainType grainType){
+        this.siloId = siloId;
+        this.beaconsId = beaconsId;
+        this.grainType = grainType;
+    }
+
+    /*public SiloHistoryDTO(Long siloId, List<Long> beaconsId, GrainType grainType, Calendar closedAt){
         this.siloId = siloId;
         this.beaconsId = beaconsId;
         this.grainType = grainType;
         this.closedAt = closedAt;
     }
-
+*/
     public Long getSiloId() {
         return siloId;
     }
@@ -48,11 +54,11 @@ public class SiloHistoryDTO {
         this.grainType = grainType;
     }
 
-    public Calendar getClosedAt() {
+ /*   public Calendar getClosedAt() {
         return closedAt;
     }
 
     public void setClosedAt(Calendar closedAt) {
         this.closedAt = closedAt;
-    }
+    }*/
 }
