@@ -6,4 +6,9 @@
 
     <string name="state_temp_beacon">Estado: </string>
     <string name="action_settings">Opções</string>
+    <string name="login">Grain Care Login</string>
+    <string name="email">Email</string>
+    <string name="informe_suas_credenciais">Informe suas credenciais</string>
+    <string name="password">Senha</string>
+    <string name="loading">Carregando, por favor aguarde...</string>
 </resources>

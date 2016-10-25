@@ -40,7 +40,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     private final SiloService siloService;
     private List<SiloHistory> silos = Collections.emptyList();
     private Context context;
-    private Long idSilo;
 
     public SiloAdapter(List<SiloHistory> silos, Context context) {
         this.silos = silos;
@@ -59,18 +58,19 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     public void onBindViewHolder(ViewHolderSilo holderSilo, final int position) {
         Silo silo = silos.get(position).getSilo();
         final Grao grao = silos.get(position).getGrao();
-        idSilo = silo.getId();
+        final Long siloId = silo.getId();
         Double capacity = silo.getCapacity();
 
+        holderSilo.siloId = silo.getId();
         holderSilo.icon.setImageResource(R.mipmap.ic_silo);
-        holderSilo.id.setText(java.lang.String.format("Silo %s", idSilo + " - "));
+        holderSilo.id.setText(java.lang.String.format("Silo %s", siloId + " - "));
         holderSilo.capacity.setText(java.lang.String.format("- %s kg", capacity));
         holderSilo.graoType.setText(grao.getType().getType());
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 view.getId();
-                fragmentJump(idSilo, grao);
+                fragmentJump(siloId, grao);
 
             }
         });
@@ -87,6 +87,8 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     }
 
     class ViewHolderSilo extends RecyclerView.ViewHolder {
+        Long siloId;
+
         @BindView(R.id.silosCardView)
         CardView cv;
         @BindView(R.id.siloIcon)
@@ -148,58 +150,59 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                 }
             });
         }
-    }
 
-    @OnClick(R.id.bt_prediction)
-    void predictionDialog() {
-        try {
-            SiloPredictionDTO dto = new SiloPredictionRest().execute(idSilo).get();
-            String formattedDate = GrainCareFormatter.from(dto.getPredictionDate());
+        @OnClick(R.id.bt_prediction)
+        void predictionDialog() {
+            try {
+                SiloPredictionDTO dto = new SiloPredictionRest().execute(siloId).get();
+                String formattedDate = GrainCareFormatter.from(dto.getPredictionDate());
 
-            GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " + formattedDate + ".");
-        } catch (ExecutionException | InterruptedException e) {
-            GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
+                GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " + formattedDate + ".");
+            } catch (ExecutionException | InterruptedException e) {
+                GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
+            }
         }
-    }
 
+        @OnClick(R.id.bt_capacity)
+        void capacityDialog() {
+            try {
+                Double cap = new SiloCapacityRest().execute(siloId).get();
+                GrainDialog.showDialog(context, "Volume de Grãos", "O silo está " +
+                        new DecimalFormat("##.##").format(cap) + "% cheio.");
 
-    @OnClick(R.id.bt_capacity)
-    void capacityDialog() {
-        try {
-            Double cap = new SiloCapacityRest().execute(idSilo).get();
-            GrainDialog.showDialog(context, "Volume de Grãos", "O silo está " +
-                    new DecimalFormat("##.##").format(cap) + "% cheio.");
-
-        } catch (ExecutionException | InterruptedException e) {
-            GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
+            } catch (ExecutionException | InterruptedException e) {
+                GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
+            }
         }
-    }
 
-    @OnClick(R.id.bt_open_silo)
-    void openSiloDialog() {
-        siloService.open(idSilo, new SiloChangedCallback() {
 
-            @Override
-            public void success() {
-                for (SiloHistory siloHistory : silos) {
-                    if (siloHistory.getId() == idSilo) {
-                        silos.remove(siloHistory);
+        @OnClick(R.id.bt_open_silo)
+        void openSiloDialog() {
+            siloService.open(siloId, new SiloChangedCallback() {
+
+                @Override
+                public void success() {
+                    for (SiloHistory siloHistory : silos) {
+                        if (siloHistory.getId() == siloId) {
+                            silos.remove(siloHistory);
+                        }
                     }
+                    notifyDataSetChanged();
+                    GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
                 }
-                notifyDataSetChanged();
-                GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
-            }
 
-            @Override
-            public void invalidData() {
-                GrainDialog.showDialog(context, "Erro", "Silo não encontrado ou ja aberto.");
-            }
+                @Override
+                public void invalidData() {
+                    GrainDialog.showDialog(context, "Erro", "Silo não encontrado ou ja aberto.");
+                }
 
-            @Override
-            public void error() {
-                GrainDialog.showDialog(context, "Erro", "Não foi possível abrir este silo.");
-            }
-        });
+                @Override
+                public void error() {
+                    GrainDialog.showDialog(context, "Erro", "Não foi possível abrir este silo.");
+                }
+            });
+        }
+
     }
 
     private void fragmentJump(Long siloId, Grao grao) {

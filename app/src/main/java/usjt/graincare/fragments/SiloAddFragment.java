@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import usjt.graincare.R;
 import usjt.graincare.application.DrawerInteraction;
-import usjt.graincare.application.MainActivity;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;

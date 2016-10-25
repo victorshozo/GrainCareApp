@@ -15,7 +15,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import usjt.graincare.R;
 import usjt.graincare.fragments.SiloAddFragment;
@@ -23,12 +22,9 @@ import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.util.GrainDialog;
 
 public class MainActivity extends AppCompatActivity  implements DrawerInteraction {
-    //@BindView(R.id.) FloatingActionButton floatButtonSilo;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private ActionBarDrawerToggle drawerToggle;
-    private GrainDialog pDialog;
-    private ImageView ivArrow;
 
     private NavigationView nvDrawer;
 
