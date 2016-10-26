@@ -15,11 +15,11 @@ public class GrainCareTextView extends TextView {
 
     public GrainCareTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Font.applyCustomFont(this, context, attrs);
+        Font.applyFont(this, context, attrs);
     }
 
     public GrainCareTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Font.applyCustomFont(this, context, attrs);
+        Font.applyFont(this, context, attrs);
     }
 }

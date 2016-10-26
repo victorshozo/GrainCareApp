@@ -18,6 +18,7 @@ import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.rest.GrainCareRestGenerator;
+import usjt.graincare.util.Preferences;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         ButterKnife.bind(this);
+        Preferences.setActivity(this);
 
         api = GrainCareRestGenerator.create(GrainCareApi.class);
     }

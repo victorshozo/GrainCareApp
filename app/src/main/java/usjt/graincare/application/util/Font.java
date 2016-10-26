@@ -9,7 +9,7 @@ import static android.graphics.Typeface.BOLD;
 
 public class Font {
 
-    private static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
+    private final static String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
 
     private final static String FONTS_PATH = "fonts/";
 
@@ -29,7 +29,7 @@ public class Font {
         return museoSans;
     }
 
-    public static void applyCustomFont(TextView textView, Context context, AttributeSet attrs) {
+    public static void applyFont(TextView textView, Context context, AttributeSet attrs) {
         String style = "0x0";
         try {
             style = attrs.getAttributeValue(ANDROID_SCHEMA, "textStyle");

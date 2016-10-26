@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <usjt.graincare.application.GrainCareTextView
             android:id="@+id/tv_login_title"
             android:layout_width="match_parent"

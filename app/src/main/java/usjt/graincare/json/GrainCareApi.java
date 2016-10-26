@@ -46,19 +46,11 @@ public interface GrainCareApi {
     @GET("/beacon")
     Call<ArrayList<Beacon>> listBeacon( );
 
-    @GET("/beacons/history")
-    Call<List<BeaconHistory>> listBeaconHistory( );
-
     @GET("/beacons/available")
     Call<List<Beacon>> listBeaconDisponivel( );
 
-    //QUestionar, achei que voltaria uma lista de beaconsHistory para poder verificar temp e etc.
     @GET("/beacons/silo/{siloHistoryId}")
     Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloHistoryId") Long SiloID );
-
-    //neither this...
-    @POST("/beacon")
-    Call<Beacon> sendBeacon( );
 
     @FormUrlEncoded
     @POST("/login")
