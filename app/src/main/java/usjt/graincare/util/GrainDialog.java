@@ -24,7 +24,8 @@ public class GrainDialog {
                     .setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                        }})
+                        }
+                    })
                     .show();
         } catch (Exception e) {
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
