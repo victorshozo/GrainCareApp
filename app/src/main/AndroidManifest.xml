@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".application.MainActivity"
-            android:label="@string/app_name"
+            android:name=".application.LoginActivity"
+            android:label="@string/login"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,5 +20,8 @@
             </intent-filter>
 
         </activity>
+        <activity
+            android:name=".application.MainActivity"
+            android:label="@string/app_name" />
     </application>
 </manifest>

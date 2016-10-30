@@ -1,6 +1,7 @@
 package usjt.graincare.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,21 +10,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.application.DrawerInteraction;
-import usjt.graincare.application.MainActivity;
+import usjt.graincare.application.GrainCareSnackBar;
+import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Beacon;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
-import usjt.graincare.rest.BeaconAvailablesRest;
-import usjt.graincare.rest.SilosAvailablesRest;
+import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.service.SiloService;
 import usjt.graincare.silo.SiloChangedCallback;
 import usjt.graincare.util.GrainDialog;
@@ -41,7 +43,8 @@ public class SiloAddFragment extends Fragment {
     Spinner spBeacon;
     @BindView(R.id.spinner_graos)
     Spinner spGrao;
-
+    final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
+    View rootView;
     private DrawerInteraction drawerInteraction;
 
     public SiloAddFragment(DrawerInteraction drawerInteraction) {
@@ -52,29 +55,11 @@ public class SiloAddFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
+        rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
         ButterKnife.bind(this, rootView);
 
-        List<Silo> silos = Collections.emptyList();
-
-        try {
-            silos = new SilosAvailablesRest().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, silos);
-        spSilo.setAdapter(adapterSilos);
-
-        List<Beacon> beacons = Collections.emptyList();
-        try {
-            beacons = new BeaconAvailablesRest().execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        ArrayAdapter<Beacon> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, beacons);
-        spBeacon.setAdapter(adapterBeacons);
+        listAvailableSilos();
+        listAvailableBeacons();
 
         ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA));
         spGrao.setAdapter(adapterGrao);
@@ -111,4 +96,44 @@ public class SiloAddFragment extends Fragment {
             }
         });
     }
+
+    public void listAvailableSilos() {
+        api.listSilosAbertos().enqueue(new Callback<List<Silo>>() {
+            @Override
+            public void onResponse(Call<List<Silo>> call, Response<List<Silo>> response) {
+                if (response.isSuccessful()) {
+                    ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
+                    spSilo.setAdapter(adapterSilos);
+                }
+
+                GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onFailure(Call<List<Silo>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void listAvailableBeacons() {
+        api.listAvailablesBeacons().enqueue(new Callback<List<Beacon>>() {
+            @Override
+            public void onResponse(Call<List<Beacon>> call, Response<List<Beacon>> response) {
+                if (response.isSuccessful()) {
+                    ArrayAdapter<Beacon> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, response.body());
+                    spBeacon.setAdapter(adapterBeacons);
+
+                }
+
+                GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons", Snackbar.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onFailure(Call<List<Beacon>> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

@@ -1,7 +1,10 @@
 package usjt.graincare.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,26 +16,29 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 
-import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import usjt.graincare.R;
+import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.application.MainActivity;
 import usjt.graincare.fragments.BeaconsFragment;
+import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Grao;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
-import usjt.graincare.rest.SiloCapacityRest;
+import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.rest.SiloPredictionDTO;
-import usjt.graincare.rest.SiloPredictionRest;
 import usjt.graincare.service.SiloService;
 import usjt.graincare.silo.SiloChangedCallback;
-import usjt.graincare.util.GrainCareFormatter;
 import usjt.graincare.util.GrainDialog;
 
 public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo> {
@@ -40,7 +46,9 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     private final SiloService siloService;
     private List<SiloHistory> silos = Collections.emptyList();
     private Context context;
-    private Long idSilo;
+    private final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
+    private View view;
+    private Long siloId;
 
     public SiloAdapter(List<SiloHistory> silos, Context context) {
         this.silos = silos;
@@ -50,7 +58,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
 
     @Override
     public ViewHolderSilo onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_silos_details, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_silos_details, parent, false);
         ButterKnife.bind(this, view);
         return new ViewHolderSilo(view);
     }
@@ -59,18 +67,18 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     public void onBindViewHolder(ViewHolderSilo holderSilo, final int position) {
         Silo silo = silos.get(position).getSilo();
         final Grao grao = silos.get(position).getGrao();
-        idSilo = silo.getId();
+        siloId = silo.getId();
         Double capacity = silo.getCapacity();
 
+        holderSilo.siloId = silo.getId();
         holderSilo.icon.setImageResource(R.mipmap.ic_silo);
-        holderSilo.id.setText(java.lang.String.format("Silo %s", idSilo + " - "));
+        holderSilo.id.setText(java.lang.String.format("Silo %s", siloId + " - "));
         holderSilo.capacity.setText(java.lang.String.format("- %s kg", capacity));
         holderSilo.graoType.setText(grao.getType().getType());
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.getId();
-                fragmentJump(idSilo, grao);
+                fragmentJump(siloId, grao);
 
             }
         });
@@ -87,6 +95,8 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     }
 
     class ViewHolderSilo extends RecyclerView.ViewHolder {
+        Long siloId;
+
         @BindView(R.id.silosCardView)
         CardView cv;
         @BindView(R.id.siloIcon)
@@ -113,7 +123,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                 @Override
                 public void onClick(View view) {
                     //fragmentJump(idSilo, grao);
-
                 }
             });
             swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
@@ -129,7 +138,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
 
                 @Override
                 public void onStartOpen(SwipeLayout layout) {
-
                 }
 
                 @Override
@@ -139,7 +147,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
 
                 @Override
                 public void onStartClose(SwipeLayout layout) {
-
                 }
 
                 @Override
@@ -148,58 +155,91 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                 }
             });
         }
-    }
 
-    @OnClick(R.id.bt_prediction)
-    void predictionDialog() {
-        try {
-            SiloPredictionDTO dto = new SiloPredictionRest().execute(idSilo).get();
-            String formattedDate = GrainCareFormatter.from(dto.getPredictionDate());
+        @OnClick(R.id.bt_prediction)
+        void predictionDialog() {
+            api.getPredictionSilo(siloId).enqueue(new Callback<SiloPredictionDTO>() {
+                @Override
+                public void onResponse(Call<SiloPredictionDTO> call, Response<SiloPredictionDTO> response) {
+                    SimpleDateFormat simpleDt = new SimpleDateFormat("dd-MM-yyyy");
+                    String format = simpleDt.format(response.body().getPredictionDate().getTime());
+                    if (response.isSuccessful()) {
+                        GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " +
+                                format);
+                    } else {
+                        GrainCareSnackBar.show(view, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
 
-            GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " + formattedDate + ".");
-        } catch (ExecutionException | InterruptedException e) {
-            GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
-        }
-    }
-
-
-    @OnClick(R.id.bt_capacity)
-    void capacityDialog() {
-        try {
-            Double cap = new SiloCapacityRest().execute(idSilo).get();
-            GrainDialog.showDialog(context, "Volume de Grãos", "O silo está " +
-                    new DecimalFormat("##.##").format(cap) + "% cheio.");
-
-        } catch (ExecutionException | InterruptedException e) {
-            GrainDialog.showDialog(context, "Erro", "Você chegou em um erro.");
-        }
-    }
-
-    @OnClick(R.id.bt_open_silo)
-    void openSiloDialog() {
-        siloService.open(idSilo, new SiloChangedCallback() {
-
-            @Override
-            public void success() {
-                for (SiloHistory siloHistory : silos) {
-                    if (siloHistory.getId() == idSilo) {
-                        silos.remove(siloHistory);
                     }
                 }
-                notifyDataSetChanged();
-                GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
-            }
 
-            @Override
-            public void invalidData() {
-                GrainDialog.showDialog(context, "Erro", "Silo não encontrado ou ja aberto.");
-            }
+                @Override
+                public void onFailure(Call<SiloPredictionDTO> call, Throwable t) {
+                    GrainCareSnackBar.show(view, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
+                }
+            });
+        }
 
-            @Override
-            public void error() {
-                GrainDialog.showDialog(context, "Erro", "Não foi possível abrir este silo.");
-            }
-        });
+        @OnClick(R.id.bt_capacity)
+        void capacityDialog() {
+            api.getCapacitySilo(siloId).enqueue(new Callback<Double>() {
+                @Override
+                public void onResponse(Call<Double> call, Response<Double> response) {
+                    if (response.isSuccessful()) {
+                        GrainDialog.showDialog(context, "Capacidade", "O silo encontra-se " +
+                                response.body() + "% cheio.");
+                    } else {
+                        GrainCareSnackBar.show(view, "Não foi possivel ver a capacidade.", Snackbar.LENGTH_SHORT);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Double> call, Throwable t) {
+                    GrainCareSnackBar.show(view, "Não foi possivel ver a capacidade.", Snackbar.LENGTH_SHORT);
+                }
+            });
+        }
+
+        @OnClick(R.id.bt_open_silo)
+        void openSiloDialog() {
+
+            new AlertDialog.Builder(context)
+                    .setIcon(R.drawable.ic_question_green_64x64)
+                    .setMessage(R.string.abrir_silo)
+                    .setTitle("Confirmação")
+                    .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            siloService.open(siloId, new SiloChangedCallback() {
+                                @Override
+                                public void success() {
+                                    for (SiloHistory siloHistory : silos) {
+                                        if (siloHistory.getId() == siloId) {
+                                            silos.remove(siloHistory);
+                                        }
+                                    }
+                                    notifyDataSetChanged();
+                                    GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
+                                }
+
+                                @Override
+                                public void invalidData() {
+                                    GrainDialog.showDialog(context, "Erro", "Silo não encontrado ou ja aberto.");
+                                }
+
+                                @Override
+                                public void error() {
+                                    GrainDialog.showDialog(context, "Erro", "Não foi possível abrir este silo.");
+                                }
+                            });
+                        }
+                    })
+                    .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
     }
 
     private void fragmentJump(Long siloId, Grao grao) {
