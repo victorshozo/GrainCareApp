@@ -18,7 +18,7 @@ public class GrainDialog {
     public static void showDialog(Context context, String title, String message) {
         try {
             new AlertDialog.Builder(context)
-                    .setIcon(R.drawable.information_icon_64x64)
+                    .setIcon(R.drawable.ic_information_green_64x64)
                     .setMessage(message)
                     .setTitle(title)
                     .setNeutralButton("OK", new DialogInterface.OnClickListener() {

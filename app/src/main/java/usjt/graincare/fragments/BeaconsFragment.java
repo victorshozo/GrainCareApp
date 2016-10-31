@@ -48,14 +48,14 @@ public class BeaconsFragment extends Fragment {
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);
                     return;
+                } else {
+                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons.", Snackbar.LENGTH_SHORT);
                 }
-
-                GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons", Snackbar.LENGTH_SHORT);
             }
 
             @Override
             public void onFailure(Call<List<BeaconHistory>> call, Throwable t) {
-                GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons", Snackbar.LENGTH_SHORT);
+                GrainCareSnackBar.show(rootView, "Erro de comunição com o servidor.", Snackbar.LENGTH_SHORT);
             }
         });
         return rootView;

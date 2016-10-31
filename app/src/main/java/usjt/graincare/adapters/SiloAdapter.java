@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,7 +77,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentJump(siloId, grao);
+                changeFragment(siloId, grao);
 
             }
         });
@@ -122,7 +121,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
             swipeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //fragmentJump(idSilo, grao);
+                    //changeFragment(idSilo, grao);
                 }
             });
             swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
@@ -167,14 +166,15 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                         GrainDialog.showDialog(context, "Estimativa", "O silo poderá ser aberto em " +
                                 format);
                     } else {
-                        GrainCareSnackBar.show(view, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
+                        Integer t = response.code();
+                        GrainCareSnackBar.show(view, "Não foi possível obter a previsão.", Snackbar.LENGTH_SHORT);
 
                     }
                 }
 
                 @Override
                 public void onFailure(Call<SiloPredictionDTO> call, Throwable t) {
-                    GrainCareSnackBar.show(view, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
+                    GrainCareSnackBar.show(view, "Erro de comunicação com o servidor.", Snackbar.LENGTH_SHORT);
                 }
             });
         }
@@ -188,13 +188,13 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                         GrainDialog.showDialog(context, "Capacidade", "O silo encontra-se " +
                                 response.body() + "% cheio.");
                     } else {
-                        GrainCareSnackBar.show(view, "Não foi possivel ver a capacidade.", Snackbar.LENGTH_SHORT);
+                        GrainCareSnackBar.show(view, "Não foi possível obter a capacidade.", Snackbar.LENGTH_SHORT);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Double> call, Throwable t) {
-                    GrainCareSnackBar.show(view, "Não foi possivel ver a capacidade.", Snackbar.LENGTH_SHORT);
+                    GrainCareSnackBar.show(view, "Erro de comunicação com o servidor.", Snackbar.LENGTH_SHORT);
                 }
             });
         }
@@ -207,17 +207,16 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                     .setMessage(R.string.abrir_silo)
                     .setTitle("Confirmação")
                     .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-
+                        public void onClick(final DialogInterface dialog, int id) {
                             siloService.open(siloId, new SiloChangedCallback() {
                                 @Override
                                 public void success() {
                                     for (SiloHistory siloHistory : silos) {
                                         if (siloHistory.getId() == siloId) {
                                             silos.remove(siloHistory);
+                                            ViewHolderSilo.this.notify();
                                         }
                                     }
-                                    notifyDataSetChanged();
                                     GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
                                 }
 
@@ -242,16 +241,12 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         }
     }
 
-    private void fragmentJump(Long siloId, Grao grao) {
+    private void changeFragment(Long siloId, Grao grao) {
         BeaconsFragment fragment = new BeaconsFragment();
         Bundle args = new Bundle();
         args.putLong("siloId", siloId);
         args.putDouble("graoMaxTemperature", grao.getMaxTemperature());
         fragment.setArguments(args);
-        switchContent(fragment);
-    }
-
-    private void switchContent(Fragment fragment) {
         if (context == null)
             return;
         if (context instanceof MainActivity) {
@@ -259,4 +254,5 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
             mainActivity.switchContent(fragment);
         }
     }
+
 }

@@ -46,13 +46,13 @@ public class SilosFragment extends Fragment {
                     recyclerView.setAdapter(adapter);
                     return;
                 }
-
+                Integer t = response.code();
                 GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
             }
 
             @Override
             public void onFailure(Call<List<SiloHistory>> call, Throwable t) {
-                GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
+                GrainCareSnackBar.show(rootView, "Sem conexão com o servidor.", Snackbar.LENGTH_SHORT);
             }
         });
 
