@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.frameLayout_content, fragment).commit();
 
-            // Highlight the selected item has been done by NavigationView
-            menuItem.setChecked(true);
             // Set action bar title
         }
 

@@ -32,14 +32,13 @@
                 android:layout_weight="1"
                 android:paddingBottom="15sp"
                 android:text="Selecione o silo:"
-                android:textColor="@color/text_gray"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <Spinner
                 android:id="@+id/spinner_silo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
@@ -54,8 +53,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Beacons"
-                android:textColor="@color/text_gray"
+                android:text="Sensores"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <Spinner
@@ -78,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Grão:"
-                android:textColor="@color/text_gray"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <Spinner
@@ -89,14 +88,14 @@
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="20dp"
-            android:text="Data de Fechamento:"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
+        <!--        <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    android:text="Data de Fechamento:"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />-->
 
         <!--android arsenal 3779-->
         <!--<DatePicker
@@ -108,10 +107,11 @@
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bt_confirm_register"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:textColor="@color/colorPrimaryDark"
+            android:paddingTop="20dp"
             android:text="Confirmar"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
     </LinearLayout>

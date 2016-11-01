@@ -1,10 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-        <item
-            android:id="@+id/silo_item"
-            android:icon="@mipmap/ic_silo"
-            android:title="Silos" />
-        <item
-            android:id="@+id/add_new_silo"
-            android:icon="@mipmap/ic_add_button_128x128"
-            android:title="Fechar Silo" />
+    <item
+        android:id="@+id/silo_item"
+        android:icon="@mipmap/ic_silo"
+        android:title="Silos" />
+    <item
+        android:id="@+id/add_new_silo"
+        android:icon="@mipmap/ic_add_button_128x128"
+        android:title="Fechar Silo" />
+
+    <item
+        android:icon="@mipmap/ic_silo"
+        android:title="Relatórios">
+        <menu>
+            <item
+                android:icon="@mipmap/ic_silo"
+                android:title="Geral" />
+        </menu>
+    </item>
 </menu>
