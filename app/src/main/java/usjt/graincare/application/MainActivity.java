@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,44 +12,53 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import usjt.graincare.R;
-import usjt.graincare.fragments.SiloAddFragment;
+import usjt.graincare.adapters.NavigationAdapter;
+import usjt.graincare.fragments.SiloCloseFragment;
 import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.util.GrainDialog;
 
 public class MainActivity extends AppCompatActivity  implements DrawerInteraction {
-    private DrawerLayout mDrawer;
-    private Toolbar toolbar;
+
     private ActionBarDrawerToggle drawerToggle;
 
-    private NavigationView nvDrawer;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
+    @BindView(R.id.rv_navigation)
+    RecyclerView rvNavigation;
+    @BindView(R.id.lt_drawer_content)
+    LinearLayout lt_drawer_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Set a Toolbar to replace the ActionBar.
         setSupportActionBar(toolbar);
 
-        // Find our drawer view
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle = setupDrawerToggle();
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
 
-        // Tie DrawerLayout events to the ActionBarToggle
-        mDrawer.addDrawerListener(drawerToggle);
-
-        // Find our drawer view
-        nvDrawer = (NavigationView) findViewById(R.id.nav_view);
-
-        // Setup drawer view
-        setupDrawerContent(nvDrawer);
+        NavigationAdapter navigationAdapter = new NavigationAdapter(this);
+        rvNavigation.setHasFixedSize(true);
+        rvNavigation.setLayoutManager(new LinearLayoutManager(this));
+        rvNavigation.setAdapter(navigationAdapter);
+        rvNavigation.setBackgroundColor(getResources().getColor(R.color.white));
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.frameLayout_content, new SilosFragment());
@@ -58,53 +66,6 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
         if (!isNetworkStatusAvailable(getApplicationContext())) {
             GrainDialog.showDialog(getApplicationContext(), "Conexão", "Habilite a internet para poder usar o aplicativo.");
         }
-    }
-
-    private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
-                        return true;
-                    }
-                });
-    }
-
-    public void selectDrawerItem(MenuItem menuItem) {
-        boolean isFrag = false;
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        switch (menuItem.getItemId()) {
-            case R.id.silo_item:
-                //fragmentClass = GraphFragment.class;
-                fragment = new SilosFragment();
-                isFrag = true;
-                break;
-            case R.id.add_new_silo:
-                fragment = new SiloAddFragment(this);
-                isFrag = true;
-                break;
-            default:
-                isFrag = false;
-                break;
-        }
-
-        if (isFrag) {
-            // Insert the fragment by replacing any existing fragment
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frameLayout_content, fragment).commit();
-
-            // Set action bar title
-        }
-
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
-        mDrawer.closeDrawers();
     }
 
     //Caso o drawer esteja aberto, fecha o drawer antes de sair da aplicação.
@@ -118,13 +79,6 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -163,6 +117,6 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
         transaction.replace(R.id.frameLayout_content, fragment);
         transaction.commit();
         //toolbarTitle.setText(title);
-        mDrawer.closeDrawer(nvDrawer);
+        drawerLayout.closeDrawer(lt_drawer_content);
     }
 }

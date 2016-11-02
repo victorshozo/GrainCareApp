@@ -1,8 +1,8 @@
 package usjt.graincare.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +35,7 @@ import static java.util.Arrays.asList;
 import static usjt.graincare.models.GrainType.MILHO;
 import static usjt.graincare.models.GrainType.SOJA;
 
+
 public class ReportFragment extends Fragment {
     @BindView(R.id.spn_relatorio_silos)
     Spinner spnSilos;
@@ -53,8 +54,24 @@ public class ReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
         ButterKnife.bind(this, rootView);
+        api.listSilos().enqueue(new Callback<List<Silo>>() {
+            @Override
+            public void onResponse(Call<List<Silo>> call, Response<List<Silo>> response) {
+                if (response.isSuccessful()) {
+                    ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, response.body());
+                    spnSilos.setAdapter(adapterSilos);
 
-        ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA));
+                }
+
+                GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons", Snackbar.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onFailure(Call<List<Silo>> call, Throwable t) {
+
+            }
+        });
+        ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA));
         spnSilos.setAdapter(adapterGrao);
 
         return rootView;
@@ -64,12 +81,11 @@ public class ReportFragment extends Fragment {
     public void generateReport() {
 
         Calendar selectedDateInitial = new GregorianCalendar(datePickerInicial.getYear(), datePickerInicial.getMonth() + 1, datePickerInicial.getDayOfMonth());
-        Calendar selectedDateFinal = new GregorianCalendar(dataPickerFinal.getYear(), selectedDateFinal.getMonth() + 1, selectedDateFinal.getDayOfMonth());
-
+        //Calendar selectedDateFinal = new GregorianCalendar(dataPickerFinal.getYear(), selectedDateFinal.getMonth() + 1, selectedDateFinal.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
         List<Beacon> selectedBeacons = new ArrayList<>();
         //siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate, new SiloChangedCallback()
-        api.close(selectedSilo, selectedBeacons, selectedGrainType, new SiloChangedCallback() {
+        /*api.(selectedSilo, selectedBeacons, selectedGrainType, new SiloChangedCallback() {
 
             @Override
             public void success() {
@@ -86,26 +102,6 @@ public class ReportFragment extends Fragment {
             public void error() {
                 GrainDialog.showDialog(getContext(), "Erro", "Erro erro.");
             }
-        });
-    }
-
-    public listSilosHistoriesAbertos() {
-        api.listSilos().enqueue(new Callback<List<Silo>>() {
-            @Override
-            public void onResponse(Call<List<Silo>> call, Response<List<Silo>> response) {
-                if (response.isSuccessful()) {
-                    ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, response.body());
-                    spnSilos.setAdapter(adapterSilos);
-
-                }
-
-                GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons", Snackbar.LENGTH_SHORT);
-            }
-
-            @Override
-            public void onFailure(Call<List<Silo>> call, Throwable t) {
-
-            }
-        });
+        });*/
     }
 }

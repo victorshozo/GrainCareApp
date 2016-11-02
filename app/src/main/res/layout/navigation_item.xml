@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+
+    android:background="@color/white"
+    android:id="@+id/lt_navigation_item">
+    <ImageView
+        android:src="@mipmap/ic_add_new_silo"
+        android:id="@+id/iv_navigation_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <usjt.graincare.application.GrainCareTextView
+        android:layout_width="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Home"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:id="@+id/tv_navigation_item"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

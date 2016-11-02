@@ -1,6 +1,5 @@
 package usjt.graincare.json;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -48,6 +47,12 @@ public interface GrainCareApi {
 
     @GET("/beacons/silo/{siloHistoryId}")
     Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloHistoryId") Long SiloID );
+
+    /*@POST("/report/silo/{siloId}/")
+    Call<ReportDTO> getReportSilo(
+            @Path("siloId") Long siloID,
+            @Body DateRangeDTO body
+    );*/
 
     @FormUrlEncoded
     @POST("/login")

@@ -34,7 +34,7 @@ import static java.util.Arrays.asList;
 import static usjt.graincare.models.GrainType.MILHO;
 import static usjt.graincare.models.GrainType.SOJA;
 
-public class SiloAddFragment extends Fragment {
+public class SiloCloseFragment extends Fragment {
 
     private static final SiloService siloService = new SiloService();
     @BindView(R.id.spinner_silo)
@@ -47,9 +47,10 @@ public class SiloAddFragment extends Fragment {
     View rootView;
     private DrawerInteraction drawerInteraction;
 
-    public SiloAddFragment(DrawerInteraction drawerInteraction) {
+    public SiloCloseFragment(DrawerInteraction drawerInteraction) {
         this.drawerInteraction = drawerInteraction;
     }
+
    /* @BindView(R.id.new_silo_date_closing)
     DatePicker datePicker;*/
 
