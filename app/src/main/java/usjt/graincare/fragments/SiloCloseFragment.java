@@ -43,6 +43,7 @@ public class SiloCloseFragment extends Fragment {
     Spinner spBeacon;
     @BindView(R.id.spinner_graos)
     Spinner spGrao;
+
     final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
     View rootView;
     private DrawerInteraction drawerInteraction;

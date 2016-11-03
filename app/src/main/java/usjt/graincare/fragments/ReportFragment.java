@@ -28,8 +28,6 @@ import usjt.graincare.models.Beacon;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
-import usjt.graincare.silo.SiloChangedCallback;
-import usjt.graincare.util.GrainDialog;
 
 import static java.util.Arrays.asList;
 import static usjt.graincare.models.GrainType.MILHO;
@@ -52,7 +50,7 @@ public class ReportFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
+        rootView = inflater.inflate(R.layout.fragment_report, container, false);
         ButterKnife.bind(this, rootView);
         api.listSilos().enqueue(new Callback<List<Silo>>() {
             @Override
@@ -81,11 +79,9 @@ public class ReportFragment extends Fragment {
     public void generateReport() {
 
         Calendar selectedDateInitial = new GregorianCalendar(datePickerInicial.getYear(), datePickerInicial.getMonth() + 1, datePickerInicial.getDayOfMonth());
-        //Calendar selectedDateFinal = new GregorianCalendar(dataPickerFinal.getYear(), selectedDateFinal.getMonth() + 1, selectedDateFinal.getDayOfMonth());
+        Calendar selectedDateFinal = new GregorianCalendar(dataPickerFinal.getYear(), dataPickerFinal.getMonth() + 1, dataPickerFinal.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
-        List<Beacon> selectedBeacons = new ArrayList<>();
-        //siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate, new SiloChangedCallback()
-        /*api.(selectedSilo, selectedBeacons, selectedGrainType, new SiloChangedCallback() {
+        /*api.getSiloReport(selectedSilo, selectedDateInitial, selectedDateFinal, new SiloChangedCallback() {
 
             @Override
             public void success() {

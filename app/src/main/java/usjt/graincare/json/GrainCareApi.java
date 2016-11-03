@@ -13,6 +13,7 @@ import usjt.graincare.models.Beacon;
 import usjt.graincare.models.BeaconHistory;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
+import usjt.graincare.rest.ReportDTO;
 import usjt.graincare.rest.SiloHistoryDTO;
 import usjt.graincare.rest.SiloPredictionDTO;
 
@@ -48,11 +49,11 @@ public interface GrainCareApi {
     @GET("/beacons/silo/{siloHistoryId}")
     Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloHistoryId") Long SiloID );
 
-    /*@POST("/report/silo/{siloId}/")
-    Call<ReportDTO> getReportSilo(
+    @POST("/report/silo/{siloId}/")
+    Call<Void> getReportSilo(
             @Path("siloId") Long siloID,
-            @Body DateRangeDTO body
-    );*/
+            @Body ReportDTO body
+    );
 
     @FormUrlEncoded
     @POST("/login")

@@ -49,4 +49,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.borax12.materialdaterangepicker:library:1.9'
 }
