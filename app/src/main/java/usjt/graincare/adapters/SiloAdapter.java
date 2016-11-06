@@ -72,7 +72,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         holderSilo.siloId = silo.getId();
         holderSilo.icon.setImageResource(R.mipmap.ic_silo);
         holderSilo.id.setText(java.lang.String.format("Silo %s", siloId + " - "));
-        holderSilo.capacity.setText(java.lang.String.format("- %s kg", capacity));
         holderSilo.graoType.setText(grao.getType().getType());
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,8 +103,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         TextView id;
         @BindView(R.id.siloGraoType)
         TextView graoType;
-        @BindView(R.id.siloCapacity)
-        TextView capacity;
         @BindView(R.id.iv_arrow)
         ImageView ivArrow;
         @BindView(R.id.lt_swipe)
@@ -212,11 +209,11 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                                 @Override
                                 public void success() {
                                     for (SiloHistory siloHistory : silos) {
-                                        if (siloHistory.getId() == siloId) {
+                                        if (siloHistory.getSilo().getId() == siloId) {
                                             silos.remove(siloHistory);
-                                            ViewHolderSilo.this.notify();
                                         }
                                     }
+
                                     GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
                                 }
 

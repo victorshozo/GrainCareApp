@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
-
     @BindView(R.id.rv_navigation)
     RecyclerView rvNavigation;
     @BindView(R.id.lt_drawer_content)

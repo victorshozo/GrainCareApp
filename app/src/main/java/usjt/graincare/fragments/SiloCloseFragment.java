@@ -57,7 +57,7 @@ public class SiloCloseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_silo_add, container, false);
+        rootView = inflater.inflate(R.layout.fragment_silo_close, container, false);
         ButterKnife.bind(this, rootView);
 
         listAvailableSilos();
@@ -106,9 +106,9 @@ public class SiloCloseFragment extends Fragment {
                 if (response.isSuccessful()) {
                     ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
                     spSilo.setAdapter(adapterSilos);
+                } else {
+                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
                 }
-
-                GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
             }
 
             @Override
@@ -123,12 +123,13 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Beacon>> call, Response<List<Beacon>> response) {
                 if (response.isSuccessful()) {
-                    ArrayAdapter<Beacon> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, response.body());
+                    ArrayAdapter<Beacon> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
                     spBeacon.setAdapter(adapterBeacons);
 
-                }
+                } else {
+                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores", Snackbar.LENGTH_SHORT);
 
-                GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons", Snackbar.LENGTH_SHORT);
+                }
             }
 
             @Override
