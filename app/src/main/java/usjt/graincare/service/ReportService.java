@@ -25,7 +25,7 @@ public class ReportService {
             @Override
             public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {
                 if (response.isSuccessful()) {
-                    callback.success();
+                    response.body();
                 } else {
                     callback.invalidData();
                 }

@@ -43,6 +43,10 @@ public class ReportDTO {
         this.profit = profit;
     }
 
+    public ReportDTO() {
+
+    }
+
     public Calendar getStartDate() {
         return startDate;
     }

@@ -25,7 +25,7 @@ public class SplashScreenActivity extends AwesomeSplash {
         //Customize Logo
         configSplash.setLogoSplash(R.drawable.grain_splash); //or any other drawable
         configSplash.setAnimLogoSplashDuration(2000); //int ms
-        configSplash.setAnimLogoSplashTechnique(Techniques.Wave); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)DropOut
+        configSplash.setAnimLogoSplashTechnique(Techniques.FadeIn); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)DropOut
 
         //Customize Path
         configSplash.setOriginalHeight(300); //in relation to your svg (path) resource
@@ -42,7 +42,7 @@ public class SplashScreenActivity extends AwesomeSplash {
         configSplash.setTitleTextColor(R.color.white);
         configSplash.setTitleTextSize(22f); //float value
         configSplash.setAnimTitleDuration(3000);
-        configSplash.setAnimTitleTechnique(Techniques.FlipInX);
+        configSplash.setAnimTitleTechnique(Techniques.BounceInDown);
         configSplash.setTitleFont("fonts/museo-sans-bold.ttf"); //provide string to your font located in assets/fonts/
 
     }

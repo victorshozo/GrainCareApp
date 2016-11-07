@@ -5,15 +5,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <usjt.graincare.application.GrainCareTextView
-            android:id="@+id/tv_relatorio_title"
+            android:id="@+id/tv_report_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="20dp"
-            android:text="Relatório Geral"
+            android:text="Relatórios"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_relatorio_title"
+            android:layout_below="@+id/tv_report_title"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
@@ -44,7 +44,7 @@
                 android:textSize="20sp" />
 
             <DatePicker
-                android:id="@+id/dtPicker_relatorio_inicial"
+                android:id="@+id/dtPicker_report_start"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginBottom="20dp"
@@ -63,7 +63,7 @@
                 android:textSize="20sp" />
 
             <DatePicker
-                android:id="@+id/dtPicker_relatorio_final"
+                android:id="@+id/dtPicker_report_end"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginBottom="20dp"
@@ -82,15 +82,29 @@
                 android:textSize="20sp" />
 
             <Spinner
-                android:id="@+id/spn_relatorio_silos"
+                android:id="@+id/spn_report_silos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <Button
-                android:id="@+id/btn_relatorio_geral"
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_report"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Gerar" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
+                android:text="Relatório" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_graphical_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="center_vertical"
+                android:textSize="20sp"
+                android:text="Relatório Gráfico" />
         </LinearLayout>
     </RelativeLayout>
 

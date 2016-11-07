@@ -21,11 +21,11 @@ import usjt.graincare.rest.SiloPredictionDTO;
 
 public interface GrainCareApi {
 
-    @GET("/silos")
-    Call<List<Silo>> listSilos( );
-
     @GET("/silos/history")
     Call<List<SiloHistory>> listSilosHistory( );
+
+    @GET("/silos")
+    Call<List<Silo>> listSilos( );
 
     @GET("/silos/history/closed")
     Call<List<SiloHistory>> listSilosHistoryFechados( );
@@ -51,7 +51,7 @@ public interface GrainCareApi {
     @GET("/beacons/silo/{siloId}")
     Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloHistoryId") Long SiloID );
 
-    @POST("/report/silo/{siloId}/")
+    @POST("/silos/{siloId}/report")
     Call<ReportDTO> getReportSilo(
             @Path("siloId") Long siloID,
             @Query("startDate") Calendar reportStart,
