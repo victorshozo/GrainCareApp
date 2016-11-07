@@ -49,7 +49,7 @@ public interface GrainCareApi {
     Call<List<Beacon>> listAvailablesBeacons( );
 
     @GET("/beacons/silo/{siloId}")
-    Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloHistoryId") Long SiloID );
+    Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloId") Long SiloID );
 
     @POST("/silos/{siloId}/report")
     Call<ReportDTO> getReportSilo(

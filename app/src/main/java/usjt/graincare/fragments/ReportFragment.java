@@ -118,7 +118,7 @@ public class ReportFragment extends Fragment {
                 if (response.isSuccessful()) {
                     report = response.body();
                     //exibir todo dto
-                    drawerInteraction.changeFragment(GeneralReportFragment(report));
+                    //drawerInteraction.changeFragment(GeneralReportFragment(report));
                 } else {
                     new GrainDialog();
                 }
@@ -126,9 +126,8 @@ public class ReportFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ReportDTO> call, Throwable t) {
-                callback.error();
             }
         });
     }
-    }
+
 }

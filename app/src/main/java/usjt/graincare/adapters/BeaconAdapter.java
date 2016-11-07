@@ -41,26 +41,26 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolder
         String id = Long.toString(beacons.get(position).getBeacon().getId());
         Double temperature = beacons.get(position).getTemperature();
         Double humidity = beacons.get(position).getHumidity();
-        Double distance = beacons.get(position).getDistance();
 
         //Formatar temperatura e definir cor do cardview
-        if (temperature > graoMaxTemperature) {
+        if (temperature == null) {
             holder.id.setText(id);
-            holder.temperature.setText(String.format(temperature + " Cº"));
-            holder.distance.setText(String.format(distance + "m"));
-            holder.humidity.setText(String.format("%s%%", humidity));
-
-            //Format cardview to Critical Red temperature
-            holder.cardView.setCardBackgroundColor(Color.rgb(255, 75, 75));
-            holder.temperature.setTypeface(null, Typeface.BOLD);
+            holder.temperature.setText(String.format(0 + " Cº"));
+            holder.humidity.setText(String.format("%s%%", 0));
         } else {
-            holder.id.setText(id);
-            holder.temperature.setText(String.format(temperature + " Cº"));
-            holder.distance.setText(String.format(distance + "m"));
-            holder.humidity.setText(String.format("%s%%", humidity));
-            holder.temperature.setTypeface(null, Typeface.BOLD);
-        }
+            if (temperature > graoMaxTemperature) {
+                holder.id.setText(id);
+                holder.temperature.setText(String.format(temperature + " Cº"));
+                holder.humidity.setText(String.format("%s%%", humidity));
 
+                //Format cardview to Critical Red temperature
+                holder.cardView.setCardBackgroundColor(Color.rgb(255, 75, 75));
+            } else {
+                holder.id.setText(id);
+                holder.temperature.setText(String.format(temperature + " Cº"));
+                holder.humidity.setText(String.format("%s%%", humidity));
+            }
+        }
     }
 
     @Override
@@ -82,8 +82,6 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolder
         TextView temperature;
         @BindView(R.id.beaconHumidity)
         TextView humidity;
-        @BindView(R.id.beaconDistance)
-        TextView distance;
 
         ViewHolderBeacon(View itemView) {
             super(itemView);
