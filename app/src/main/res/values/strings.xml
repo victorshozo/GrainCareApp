@@ -10,6 +10,5 @@
     <string name="password">Senha</string>
     <string name="loading">Carregando, por favor aguarde...</string>
     <string name="abrir_silo">Deseja realmente abrir o Silo?</string>
-
     <string name="informe_periodo">Informe o período desejado</string>
 </resources>

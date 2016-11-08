@@ -73,7 +73,7 @@
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_silo" />
 
-            <TextView
+            <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/siloID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
-            <TextView
+            <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/siloGraoType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

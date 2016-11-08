@@ -1,12 +1,28 @@
-<android.support.v7.widget.Toolbar
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
-    android:minHeight="?attr/actionBarSize"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    android:background="?attr/colorPrimaryDark"
+    android:layout_height="match_parent"
     >
-</android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="?attr/colorPrimaryDark"
+        >
+        <usjt.graincare.application.GrainCareTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grain Care"
+            android:textSize="24dp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            />
+    </android.support.v7.widget.Toolbar>
+</FrameLayout>

@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
         ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         // Set a Toolbar to replace the ActionBar.
