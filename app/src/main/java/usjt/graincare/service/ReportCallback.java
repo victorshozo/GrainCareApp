@@ -1,7 +1,9 @@
 package usjt.graincare.service;
 
+import usjt.graincare.rest.ReportDTO;
+
 public interface ReportCallback {
-    void success();
+    void success(ReportDTO body);
 
     void invalidData();
 

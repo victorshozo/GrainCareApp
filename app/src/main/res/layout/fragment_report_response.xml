@@ -206,18 +206,6 @@
                 />
 
             <usjt.graincare.application.GrainCareTextView
-                android:id="@+id/tv_total_kilos_average"
-                android:text="30 toneladas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                />
-
-            <usjt.graincare.application.GrainCareTextView
                 android:text="Lucro:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -232,6 +220,17 @@
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_total_profit_average"
                 android:text="500 milhões"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                />
+            <usjt.graincare.application.GrainCareTextView
+                android:id="@+id/tv_total_weight"
+                android:text="5 KG"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"

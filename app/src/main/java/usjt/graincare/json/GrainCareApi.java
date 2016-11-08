@@ -51,11 +51,11 @@ public interface GrainCareApi {
     @GET("/beacons/silo/{siloId}")
     Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloId") Long SiloID );
 
-    @POST("/silos/{siloId}/report")
+    @GET("/silos/{siloId}/report")
     Call<ReportDTO> getReportSilo(
             @Path("siloId") Long siloID,
-            @Query("startDate") Calendar reportStart,
-            @Query("endDate") Calendar reportEnd
+            @Query("startDate") String reportStart,
+            @Query("endDate") String reportEnd
     );
 
     @FormUrlEncoded

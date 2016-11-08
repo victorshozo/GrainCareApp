@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -49,9 +50,13 @@ public class ReportFragment extends Fragment {
     @BindView(R.id.dtPicker_report_end)
     DatePicker dtpEnd;
 
-    final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
+    private final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
     private View rootView;
     private DrawerInteraction drawerInteraction;
+
+    public ReportFragment(DrawerInteraction drawerInteraction) {
+        this.drawerInteraction = drawerInteraction;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,9 +94,8 @@ public class ReportFragment extends Fragment {
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
         reportService.getReport(selectedSilo, startDate, endDate, new ReportCallback() {
             @Override
-            public void success() {
-                GrainDialog.showDialog(getContext(), "Pronto!", "Deu certo");
-                drawerInteraction.changeFragment(new GeneralReportFragment());
+            public void success(ReportDTO report) {
+                drawerInteraction.changeFragment(new GeneralReportFragment(report));
             }
 
             @Override
@@ -108,10 +112,12 @@ public class ReportFragment extends Fragment {
 
     @OnClick(R.id.btn_graphical_report)
     public void generateGraphicalReport() {
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
         Calendar startDate = new GregorianCalendar(dtpStart.getYear(), dtpStart.getMonth() + 1, dtpStart.getDayOfMonth());
         Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth() + 1, dtpEnd.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
-        api.getReportSilo(selectedSilo.getId(), startDate, endDate).enqueue(new Callback<ReportDTO>() {
+        api.getReportSilo(selectedSilo.getId(), sdf.format(startDate), sdf.format(endDate)).enqueue(new Callback<ReportDTO>() {
 
             @Override
             public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {

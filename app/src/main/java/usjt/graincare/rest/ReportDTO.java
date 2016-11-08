@@ -8,44 +8,27 @@ import usjt.graincare.models.SiloHistory;
 
 public class ReportDTO {
 
-    @SerializedName("startDate")
+    @SerializedName("reportStart")
     private Calendar startDate;
-    @SerializedName("endDate")
+    @SerializedName("reportEnd")
     private Calendar endDate;
     @SerializedName("siloId")
     private Long siloId;
     @SerializedName("farmName")
     private String farmName;
-    //Silos Histories ou sei lá
-    private SiloHistory siloHistory;
 
-    @SerializedName("totalTemperatureAverage")
+    @SerializedName("totalAverageTemperature")
     private Double totalTemperatureAverage;
     @SerializedName("totalAverageHumidity")
     private Double totalAverageHumidity;
-    @SerializedName("totalPercentUsed")
+    @SerializedName("totalCapacityUsed")
     private Double totalPercentUsed;
     @SerializedName("totalKilos")
     private Double totalKilos;
-    @SerializedName("profit")
+    @SerializedName("totalProfit")
     private Double profit;
-
-    public ReportDTO(Calendar startDate, Calendar endDate, Long siloId, String farmName, SiloHistory siloHistory, Double totalTemperatureAverage, Double totalAverageHumidity, Double totalPercentUsed, Double totalKilos, Double profit) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.siloId = siloId;
-        this.farmName = farmName;
-        this.siloHistory = siloHistory;
-        this.totalTemperatureAverage = totalTemperatureAverage;
-        this.totalAverageHumidity = totalAverageHumidity;
-        this.totalPercentUsed = totalPercentUsed;
-        this.totalKilos = totalKilos;
-        this.profit = profit;
-    }
-
-    public ReportDTO() {
-
-    }
+    @SerializedName("totalWeight")
+    private Double totalWeight;
 
     public Calendar getStartDate() {
         return startDate;
@@ -77,14 +60,6 @@ public class ReportDTO {
 
     public void setFarmName(String farmName) {
         this.farmName = farmName;
-    }
-
-    public SiloHistory getSiloHistory() {
-        return siloHistory;
-    }
-
-    public void setSiloHistory(SiloHistory siloHistory) {
-        this.siloHistory = siloHistory;
     }
 
     public Double getTotalTemperatureAverage() {
@@ -125,5 +100,13 @@ public class ReportDTO {
 
     public void setProfit(Double profit) {
         this.profit = profit;
+    }
+
+    public Double getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(Double totalWeight) {
+        this.totalWeight = totalWeight;
     }
 }

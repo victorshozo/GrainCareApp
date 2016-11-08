@@ -25,7 +25,7 @@ public enum NavigationItem {
     REPORT("Relatorio", R.mipmap.ic_beacon_final) {
         @Override
         public Fragment getFragment(DrawerInteraction drawerInteraction) {
-            return new ReportFragment();
+            return new ReportFragment(drawerInteraction);
         }
     },
     ;

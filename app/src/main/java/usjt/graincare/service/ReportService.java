@@ -1,5 +1,6 @@
 package usjt.graincare.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -12,6 +13,9 @@ import usjt.graincare.rest.ReportDTO;
 import usjt.graincare.silo.SiloChangedCallback;
 
 public class ReportService {
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
     private final GrainCareApi api;
 
     public ReportService() {
@@ -20,12 +24,15 @@ public class ReportService {
 
     public void getReport(Silo silo, Calendar dtInicial, Calendar dtFinal, final ReportCallback callback) {
 
-        api.getReportSilo(silo.getId(), dtInicial, dtFinal).enqueue(new Callback<ReportDTO>() {
+        String startDateTime = sdf.format(dtInicial.getTime());
+        String endDateTime = sdf.format(dtFinal.getTime());
+
+        api.getReportSilo(silo.getId(), startDateTime, endDateTime).enqueue(new Callback<ReportDTO>() {
 
             @Override
             public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {
                 if (response.isSuccessful()) {
-                    response.body();
+                    callback.success(response.body());
                 } else {
                     callback.invalidData();
                 }
