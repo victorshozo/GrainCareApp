@@ -34,7 +34,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingStart="15dp"
-            android:src="@mipmap/ic_grain_128x128" />
+            android:src="@drawable/cylinder_64x64" />
 
         <ImageButton
             android:id="@+id/bt_open_silo"
@@ -79,20 +79,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
+                android:paddingTop="15dp"
                 android:layout_toEndOf="@id/siloIcon"
                 android:layout_toRightOf="@id/siloIcon"
                 android:text="123"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/icon_grain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:layout_toEndOf="@id/siloID"
+                android:layout_toRightOf="@id/siloID"
+
+                android:src="@mipmap/ic_grain_128x128" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/siloGraoType"
+                android:paddingTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@id/siloID"
-                android:layout_toRightOf="@id/siloID"
+                android:layout_toEndOf="@id/icon_grain"
+                android:layout_toRightOf="@id/icon_grain"
                 android:text="MILHO"
                 android:textColor="#000000"
                 android:textSize="20sp" />

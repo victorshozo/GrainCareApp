@@ -71,7 +71,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
 
         holderSilo.siloId = silo.getId();
         holderSilo.icon.setImageResource(R.mipmap.ic_silo);
-        holderSilo.id.setText(java.lang.String.format("Silo %s", siloId + " - "));
+        holderSilo.id.setText(java.lang.String.format("Silo %s", siloId));
         holderSilo.graoType.setText(grao.getType().getType());
         holderSilo.cv.setOnClickListener(new View.OnClickListener() {
             @Override

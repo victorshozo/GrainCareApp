@@ -28,217 +28,201 @@
             <usjt.graincare.application.GrainCareTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:text="Data Inicial:"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Data Inicial:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_dt_inicial"
-                android:text="11/11/2016"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="11/11/2016"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <usjt.graincare.application.GrainCareTextView
-                android:text="Data Final:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Data Final:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_dt_final"
-                android:text="11/12/2016"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="11/12/2016"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <usjt.graincare.application.GrainCareTextView
-                android:text="Fazenda:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Fazenda:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_farm_name"
-                android:text="Fazenda da Piroca"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Fazenda da Piroca"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <usjt.graincare.application.GrainCareTextView
-                android:text="Silo:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Silo:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_silo"
-                android:text="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="1"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <usjt.graincare.application.GrainCareTextView
-                android:text="Média de Temperaturas:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Média de Temperaturas:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_total_temperature_average"
-                android:text="36º"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="36º"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <usjt.graincare.application.GrainCareTextView
-                android:text="Média de Humidade:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Média de Humidade:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_total_humidity_average"
-                android:text="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="1"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
 
             <usjt.graincare.application.GrainCareTextView
-                android:text="Média de Porcentagem Utilizada:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="Média de Porcentagem Utilizada:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_total_used_average"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:text="90%"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <usjt.graincare.application.GrainCareTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
-
-            <usjt.graincare.application.GrainCareTextView
                 android:text="Média de Peso:"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                />
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
-                android:text="Lucro:"
+                android:id="@+id/tv_total_weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
-                />
+                android:text="5 KG"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
+            <usjt.graincare.application.GrainCareTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:text="Valor de Venda:"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <usjt.graincare.application.GrainCareTextView
                 android:id="@+id/tv_total_profit_average"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:text="500 milhões"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                />
-            <usjt.graincare.application.GrainCareTextView
-                android:id="@+id/tv_total_weight"
-                android:text="5 KG"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                />
+                android:textSize="20sp" />
+
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

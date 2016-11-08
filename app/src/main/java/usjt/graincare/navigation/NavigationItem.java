@@ -22,7 +22,7 @@ public enum NavigationItem {
             return new SiloCloseFragment(drawerInteraction);
         }
     },
-    REPORT("Relatorio", R.mipmap.ic_beacon_final) {
+    REPORT("Relatorio", R.drawable.report_64x64) {
         @Override
         public Fragment getFragment(DrawerInteraction drawerInteraction) {
             return new ReportFragment(drawerInteraction);
