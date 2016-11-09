@@ -6,7 +6,7 @@ public class SiloHistory {
 
     private Long id;
     private Grao grao;
-    private List<BeaconHistory> beaconsHistory;
+    private List<SensorHistory> beaconsHistory;
     private String openedAt;
     private String closedAt;
     private Boolean open;
@@ -32,11 +32,11 @@ public class SiloHistory {
         this.grao = grao;
     }
 
-    public List<BeaconHistory> getBeaconsHistory() {
+    public List<SensorHistory> getBeaconsHistory() {
         return beaconsHistory;
     }
 
-    public void setBeaconsHistory(List<BeaconHistory> beaconsHistory) {
+    public void setBeaconsHistory(List<SensorHistory> beaconsHistory) {
         this.beaconsHistory = beaconsHistory;
     }
 

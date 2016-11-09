@@ -1,6 +1,5 @@
 package usjt.graincare.json;
 
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -11,8 +10,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import usjt.graincare.models.Beacon;
-import usjt.graincare.models.BeaconHistory;
+import usjt.graincare.models.Sensor;
+import usjt.graincare.models.SensorHistory;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.ReportDTO;
@@ -46,10 +45,10 @@ public interface GrainCareApi {
     Call<Void> closeSilo(@Body SiloHistoryDTO body);
 
     @GET("/beacons/available")
-    Call<List<Beacon>> listAvailablesBeacons( );
+    Call<List<Sensor>> listAvailablesSensors( );
 
     @GET("/beacons/silo/{siloId}")
-    Call<List<BeaconHistory>> listBeaconBySilo(@Path("siloId") Long SiloID );
+    Call<List<SensorHistory>> listSensorBySilo(@Path("siloId") Long SiloID );
 
     @GET("/silos/{siloId}/report")
     Call<ReportDTO> getReportSilo(

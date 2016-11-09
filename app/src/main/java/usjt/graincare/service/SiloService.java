@@ -1,20 +1,18 @@
 package usjt.graincare.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import usjt.graincare.json.GrainCareApi;
-import usjt.graincare.models.Beacon;
+import usjt.graincare.models.Sensor;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.rest.SiloHistoryDTO;
 import usjt.graincare.silo.SiloChangedCallback;
-import usjt.graincare.util.GrainDialog;
 
 public class SiloService {
 
@@ -24,10 +22,10 @@ public class SiloService {
         api = GrainCareRestGenerator.create(GrainCareApi.class);
     }
 
-    public void close(Silo silo, List<Beacon> beacons, GrainType grainType, final SiloChangedCallback callback) {
+    public void close(Silo silo, List<Sensor> sensors, GrainType grainType, final SiloChangedCallback callback) {
         List<Long> beaconsId = new ArrayList<>();
-        for (Beacon beacon : beacons) {
-            beaconsId.add(beacon.getId());
+        for (Sensor sensor : sensors) {
+            beaconsId.add(sensor.getId());
         }
 
         SiloHistoryDTO siloHistoryDTO = new SiloHistoryDTO(silo.getId(), beaconsId, grainType);

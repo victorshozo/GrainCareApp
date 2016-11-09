@@ -1,28 +1,17 @@
 package usjt.graincare.fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import usjt.graincare.R;
-import usjt.graincare.adapters.BeaconAdapter;
-import usjt.graincare.application.GrainCareSnackBar;
-import usjt.graincare.json.GrainCareApi;
-import usjt.graincare.models.BeaconHistory;
-import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.rest.ReportDTO;
 
 public class GeneralReportFragment extends Fragment {

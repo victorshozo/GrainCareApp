@@ -2,7 +2,6 @@ package usjt.graincare.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,15 +14,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import usjt.graincare.R;
-import usjt.graincare.models.BeaconHistory;
+import usjt.graincare.models.SensorHistory;
 
-public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolderBeacon> {
+public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.ViewHolderBeacon> {
     private Double graoMaxTemperature;
-    private List<BeaconHistory> beacons;
+    private List<SensorHistory> sensors;
     private Context context;
 
-    public BeaconAdapter(List<BeaconHistory> beacons, Double graoMaxTemperature, Context context) {
-        this.beacons = beacons;
+    public SensorAdapter(List<SensorHistory> sensors, Double graoMaxTemperature, Context context) {
+        this.sensors = sensors;
         this.context = context;
         this.graoMaxTemperature = graoMaxTemperature;
     }
@@ -31,16 +30,16 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolder
     @Override
     public ViewHolderBeacon onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflate the layout
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_beacons_details, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_sensors_details, parent, false);
         ButterKnife.bind(this, view);
         return new ViewHolderBeacon(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolderBeacon holder, int position) {
-        String id = Long.toString(beacons.get(position).getBeacon().getId());
-        Double temperature = beacons.get(position).getTemperature();
-        Double humidity = beacons.get(position).getHumidity();
+        String id = Long.toString(sensors.get(position).getSensor().getId());
+        Double temperature = sensors.get(position).getTemperature();
+        Double humidity = sensors.get(position).getHumidity();
 
         //Formatar temperatura e definir cor do cardview
         if (temperature == null) {
@@ -65,7 +64,7 @@ public class BeaconAdapter extends RecyclerView.Adapter<BeaconAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return beacons.size();
+        return sensors.size();
     }
 
     @Override

@@ -17,19 +17,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import usjt.graincare.R;
-import usjt.graincare.adapters.BeaconAdapter;
+import usjt.graincare.adapters.SensorAdapter;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.json.GrainCareApi;
-import usjt.graincare.models.BeaconHistory;
+import usjt.graincare.models.SensorHistory;
 import usjt.graincare.rest.GrainCareRestGenerator;
 
-public class BeaconsFragment extends Fragment {
+public class SensorsFragment extends Fragment {
     @BindView(R.id.RecyclerListBeacons)
     RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_beacons, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_sensors, container, false);
         ButterKnife.bind(this, rootView);
 
         Bundle bundle = this.getArguments();
@@ -38,11 +38,11 @@ public class BeaconsFragment extends Fragment {
 
         GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
 
-        api.listBeaconBySilo(siloId).enqueue(new Callback<List<BeaconHistory>>() {
+        api.listSensorBySilo(siloId).enqueue(new Callback<List<SensorHistory>>() {
             @Override
-            public void onResponse(Call<List<BeaconHistory>> call, Response<List<BeaconHistory>> response) {
+            public void onResponse(Call<List<SensorHistory>> call, Response<List<SensorHistory>> response) {
                 if (response.isSuccessful()) {
-                    BeaconAdapter adapter = new BeaconAdapter(response.body(), graoMaxTemperature, getContext());
+                    SensorAdapter adapter = new SensorAdapter(response.body(), graoMaxTemperature, getContext());
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setHasFixedSize(false);
                     recyclerView.setLayoutManager(layoutManager);
@@ -54,7 +54,7 @@ public class BeaconsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<BeaconHistory>> call, Throwable t) {
+            public void onFailure(Call<List<SensorHistory>> call, Throwable t) {
                 GrainCareSnackBar.show(rootView, "Erro de comunição com o servidor.", Snackbar.LENGTH_SHORT);
             }
         });

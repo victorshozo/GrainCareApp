@@ -1,15 +1,18 @@
 package usjt.graincare.models;
 
-public class BeaconHistory {
+import com.google.gson.annotations.SerializedName;
+
+public class SensorHistory {
     private Long id;
-    private Beacon beacon;
+    @SerializedName("beacon")
+    private Sensor sensor;
     private SiloHistory siloHistory;
     private Double temperature;
     private Double distance;
     private Double humidity;
 
     @Deprecated
-    public BeaconHistory() {
+    public SensorHistory() {
     }
 
     public Long getId() {
@@ -20,12 +23,12 @@ public class BeaconHistory {
         this.id = id;
     }
 
-    public Beacon getBeacon() {
-        return beacon;
+    public Sensor getSensor() {
+        return sensor;
     }
 
-    public void setBeacon(Beacon beacon) {
-        this.beacon = beacon;
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
     }
 
     public SiloHistory getSiloHistory() {

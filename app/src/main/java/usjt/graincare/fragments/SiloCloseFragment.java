@@ -22,7 +22,7 @@ import usjt.graincare.R;
 import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.json.GrainCareApi;
-import usjt.graincare.models.Beacon;
+import usjt.graincare.models.Sensor;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
@@ -39,8 +39,8 @@ public class SiloCloseFragment extends Fragment {
     private static final SiloService siloService = new SiloService();
     @BindView(R.id.spinner_silo)
     Spinner spSilo;
-    @BindView(R.id.spinner_beacons)
-    Spinner spBeacon;
+    @BindView(R.id.spinner_sensors)
+    Spinner spSensors;
     @BindView(R.id.spinner_graos)
     Spinner spGrao;
 
@@ -52,16 +52,13 @@ public class SiloCloseFragment extends Fragment {
         this.drawerInteraction = drawerInteraction;
     }
 
-   /* @BindView(R.id.new_silo_date_closing)
-    DatePicker datePicker;*/
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_silo_close, container, false);
         ButterKnife.bind(this, rootView);
 
         listAvailableSilos();
-        listAvailableBeacons();
+        listAvailableSensors();
 
         ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA));
         spGrao.setAdapter(adapterGrao);
@@ -74,12 +71,12 @@ public class SiloCloseFragment extends Fragment {
 
         //Calendar selectedDate = new GregorianCalendar(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
         Silo selectedSilo = (Silo) spSilo.getSelectedItem();
-        Beacon selectedBeacon = (Beacon) spBeacon.getSelectedItem();
+        Sensor selectedSensor = (Sensor) spSensors.getSelectedItem();
         GrainType selectedGrainType = (GrainType) spGrao.getSelectedItem();
-        List<Beacon> selectedBeacons = new ArrayList<>();
-        selectedBeacons.add(selectedBeacon);
-        //siloService.close(selectedSilo, selectedBeacons, selectedGrainType, selectedDate, new SiloChangedCallback()
-        siloService.close(selectedSilo, selectedBeacons, selectedGrainType, new SiloChangedCallback() {
+        List<Sensor> selectedSensors = new ArrayList<>();
+        selectedSensors.add(selectedSensor);
+        //siloService.close(selectedSilo, selectedSensors, selectedGrainType, selectedDate, new SiloChangedCallback()
+        siloService.close(selectedSilo, selectedSensors, selectedGrainType, new SiloChangedCallback() {
 
             @Override
             public void success() {
@@ -118,13 +115,13 @@ public class SiloCloseFragment extends Fragment {
         });
     }
 
-    public void listAvailableBeacons() {
-        api.listAvailablesBeacons().enqueue(new Callback<List<Beacon>>() {
+    public void listAvailableSensors() {
+        api.listAvailablesSensors().enqueue(new Callback<List<Sensor>>() {
             @Override
-            public void onResponse(Call<List<Beacon>> call, Response<List<Beacon>> response) {
+            public void onResponse(Call<List<Sensor>> call, Response<List<Sensor>> response) {
                 if (response.isSuccessful()) {
-                    ArrayAdapter<Beacon> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
-                    spBeacon.setAdapter(adapterBeacons);
+                    ArrayAdapter<Sensor> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
+                    spSensors.setAdapter(adapterBeacons);
 
                 } else {
                     GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores", Snackbar.LENGTH_SHORT);
@@ -133,7 +130,7 @@ public class SiloCloseFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<Beacon>> call, Throwable t) {
+            public void onFailure(Call<List<Sensor>> call, Throwable t) {
 
             }
         });

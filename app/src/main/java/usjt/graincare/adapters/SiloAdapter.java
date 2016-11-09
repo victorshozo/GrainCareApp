@@ -3,10 +3,8 @@ package usjt.graincare.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,7 +28,7 @@ import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.application.MainActivity;
-import usjt.graincare.fragments.BeaconsFragment;
+import usjt.graincare.fragments.SensorsFragment;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Grao;
 import usjt.graincare.models.Silo;
@@ -239,7 +237,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
     }
 
     private void changeFragment(Long siloId, Grao grao) {
-        BeaconsFragment fragment = new BeaconsFragment();
+        SensorsFragment fragment = new SensorsFragment();
         Bundle args = new Bundle();
         args.putLong("siloId", siloId);
         args.putDouble("graoMaxTemperature", grao.getMaxTemperature());

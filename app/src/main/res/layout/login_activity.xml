@@ -78,9 +78,19 @@
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null" />
 
+            <usjt.graincare.application.GrainCareTextView
+                android:id="@+id/tv_forgot_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:text="@string/forgot_password"
+                android:textColor="@color/colorPrimaryDark"
+                android:paddingTop="10dp"
+                android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_login"

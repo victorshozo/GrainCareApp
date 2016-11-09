@@ -1,6 +1,6 @@
 package usjt.graincare.util;
 
-public interface BeaconChangedCallback {
+public interface SensorChangedCallback {
     void success();
 
     void invalidData();
