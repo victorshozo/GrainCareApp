@@ -91,10 +91,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="15dp"
+                android:paddingLeft="65dp"
+                android:paddingTop="10dp"
                 android:layout_toEndOf="@id/siloID"
                 android:layout_toRightOf="@id/siloID"
-
                 android:src="@mipmap/ic_grain_128x128" />
 
             <usjt.graincare.application.GrainCareTextView

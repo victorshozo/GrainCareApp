@@ -21,6 +21,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <usjt.graincare.application.GrainCareTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:text="Silos"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spn_report_silos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tv_report_title"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
@@ -72,40 +94,26 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginStart="30dp" />
 
-            <usjt.graincare.application.GrainCareTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp"
-                android:text="Silos"
-                android:textSize="20sp" />
-
-            <Spinner
-                android:id="@+id/spn_report_silos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:textColor="@color/colorPrimaryDark"
                 android:layout_gravity="center_vertical"
-                android:textSize="20sp"
-                android:text="Relatório" />
+                android:background="@color/white"
+                android:text="Relatório"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_graphical_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:textColor="@color/colorPrimaryDark"
                 android:layout_gravity="center_vertical"
-                android:textSize="20sp"
-                android:text="Relatório Gráfico" />
+                android:background="@color/white"
+                android:text="Relatório Gráfico"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
-
 </ScrollView>

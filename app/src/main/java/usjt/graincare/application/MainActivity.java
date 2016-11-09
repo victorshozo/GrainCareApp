@@ -24,6 +24,7 @@ import usjt.graincare.R;
 import usjt.graincare.adapters.NavigationAdapter;
 import usjt.graincare.fragments.SiloCloseFragment;
 import usjt.graincare.fragments.SilosFragment;
+import usjt.graincare.util.FontsOverride;
 import usjt.graincare.util.GrainDialog;
 
 public class MainActivity extends AppCompatActivity  implements DrawerInteraction {
@@ -40,8 +41,15 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        //Método que sobrepõe a fonte do sistema pela fonte customizada
+        FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/museo-sans.ttf");
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/museo-sans.ttf");
+        FontsOverride.setDefaultFont(this, "SERIF", "fonts/museo-sans.ttf");
+        FontsOverride.setDefaultFont(this, "SANS_SERIF", "fonts/museo-sans.ttf");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");

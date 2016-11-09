@@ -3,6 +3,7 @@ package usjt.graincare.adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -213,18 +214,17 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                                             silos.remove(siloHistory);
                                         }
                                     }
-
-                                    GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso");
+                                    GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso!");
                                 }
 
                                 @Override
                                 public void invalidData() {
-                                    GrainDialog.showDialog(context, "Erro", "Silo não encontrado ou ja aberto.");
+                                    GrainDialog.showDialog(context, "Erro!", "Silo não encontrado ou ja aberto.");
                                 }
 
                                 @Override
                                 public void error() {
-                                    GrainDialog.showDialog(context, "Erro", "Não foi possível abrir este silo.");
+                                    GrainDialog.showDialog(context, "Erro!", "Não foi possível abrir este silo.");
                                 }
                             });
                         }

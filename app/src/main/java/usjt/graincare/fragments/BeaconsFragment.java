@@ -49,7 +49,7 @@ public class BeaconsFragment extends Fragment {
                     recyclerView.setAdapter(adapter);
                     return;
                 } else {
-                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os beacons.", Snackbar.LENGTH_SHORT);
+                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores.", Snackbar.LENGTH_SHORT);
                 }
             }
 
