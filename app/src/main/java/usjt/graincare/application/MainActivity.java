@@ -1,6 +1,7 @@
 package usjt.graincare.application;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,11 +12,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import butterknife.BindView;
@@ -68,20 +71,47 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
         rvNavigation.setAdapter(navigationAdapter);
         rvNavigation.setBackgroundColor(getResources().getColor(R.color.white));
 
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.frameLayout_content, new SilosFragment());
-        tx.commit();
+        FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+        fragTransaction.replace(R.id.frameLayout_content, new SilosFragment());
+        fragTransaction.commit();
         if (!isNetworkStatusAvailable(getApplicationContext())) {
             GrainDialog.showDialog(getApplicationContext(), "Conexão", "Habilite a internet para poder usar o aplicativo.");
         }
     }
 
-    //Caso o drawer esteja aberto, fecha o drawer antes de sair da aplicação.
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        FrameLayout fl = (FrameLayout) findViewById(R.id.frameLayout_content);
+        if (fl.getChildCount() == 1) {
+            super.onBackPressed();
+            if (fl.getChildCount() == 0) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Close App?")
+                        .setMessage("Do you really want to close this beautiful app?")
+                        .setPositiveButton("YES",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        finish();
+                                    }
+                                })
+                        .setNegativeButton("NO",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                    }
+                                }).show();
+                // load your first Fragment here
+            }
+        } else if (fl.getChildCount() == 0) {
+
+            FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+            fragTransaction.replace(R.id.frameLayout_content, new SilosFragment());
+            fragTransaction.commit();
         } else {
             super.onBackPressed();
         }

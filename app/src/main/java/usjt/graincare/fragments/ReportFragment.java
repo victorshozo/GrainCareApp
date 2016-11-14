@@ -10,7 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -95,7 +99,7 @@ public class ReportFragment extends Fragment {
         reportService.getReport(selectedSilo, startDate, endDate, new ReportCallback() {
             @Override
             public void success(ReportDTO report) {
-                drawerInteraction.changeFragment(new GeneralReportFragment(report));
+                drawerInteraction.changeFragment(new SimplifiedReportFragment(report));
             }
 
             @Override
@@ -117,14 +121,17 @@ public class ReportFragment extends Fragment {
         Calendar startDate = new GregorianCalendar(dtpStart.getYear(), dtpStart.getMonth() + 1, dtpStart.getDayOfMonth());
         Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth() + 1, dtpEnd.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
-        api.getReportSilo(selectedSilo.getId(), sdf.format(startDate), sdf.format(endDate)).enqueue(new Callback<ReportDTO>() {
+
+        drawerInteraction.changeFragment(new GraphicalReportFragment());
+
+       /* api.getReportGraphic(selectedSilo.getId(), sdf.format(startDate), sdf.format(endDate)).enqueue(new Callback<ReportDTO>() {
 
             @Override
             public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {
                 if (response.isSuccessful()) {
                     report = response.body();
                     //exibir todo dto
-                    //drawerInteraction.changeFragment(GeneralReportFragment(report));
+                    //drawerInteraction.changeFragment(SimplifiedReportFragment(report));
                 } else {
                     new GrainDialog();
                 }
@@ -133,7 +140,6 @@ public class ReportFragment extends Fragment {
             @Override
             public void onFailure(Call<ReportDTO> call, Throwable t) {
             }
-        });
+        });*/
     }
-
 }

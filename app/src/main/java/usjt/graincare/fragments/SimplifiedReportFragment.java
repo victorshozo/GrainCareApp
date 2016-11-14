@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.rest.ReportDTO;
 
-public class GeneralReportFragment extends Fragment {
+public class SimplifiedReportFragment extends Fragment {
 
     @BindView(R.id.tv_dt_inicial)
     TextView tvStartDate;
@@ -37,26 +37,26 @@ public class GeneralReportFragment extends Fragment {
 
     private ReportDTO report;
 
-    public GeneralReportFragment(ReportDTO report) {
+    public SimplifiedReportFragment(ReportDTO report) {
         this.report = report;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_report_response, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_report_simplified, container, false);
         ButterKnife.bind(this, rootView);
 
-        final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         tvSiloId.setText(report.getSiloId().toString());
         tvFarmName.setText(report.getFarmName());
         tvStartDate.setText(sdf.format(report.getStartDate().getTime()));
         tvEndDate.setText(sdf.format(report.getEndDate().getTime()));
-        tvTotalHumidityAverage.setText(report.getTotalAverageHumidity().toString());
-        tvTotalTemperatureAverage.setText(report.getTotalTemperatureAverage().toString());
-        tvTotalUsedAverage.setText(report.getTotalPercentUsed().toString());
-        tvProfitAverage.setText(report.getProfit().toString());
-        tvTotalWeight.setText(report.getTotalWeight().toString());
+        tvTotalHumidityAverage.setText(report.getTotalAverageHumidity().toString()+"%");
+        tvTotalTemperatureAverage.setText(report.getTotalTemperatureAverage().toString()+"ºC");
+        tvTotalUsedAverage.setText(report.getTotalPercentUsed().toString() + "%");
+        tvProfitAverage.setText("R$" + report.getProfit().toString());
+        tvTotalWeight.setText(report.getTotalWeight().toString()+"kg");
 
         return rootView;
     }
