@@ -42,7 +42,7 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.ViewHolder
         Double humidity = sensors.get(position).getHumidity();
 
         //Formatar temperatura e definir cor do cardview
-        if (temperature == null) {
+        if (temperature == null || humidity == null) {
             holder.id.setText(id);
             holder.temperature.setText(String.format(0 + " Cº"));
             holder.humidity.setText(String.format("%s%%", 0));
