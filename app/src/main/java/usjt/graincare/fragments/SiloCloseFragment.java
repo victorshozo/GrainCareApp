@@ -22,8 +22,8 @@ import usjt.graincare.R;
 import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.json.GrainCareApi;
-import usjt.graincare.models.Sensor;
 import usjt.graincare.models.GrainType;
+import usjt.graincare.models.Sensor;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.service.SiloService;
@@ -120,8 +120,8 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Sensor>> call, Response<List<Sensor>> response) {
                 if (response.isSuccessful()) {
-                    ArrayAdapter<Sensor> adapterBeacons = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
-                    spSensors.setAdapter(adapterBeacons);
+                    ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
+                    spSensors.setAdapter(adapterSensor);
 
                 } else {
                     GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores", Snackbar.LENGTH_SHORT);

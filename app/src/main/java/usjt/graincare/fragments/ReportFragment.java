@@ -44,7 +44,6 @@ import static usjt.graincare.models.GrainType.SOJA;
 public class ReportFragment extends Fragment {
 
     private static final ReportService reportService = new ReportService();
-    ReportDTO report = new ReportDTO();
     @BindView(R.id.spn_report_silos)
     Spinner spnSilos;
 
@@ -68,7 +67,7 @@ public class ReportFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         //Listar os silos
-        api.listSilos().enqueue(new Callback<List<Silo>>() {
+        api.listSilosAbertos().enqueue(new Callback<List<Silo>>() {
             @Override
             public void onResponse(Call<List<Silo>> call, Response<List<Silo>> response) {
                 if (response.isSuccessful()) {
@@ -81,7 +80,7 @@ public class ReportFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Silo>> call, Throwable t) {
-
+                GrainCareSnackBar.show(rootView, "Conexão perdida com o servidor", Snackbar.LENGTH_SHORT);
             }
         });
 
@@ -93,8 +92,8 @@ public class ReportFragment extends Fragment {
 
     @OnClick(R.id.btn_report)
     public void generateReport() {
-        Calendar startDate = new GregorianCalendar(dtpStart.getYear(), dtpStart.getMonth() + 1, dtpStart.getDayOfMonth());
-        Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth() + 1, dtpEnd.getDayOfMonth());
+        Calendar startDate = new GregorianCalendar(dtpStart.getYear(), dtpStart.getMonth(), dtpStart.getDayOfMonth());
+        Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth(), dtpEnd.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
         reportService.getReport(selectedSilo, startDate, endDate, new ReportCallback() {
             @Override

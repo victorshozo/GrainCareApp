@@ -57,6 +57,13 @@ public interface GrainCareApi {
             @Query("endDate") String reportEnd
     );
 
+    @POST("silos/{siloId}/report/email")
+    Call<Void> sendEmailReport(
+            @Path("siloId") Long siloID,
+            @Query("startDate") String reportStart,
+            @Query("endDate") String reportEnd
+    );
+
     @FormUrlEncoded
     @POST("/login")
     Call<Void> login(

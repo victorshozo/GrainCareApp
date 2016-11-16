@@ -22,16 +22,16 @@ public class ReportService {
         api = GrainCareRestGenerator.create(GrainCareApi.class);
     }
 
-    public void getReport(Silo silo, Calendar dtInicial, Calendar dtFinal, final ReportCallback callback) {
+    public void getReport(Silo silo, final Calendar dtInicial, Calendar dtFinal, final ReportCallback callback) {
 
-        String startDateTime = sdf.format(dtInicial.getTime());
+        final String startDateTime = sdf.format(dtInicial.getTime());
         String endDateTime = sdf.format(dtFinal.getTime());
 
         api.getReportSilo(silo.getId(), startDateTime, endDateTime).enqueue(new Callback<ReportDTO>() {
-
             @Override
             public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {
                 if (response.isSuccessful()) {
+                    response.body().setStartDate(dtInicial);
                     callback.success(response.body());
                 } else {
                     callback.invalidData();

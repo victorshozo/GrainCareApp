@@ -19,4 +19,5 @@
         android:textColor="@color/white"
         android:textSize="24dp"
         android:textStyle="bold" />
+
 </android.support.v7.widget.Toolbar>

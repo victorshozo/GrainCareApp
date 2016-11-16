@@ -212,6 +212,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
                                             silos.remove(siloHistory);
                                         }
                                     }
+                                    notifyDataSetChanged();
                                     GrainDialog.showDialog(context, "Pronto!", "Silo aberto com sucesso!");
                                 }
 
