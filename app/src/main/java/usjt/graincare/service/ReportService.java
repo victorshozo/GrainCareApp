@@ -1,5 +1,7 @@
 package usjt.graincare.service;
 
+import android.content.Context;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -11,6 +13,7 @@ import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.rest.ReportDTO;
 import usjt.graincare.silo.SiloChangedCallback;
+import usjt.graincare.util.GrainDialog;
 
 public class ReportService {
 
@@ -31,8 +34,12 @@ public class ReportService {
             @Override
             public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {
                 if (response.isSuccessful()) {
-                    response.body().setStartDate(dtInicial);
-                    callback.success(response.body());
+                    if (response.body().getDataSize()==0) {
+                        callback.isEmpty();
+                    } else {
+                        response.body().setStartDate(dtInicial);
+                        callback.success(response.body());
+                    }
                 } else {
                     callback.invalidData();
                 }

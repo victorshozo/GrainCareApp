@@ -64,7 +64,7 @@ public interface GrainCareApi {
             @Query("endDate") String reportEnd
     );
 
-    @POST("logout/")
+    @POST("/logout")
     Call<Void> logout();
 
 

@@ -16,7 +16,8 @@ public class ReportDTO {
     private Long siloId;
     @SerializedName("farmName")
     private String farmName;
-
+    @SerializedName("data")
+    private Integer[] data;
     @SerializedName("totalAverageTemperature")
     private Double totalTemperatureAverage;
     @SerializedName("totalAverageHumidity")
@@ -109,4 +110,6 @@ public class ReportDTO {
     public void setTotalWeight(Double totalWeight) {
         this.totalWeight = totalWeight;
     }
+
+    public Integer getDataSize() {return data.length;}
 }

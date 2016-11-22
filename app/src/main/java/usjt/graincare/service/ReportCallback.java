@@ -5,6 +5,8 @@ import usjt.graincare.rest.ReportDTO;
 public interface ReportCallback {
     void success(ReportDTO body);
 
+    void isEmpty();
+
     void invalidData();
 
     void error();

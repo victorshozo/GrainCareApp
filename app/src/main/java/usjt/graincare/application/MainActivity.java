@@ -2,11 +2,13 @@ package usjt.graincare.application;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -23,12 +25,19 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.adapters.NavigationAdapter;
+import usjt.graincare.adapters.SiloAdapter;
 import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.json.GrainCareApi;
+import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.util.FontsOverride;
 import usjt.graincare.util.GrainDialog;
@@ -171,7 +180,21 @@ public class MainActivity extends AppCompatActivity implements DrawerInteraction
                         .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
-                                api.logout();
+                                api.logout().enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        if (response.isSuccessful()) {
+                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+                                    }
+                                });
+
                             }
                         })
                         .setNegativeButton("Não", new DialogInterface.OnClickListener() {

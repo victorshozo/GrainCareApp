@@ -67,7 +67,7 @@ public class ReportFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         //Listar os silos
-        api.listSilosAbertos().enqueue(new Callback<List<Silo>>() {
+        api.listSilos().enqueue(new Callback<List<Silo>>() {
             @Override
             public void onResponse(Call<List<Silo>> call, Response<List<Silo>> response) {
                 if (response.isSuccessful()) {
@@ -102,13 +102,18 @@ public class ReportFragment extends Fragment {
             }
 
             @Override
+            public void isEmpty() {
+                GrainDialog.showDialog(getContext(), "Dados", "Não existem dados para o periodo pesquisado.");
+            }
+
+            @Override
             public void invalidData() {
-                GrainDialog.showDialog(getContext(), "Erro", "Não deu certo");
+                GrainDialog.showDialog(getContext(), "", "");
             }
 
             @Override
             public void error() {
-                GrainDialog.showDialog(getContext(), "Erro", "Erro erro.");
+                GrainDialog.showDialog(getContext(), "Conexão", "Problemas de comunicação com o servidor.");
             }
         });
     }
