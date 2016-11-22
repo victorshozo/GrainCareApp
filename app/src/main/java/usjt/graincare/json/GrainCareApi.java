@@ -21,16 +21,16 @@ import usjt.graincare.rest.SiloPredictionDTO;
 public interface GrainCareApi {
 
     @GET("/silos/history")
-    Call<List<SiloHistory>> listSilosHistory( );
+    Call<List<SiloHistory>> listSilosHistory();
 
     @GET("/silos")
-    Call<List<Silo>> listSilos( );
+    Call<List<Silo>> listSilos();
 
     @GET("/silos/history/closed")
-    Call<List<SiloHistory>> listSilosHistoryFechados( );
+    Call<List<SiloHistory>> listSilosHistoryFechados();
 
     @GET("/silos/available")
-    Call<List<Silo>> listSilosAbertos( );
+    Call<List<Silo>> listSilosAbertos();
 
     @GET("/silo/{siloId}/capacity")
     Call<Double> getCapacitySilo(@Path("siloId") Long siloID);
@@ -39,16 +39,16 @@ public interface GrainCareApi {
     Call<SiloPredictionDTO> getPredictionSilo(@Path("siloId") Long siloID);
 
     @POST("/silo/{siloId}/open")
-    Call<Void> openSilo(@Path("siloId") Long siloId );
+    Call<Void> openSilo(@Path("siloId") Long siloId);
 
     @POST("/silo/history")
     Call<Void> closeSilo(@Body SiloHistoryDTO body);
 
     @GET("/beacons/available")
-    Call<List<Sensor>> listAvailablesSensors( );
+    Call<List<Sensor>> listAvailablesSensors();
 
     @GET("/beacons/silo/{siloId}")
-    Call<List<SensorHistory>> listSensorBySilo(@Path("siloId") Long SiloID );
+    Call<List<SensorHistory>> listSensorBySilo(@Path("siloId") Long SiloID);
 
     @GET("/silos/{siloId}/report")
     Call<ReportDTO> getReportSilo(
@@ -63,6 +63,10 @@ public interface GrainCareApi {
             @Query("startDate") String reportStart,
             @Query("endDate") String reportEnd
     );
+
+    @POST("logout/")
+    Call<Void> logout();
+
 
     @FormUrlEncoded
     @POST("/login")

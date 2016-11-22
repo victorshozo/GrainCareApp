@@ -3,13 +3,12 @@ package usjt.graincare.application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -17,20 +16,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import usjt.graincare.R;
 import usjt.graincare.adapters.NavigationAdapter;
-import usjt.graincare.fragments.SiloCloseFragment;
 import usjt.graincare.fragments.SilosFragment;
+import usjt.graincare.json.GrainCareApi;
+import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.util.FontsOverride;
 import usjt.graincare.util.GrainDialog;
 
-public class MainActivity extends AppCompatActivity  implements DrawerInteraction {
+public class MainActivity extends AppCompatActivity implements DrawerInteraction {
 
     private ActionBarDrawerToggle drawerToggle;
 
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
         rvNavigation.setLayoutManager(new LinearLayoutManager(this));
         rvNavigation.setAdapter(navigationAdapter);
         rvNavigation.setBackgroundColor(getResources().getColor(R.color.white));
+
 
         FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
         fragTransaction.replace(R.id.frameLayout_content, new SilosFragment());
@@ -147,6 +151,43 @@ public class MainActivity extends AppCompatActivity  implements DrawerInteractio
                     return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.logout:
+                new android.app.AlertDialog.Builder(this)
+                        .setIcon(R.drawable.ic_question_green_64x64)
+                        .setMessage("Deseja realmente sair?")
+                        .setTitle("Logout")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
+                                api.logout();
+                            }
+                        })
+                        .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+            return true;
+            case R.id.help:
+                GrainDialog.showDialog(getApplicationContext(), "Ajuda?", "Caso tenha encontrado alguma problema com nosso app. Por favor, contate-nos pelo graincareapp1@gmail.com e entraremos em contato o mais rápido possível. :)");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
     @Override
