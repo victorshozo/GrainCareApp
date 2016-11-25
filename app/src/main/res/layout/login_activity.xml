@@ -88,6 +88,8 @@
                 android:text="@string/forgot_password"
                 android:textColor="@color/colorPrimaryDark"
                 android:paddingTop="10dp"
+                android:onClick="onClick"
+                android:clickable="true"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>

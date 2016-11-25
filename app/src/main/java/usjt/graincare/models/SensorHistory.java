@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class SensorHistory {
     private Long id;
-    @SerializedName("beacon")
+    @SerializedName("sensor")
     private Sensor sensor;
     private SiloHistory siloHistory;
     private Double temperature;

@@ -40,6 +40,8 @@ public class Silo {
 
     @Override
     public String toString() {
-        return "Silo" + this.id;
+        return "Silo " + this.id;
     }
+
+
 }

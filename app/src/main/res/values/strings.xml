@@ -8,6 +8,7 @@
     <string name="email">Email</string>
     <string name="informe_suas_credenciais">Informe suas credenciais</string>
     <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="informe_seu_email">Informe seu e-mail</string>
     <string name="password">Senha</string>
     <string name="loading">Carregando, por favor aguarde...</string>
     <string name="abrir_silo">Deseja realmente abrir o Silo?</string>

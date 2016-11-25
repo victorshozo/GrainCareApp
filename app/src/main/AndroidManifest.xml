@@ -28,5 +28,9 @@
             android:name=".application.LoginActivity"
             android:label="@string/login"
             />
+        <activity
+            android:name=".application.ForgotPasswordActivity"
+            android:label="Grain Care Password"
+            />
     </application>
 </manifest>

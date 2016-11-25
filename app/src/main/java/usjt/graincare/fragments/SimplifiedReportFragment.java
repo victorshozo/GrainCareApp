@@ -92,7 +92,7 @@ public class SimplifiedReportFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                    GrainDialog.showDialog(getContext(), "INTERNET", "Não pudemos nos comunicar com o servidor.");
+                GrainDialog.showDialog(getContext(), "INTERNET", "Não pudemos nos comunicar com o servidor.");
             }
         });
     }

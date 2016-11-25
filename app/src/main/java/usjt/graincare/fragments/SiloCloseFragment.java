@@ -21,6 +21,7 @@ import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
+import usjt.graincare.application.MainActivity;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Sensor;
@@ -33,6 +34,7 @@ import usjt.graincare.util.GrainDialog;
 import static java.util.Arrays.asList;
 import static usjt.graincare.models.GrainType.MILHO;
 import static usjt.graincare.models.GrainType.SOJA;
+import static usjt.graincare.models.GrainType.SORGO;
 
 public class SiloCloseFragment extends Fragment {
 
@@ -60,7 +62,7 @@ public class SiloCloseFragment extends Fragment {
         listAvailableSilos();
         listAvailableSensors();
 
-        ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA));
+        ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA, SORGO));
         spGrao.setAdapter(adapterGrao);
 
         return rootView;
@@ -91,7 +93,7 @@ public class SiloCloseFragment extends Fragment {
 
             @Override
             public void error() {
-                GrainDialog.showDialog(getContext(), "Erro", "Erro erro.");
+                GrainDialog.showDialog(getContext(), "Internet", "Problemas de conexão com o servidor.");
             }
         });
     }
@@ -101,8 +103,13 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Silo>> call, Response<List<Silo>> response) {
                 if (response.isSuccessful()) {
-                    ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
-                    spSilo.setAdapter(adapterSilos);
+                    if (response.body().isEmpty()) {
+                        GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem silos disponíveis para o cadastro.");
+                        drawerInteraction.changeFragment(new SilosFragment());
+                    } else {
+                        ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
+                        spSilo.setAdapter(adapterSilos);
+                    }
                 } else {
                     GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
                 }
@@ -110,7 +117,7 @@ public class SiloCloseFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Silo>> call, Throwable t) {
-
+                GrainCareSnackBar.show(rootView, "Problemas de conexão com o servidor.", Snackbar.LENGTH_SHORT);
             }
         });
     }
@@ -120,17 +127,23 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Sensor>> call, Response<List<Sensor>> response) {
                 if (response.isSuccessful()) {
-                    ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
-                    spSensors.setAdapter(adapterSensor);
+                    if (response.body().isEmpty()) {
+                        GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
+                        drawerInteraction.changeFragment(new SilosFragment());
+                    } else {
+                        ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
+                        spSensors.setAdapter(adapterSensor);
+                    }
 
                 } else {
-                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores", Snackbar.LENGTH_SHORT);
+                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores.", Snackbar.LENGTH_SHORT);
 
                 }
             }
 
             @Override
             public void onFailure(Call<List<Sensor>> call, Throwable t) {
+                GrainCareSnackBar.show(rootView, "Problemas de conexão com o servidor.", Snackbar.LENGTH_SHORT);
 
             }
         });

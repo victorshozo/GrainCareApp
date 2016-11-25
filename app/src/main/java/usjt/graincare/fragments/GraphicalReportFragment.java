@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,16 +22,13 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import usjt.graincare.R;
-import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.json.GrainCareApi;
+import usjt.graincare.models.GraphicDTO;
+import usjt.graincare.models.GraphicPointDTO;
 import usjt.graincare.rest.GrainCareRestGenerator;
 
 public class GraphicalReportFragment extends Fragment {
-
-
     private final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
 
     @Override

@@ -34,12 +34,8 @@ public class ReportService {
             @Override
             public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {
                 if (response.isSuccessful()) {
-                    if (response.body().getDataSize()==0) {
-                        callback.isEmpty();
-                    } else {
                         response.body().setStartDate(dtInicial);
                         callback.success(response.body());
-                    }
                 } else {
                     callback.invalidData();
                 }
@@ -47,6 +43,7 @@ public class ReportService {
 
             @Override
             public void onFailure(Call<ReportDTO> call, Throwable t) {
+
                 callback.error();
             }
         });

@@ -37,6 +37,7 @@ public class GrainDialog {
             TextView tvMessage = (TextView) alert.findViewById(android.R.id.message);
             Typeface face=Typeface.createFromAsset(context.getResources().getAssets(),"fonts/museo-sans.ttf");
             tvMessage.setTypeface(face);
+            alert.show();
         } catch (Exception e) {
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }
