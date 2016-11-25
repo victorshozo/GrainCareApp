@@ -1,7 +1,7 @@
 package usjt.graincare.models;
 
 public class GraphicPointDTO {
-    private Long x;
+    private long x;
     private Double y;
 
     public Long getX() {

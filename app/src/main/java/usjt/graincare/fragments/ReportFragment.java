@@ -10,11 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineDataSet;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -30,6 +26,7 @@ import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.GrainType;
+import usjt.graincare.models.GraphicDTO;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.rest.ReportDTO;
@@ -126,24 +123,19 @@ public class ReportFragment extends Fragment {
         Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth() + 1, dtpEnd.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
 
-        drawerInteraction.changeFragment(new GraphicalReportFragment());
 
-       /* api.getReportGraphic(selectedSilo.getId(), sdf.format(startDate), sdf.format(endDate)).enqueue(new Callback<ReportDTO>() {
+        api.getGraphicData(selectedSilo.getId(), sdf.format(startDate.getTime()), sdf.format(endDate.getTime())).enqueue(new Callback<GraphicDTO>() {
 
             @Override
-            public void onResponse(Call<ReportDTO> call, Response<ReportDTO> response) {
+            public void onResponse(Call<GraphicDTO> call, Response<GraphicDTO> response) {
                 if (response.isSuccessful()) {
-                    report = response.body();
-                    //exibir todo dto
-                    //drawerInteraction.changeFragment(SimplifiedReportFragment(report));
-                } else {
-                    new GrainDialog();
+                    drawerInteraction.changeFragment(new GraphicalReportFragment(response.body()));
+
                 }
             }
-
             @Override
-            public void onFailure(Call<ReportDTO> call, Throwable t) {
+            public void onFailure(Call<GraphicDTO> call, Throwable t) {
             }
-        });*/
+        });
     }
 }

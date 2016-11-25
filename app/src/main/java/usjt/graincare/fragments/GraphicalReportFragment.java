@@ -19,6 +19,8 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,37 +32,56 @@ import usjt.graincare.rest.GrainCareRestGenerator;
 
 public class GraphicalReportFragment extends Fragment {
     private final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
+    GraphicDTO report;
+
+    public GraphicalReportFragment(GraphicDTO body) {
+        report = body;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_report_graphic, container, false);
         LineChart chart = (LineChart) rootView.findViewById(R.id.chart);
 
-        List<Entry> temp = new ArrayList<Entry>();
-        List<Entry> humi = new ArrayList<Entry>();
-        for (int cont = 0; cont < 7; cont++) {
+        List<Entry> entriesTemperatures = new ArrayList<>();
+        List<Entry> entriesHumidities = new ArrayList<>();
+
+        for (GraphicPointDTO gpdTemperaturas : report.getTemperatures()) {
+            NumberFormat formatter = new DecimalFormat("#0,00");
+            String format = formatter.format(gpdTemperaturas.getY());
+            entriesTemperatures.add(new Entry(gpdTemperaturas.getX().floatValue(), Float.valueOf(format)));
+        }
+
+        //está vindo em branco
+        for (GraphicPointDTO gpdHumidities : report.getHumidities()) {
+            NumberFormat formatter = new DecimalFormat("#0,00");
+            String format = formatter.format(gpdHumidities.getY());
+            entriesHumidities.add(new Entry(gpdHumidities.getX().floatValue(), Float.valueOf(format)));
+        }
+
+        /*for (int cont = 0; cont < 7; cont++) {
             double randNumber = Math.random();
             float ddd = (float) (randNumber * 100);
             // turn your data into Entry objects
-            temp.add(new Entry(cont, ddd));
+            entriesTemperatures.add(new Entry(cont, ddd));
         }
 
         for (int cont = 0; cont < 7; cont++) {
             double randNumber = Math.random();
             float ddd = (float) (randNumber * 100);
             // turn your data into Entry objects
-            humi.add(new Entry(cont, ddd));
-        }
+            entriesHumidities.add(new Entry(cont, ddd));
+        }*/
 
 
-        LineDataSet setTemp = new LineDataSet(temp, "Temperatura (ºC)");
+        LineDataSet setTemp = new LineDataSet(entriesTemperatures, "Temperatura (ºC)");
         setTemp.setAxisDependency(YAxis.AxisDependency.LEFT);
         setTemp.setColors(ColorTemplate.rgb("#b30000"));
         setTemp.setCircleColors(ColorTemplate.rgb("#b30000"));
         setTemp.setCircleColorHole(ColorTemplate.rgb("#b30000"));
         setTemp.setValueTypeface(Typeface.MONOSPACE);
 
-        LineDataSet setHum = new LineDataSet(humi, "Humidade (%)");
+        LineDataSet setHum = new LineDataSet(entriesHumidities, "Humidade (%)");
         setHum.setAxisDependency(YAxis.AxisDependency.LEFT);
         setHum.setColors(ColorTemplate.rgb("#0066ff"));
         setHum.setCircleColors(ColorTemplate.rgb("#0066ff"));
@@ -68,7 +89,7 @@ public class GraphicalReportFragment extends Fragment {
         setHum.setValueTypeface(Typeface.MONOSPACE);
 
         // use the interface ILineDataSet
-        List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
+        List<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(setTemp);
         dataSets.add(setHum);
 
@@ -81,13 +102,19 @@ public class GraphicalReportFragment extends Fragment {
         chart.setNoDataText("Não há dados para o periodo selecionado");
         chart.setDrawGridBackground(true);
         // the labels that should be drawn on the XAxis
-        final String[] quarters = new String[]{"1", "2", "3", "4", "5", "6", "7"};
+
+//        final String[] quarters = new String[]{"1", "2", "3", "4", "5", "6", "7"};
+        final String[] days = new String[(int)report.getDays()];
+        int day = 0;
+        for (int count = 0; count < report.getDays(); count++) {
+            days[count] = Integer.toString(day + 1);
+            day++;
+        }
 
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
-
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return quarters[(int) value];
+                return days[(int) value];
             }
 
             // we don't draw numbers, so no decimal digits needed

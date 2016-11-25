@@ -13,11 +13,11 @@ public class GraphicDTO {
     @SerializedName("endDate")
     private Calendar endDate;
     @SerializedName("days")
-    private Integer days;
+    private long days;
     @SerializedName("temperatures")
-    private List<GraphicPointDTO> temperatures = new ArrayList<>();
-    @SerializedName("humidity")
-    private List<GraphicPointDTO> humidities = new ArrayList<>();
+    private List<GraphicPointDTO> temperatures = new ArrayList<GraphicPointDTO>();
+    @SerializedName("humidities")
+    private List<GraphicPointDTO> humidities = new ArrayList<GraphicPointDTO>();
 
     public Calendar getStartDate() {
         return startDate;
@@ -35,7 +35,7 @@ public class GraphicDTO {
         this.endDate = endDate;
     }
 
-    public Integer getDays() {
+    public long getDays() {
         return days;
     }
 
