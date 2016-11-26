@@ -47,16 +47,12 @@ public class GraphicalReportFragment extends Fragment {
         List<Entry> entriesHumidities = new ArrayList<>();
 
         for (GraphicPointDTO gpdTemperaturas : report.getTemperatures()) {
-            NumberFormat formatter = new DecimalFormat("#0,00");
-            String format = formatter.format(gpdTemperaturas.getY());
-            entriesTemperatures.add(new Entry(gpdTemperaturas.getX().floatValue(), Float.valueOf(format)));
+            entriesTemperatures.add(new Entry(gpdTemperaturas.getX().floatValue(), gpdTemperaturas.getY().floatValue()));
         }
 
         //está vindo em branco
         for (GraphicPointDTO gpdHumidities : report.getHumidities()) {
-            NumberFormat formatter = new DecimalFormat("#0,00");
-            String format = formatter.format(gpdHumidities.getY());
-            entriesHumidities.add(new Entry(gpdHumidities.getX().floatValue(), Float.valueOf(format)));
+            entriesHumidities.add(new Entry(gpdHumidities.getX().floatValue(), gpdHumidities.getY().floatValue()));
         }
 
         /*for (int cont = 0; cont < 7; cont++) {
@@ -79,6 +75,7 @@ public class GraphicalReportFragment extends Fragment {
         setTemp.setColors(ColorTemplate.rgb("#b30000"));
         setTemp.setCircleColors(ColorTemplate.rgb("#b30000"));
         setTemp.setCircleColorHole(ColorTemplate.rgb("#b30000"));
+        setTemp.setLineWidth(4);
         setTemp.setValueTypeface(Typeface.MONOSPACE);
 
         LineDataSet setHum = new LineDataSet(entriesHumidities, "Humidade (%)");
@@ -86,6 +83,7 @@ public class GraphicalReportFragment extends Fragment {
         setHum.setColors(ColorTemplate.rgb("#0066ff"));
         setHum.setCircleColors(ColorTemplate.rgb("#0066ff"));
         setHum.setCircleColorHole(ColorTemplate.rgb("#0066ff"));
+        setHum.setLineWidth(4);
         setHum.setValueTypeface(Typeface.MONOSPACE);
 
         // use the interface ILineDataSet
@@ -105,7 +103,29 @@ public class GraphicalReportFragment extends Fragment {
 
 //        final String[] quarters = new String[]{"1", "2", "3", "4", "5", "6", "7"};
 
+        final List<String> numbers = new ArrayList<>();
+        for (int i = 0; i < report.getDays(); i++) {
+            numbers.add(i + "");
+        }
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return numbers.get((int) value-1);
+            }
+
+            // we don't draw numbers, so no decimal digits needed
+            @Override
+            public int getDecimalDigits() {
+                return 0;
+            }
+        };
+
         XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+
+        xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(Typeface.MONOSPACE);
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
@@ -118,4 +138,6 @@ public class GraphicalReportFragment extends Fragment {
 
         return rootView;
     }
+
 }
+
