@@ -92,54 +92,58 @@ public class ReportFragment extends Fragment {
         Calendar startDate = new GregorianCalendar(dtpStart.getYear(), dtpStart.getMonth(), dtpStart.getDayOfMonth());
         Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth(), dtpEnd.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
-        reportService.getReport(selectedSilo, startDate, endDate, new ReportCallback() {
-            @Override
-            public void success(ReportDTO report) {
-                drawerInteraction.changeFragment(new SimplifiedReportFragment(report));
-            }
-
-            @Override
-            public void isEmpty() {
-                GrainDialog.showDialog(getContext(), "Dados", "Não existem dados para o periodo pesquisado.");
-            }
-
-            @Override
-            public void invalidData() {
-                GrainDialog.showDialog(getContext(), "", "");
-            }
-
-            @Override
-            public void error() {
-                GrainDialog.showDialog(getContext(), "Conexão", "Problemas de comunicação com o servidor.");
-            }
-        });
-    }
-
-    @OnClick(R.id.btn_graphical_report)
-    public void generateGraphicalReport() {
-        final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        Calendar startDate = new GregorianCalendar(dtpStart.getYear(), dtpStart.getMonth() + 1, dtpStart.getDayOfMonth());
-        Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth() + 1, dtpEnd.getDayOfMonth());
-        Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
-
-        if (endDate.compareTo(startDate) > 0 || startDate.compareTo((endDate)) < 0) {
-            GrainDialog.showDialog(getContext(), "Cuidado!", "Data final maior que a data inicial.");
+        if (endDate.getTime().compareTo(startDate.getTime()) < 0) {
+            GrainDialog.showDialog(getContext(), "Cuidado!", "Data final menor que a data inicial.");
         } else {
-            api.getGraphicData(selectedSilo.getId(), sdf.format(startDate.getTime()), sdf.format(endDate.getTime())).enqueue(new Callback<GraphicDTO>() {
-
-                @Override
-                public void onResponse(Call<GraphicDTO> call, Response<GraphicDTO> response) {
-                    if (response.isSuccessful()) {
-                        drawerInteraction.changeFragment(new GraphicalReportFragment(response.body()));
+                reportService.getReport(selectedSilo, startDate, endDate, new ReportCallback() {
+                    @Override
+                    public void success(ReportDTO report) {
+                        drawerInteraction.changeFragment(new SimplifiedReportFragment(report));
                     }
-                }
 
-                @Override
-                public void onFailure(Call<GraphicDTO> call, Throwable t) {
-                }
-            });
+                    @Override
+                    public void isEmpty() {
+                        GrainDialog.showDialog(getContext(), "Dados", "Não existem dados para o periodo pesquisado.");
+                    }
+
+                    @Override
+                    public void invalidData() {
+                        GrainDialog.showDialog(getContext(), "", "");
+                    }
+
+                    @Override
+                    public void error() {
+                        GrainDialog.showDialog(getContext(), "Conexão", "Problemas de comunicação com o servidor.");
+                    }
+                });
+            }
         }
-    }
 
-}
+        @OnClick(R.id.btn_graphical_report)
+        public void generateGraphicalReport () {
+            final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            Calendar startDate = new GregorianCalendar(dtpStart.getYear(), dtpStart.getMonth() + 1, dtpStart.getDayOfMonth());
+            Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth() + 1, dtpEnd.getDayOfMonth());
+            Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
+
+            if (endDate.compareTo(startDate) > 0) {
+                GrainDialog.showDialog(getContext(), "Cuidado!", "Data final maior que a data inicial.");
+            } else {
+                api.getGraphicData(selectedSilo.getId(), sdf.format(startDate.getTime()), sdf.format(endDate.getTime())).enqueue(new Callback<GraphicDTO>() {
+
+                    @Override
+                    public void onResponse(Call<GraphicDTO> call, Response<GraphicDTO> response) {
+                        if (response.isSuccessful()) {
+                            drawerInteraction.changeFragment(new GraphicalReportFragment(response.body()));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GraphicDTO> call, Throwable t) {
+                    }
+                });
+            }
+        }
+
+    }
