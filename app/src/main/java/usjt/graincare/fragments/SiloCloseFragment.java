@@ -106,6 +106,7 @@ public class SiloCloseFragment extends Fragment {
                     if (response.body().isEmpty()) {
                         GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem silos disponíveis para o cadastro.");
                         drawerInteraction.changeFragment(new FarmFragment());
+                        return;
                     } else {
                         ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
                         spSilo.setAdapter(adapterSilos);
@@ -130,6 +131,7 @@ public class SiloCloseFragment extends Fragment {
                     if (response.body().isEmpty()) {
                         GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
                         drawerInteraction.changeFragment(new FarmFragment());
+                        return;
                     } else {
                         ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
                         spSensors.setAdapter(adapterSensor);
