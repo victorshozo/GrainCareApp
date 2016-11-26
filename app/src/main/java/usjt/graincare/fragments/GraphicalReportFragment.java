@@ -19,8 +19,6 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,21 +53,6 @@ public class GraphicalReportFragment extends Fragment {
             entriesHumidities.add(new Entry(gpdHumidities.getX().floatValue(), gpdHumidities.getY().floatValue()));
         }
 
-        /*for (int cont = 0; cont < 7; cont++) {
-            double randNumber = Math.random();
-            float ddd = (float) (randNumber * 100);
-            // turn your data into Entry objects
-            entriesTemperatures.add(new Entry(cont, ddd));
-        }
-
-        for (int cont = 0; cont < 7; cont++) {
-            double randNumber = Math.random();
-            float ddd = (float) (randNumber * 100);
-            // turn your data into Entry objects
-            entriesHumidities.add(new Entry(cont, ddd));
-        }*/
-
-
         LineDataSet setTemp = new LineDataSet(entriesTemperatures, "Temperatura (ºC)");
         setTemp.setAxisDependency(YAxis.AxisDependency.LEFT);
         setTemp.setColors(ColorTemplate.rgb("#b30000"));
@@ -99,9 +82,6 @@ public class GraphicalReportFragment extends Fragment {
         chart.setNoDataTextTypeface(Typeface.MONOSPACE);
         chart.setNoDataText("Não há dados para o periodo selecionado");
         chart.setDrawGridBackground(true);
-        // the labels that should be drawn on the XAxis
-
-//        final String[] quarters = new String[]{"1", "2", "3", "4", "5", "6", "7"};
 
         final List<String> numbers = new ArrayList<>();
         for (int i = 0; i < report.getDays(); i++) {
@@ -111,7 +91,7 @@ public class GraphicalReportFragment extends Fragment {
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return numbers.get((int) value-1);
+                return numbers.get((int) value - 1);
             }
 
             // we don't draw numbers, so no decimal digits needed
@@ -134,7 +114,6 @@ public class GraphicalReportFragment extends Fragment {
         leftAxis.setTypeface(Typeface.MONOSPACE);
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setTypeface(Typeface.MONOSPACE);
-
 
         return rootView;
     }
