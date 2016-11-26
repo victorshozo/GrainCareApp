@@ -1,7 +1,5 @@
 package usjt.graincare.service;
 
-import android.content.Context;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -11,9 +9,7 @@ import retrofit2.Response;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
-import usjt.graincare.rest.ReportDTO;
-import usjt.graincare.silo.SiloChangedCallback;
-import usjt.graincare.util.GrainDialog;
+import usjt.graincare.models.ReportDTO;
 
 public class ReportService {
 

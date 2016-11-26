@@ -17,29 +17,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import usjt.graincare.R;
-import usjt.graincare.adapters.SiloAdapter;
+import usjt.graincare.adapters.FarmAdapter;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.json.GrainCareApi;
-import usjt.graincare.models.SiloHistory;
+import usjt.graincare.models.Farm;
 import usjt.graincare.rest.GrainCareRestGenerator;
 
 public class FarmFragment extends Fragment {
 
-    @BindView(R.id.RecyclerListSilos)
+    @BindView(R.id.RecyclerListFarms)
     RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_silos, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_farms, container, false);
         ButterKnife.bind(this, rootView);
 
         GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
-
-        api.listSilosHistoryFechados().enqueue(new Callback<List<SiloHistory>>() {
+        api.listFarms().enqueue(new Callback<List<Farm>>() {
             @Override
-            public void onResponse(Call<List<SiloHistory>> call, Response<List<SiloHistory>> response) {
+            public void onResponse(Call<List<Farm>> call, Response<List<Farm>> response) {
                 if (response.isSuccessful()) {
-                    SiloAdapter adapter = new SiloAdapter(response.body(), getContext());
+                    FarmAdapter adapter = new FarmAdapter(response.body(), getContext());
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setHasFixedSize(false);
                     recyclerView.setLayoutManager(layoutManager);
@@ -51,7 +50,7 @@ public class FarmFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<SiloHistory>> call, Throwable t) {
+            public void onFailure(Call<List<Farm>> call, Throwable t) {
                 GrainCareSnackBar.show(rootView, "Sem conexão com o servidor.", Snackbar.LENGTH_SHORT);
             }
         });

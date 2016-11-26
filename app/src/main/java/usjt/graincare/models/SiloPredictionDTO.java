@@ -1,4 +1,4 @@
-package usjt.graincare.rest;
+package usjt.graincare.models;
 
 import com.google.gson.annotations.SerializedName;
 

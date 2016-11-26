@@ -1,4 +1,4 @@
-package usjt.graincare.rest;
+package usjt.graincare.models;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,22 +10,22 @@ import usjt.graincare.models.GrainType;
 public class SiloHistoryDTO {
     @SerializedName("siloId")
     private Long siloId;
-    @SerializedName("beaconsId")
-    private List<Long> beaconsId;
+    @SerializedName("sensorsId")
+    private List<Long> sensorsId;
     @SerializedName("grainType")
     private GrainType grainType;
     //@SerializedName("closedAt")
     //private Calendar closedAt;
 
-    public SiloHistoryDTO(Long siloId, List<Long> beaconsId, GrainType grainType){
+    public SiloHistoryDTO(Long siloId, List<Long> sensorsId, GrainType grainType){
         this.siloId = siloId;
-        this.beaconsId = beaconsId;
+        this.sensorsId = sensorsId;
         this.grainType = grainType;
     }
 
-    /*public SiloHistoryDTO(Long siloId, List<Long> beaconsId, GrainType grainType, Calendar closedAt){
+    /*public SiloHistoryDTO(Long siloId, List<Long> sensorsId, GrainType grainType, Calendar closedAt){
         this.siloId = siloId;
-        this.beaconsId = beaconsId;
+        this.sensorsId = sensorsId;
         this.grainType = grainType;
         this.closedAt = closedAt;
     }
@@ -38,12 +38,12 @@ public class SiloHistoryDTO {
         this.siloId = siloId;
     }
 
-    public List<Long> getBeaconsId() {
-        return beaconsId;
+    public List<Long> getsensorsId() {
+        return sensorsId;
     }
 
-    public void setBeaconsId(List<Long> beaconsId) {
-        this.beaconsId = beaconsId;
+    public void setsensorsId(List<Long> sensorsId) {
+        this.sensorsId = sensorsId;
     }
 
     public GrainType getGrainType() {

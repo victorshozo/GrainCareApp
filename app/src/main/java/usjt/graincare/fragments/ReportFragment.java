@@ -29,7 +29,7 @@ import usjt.graincare.models.GrainType;
 import usjt.graincare.models.GraphicDTO;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
-import usjt.graincare.rest.ReportDTO;
+import usjt.graincare.models.ReportDTO;
 import usjt.graincare.service.ReportCallback;
 import usjt.graincare.service.ReportService;
 import usjt.graincare.util.GrainDialog;
@@ -123,19 +123,23 @@ public class ReportFragment extends Fragment {
         Calendar endDate = new GregorianCalendar(dtpEnd.getYear(), dtpEnd.getMonth() + 1, dtpEnd.getDayOfMonth());
         Silo selectedSilo = (Silo) spnSilos.getSelectedItem();
 
+        if (endDate.compareTo(startDate) > 0 || startDate.compareTo((endDate)) < 0) {
+            GrainDialog.showDialog(getContext(), "Cuidado!", "Data final maior que a data inicial.");
+        } else {
+            api.getGraphicData(selectedSilo.getId(), sdf.format(startDate.getTime()), sdf.format(endDate.getTime())).enqueue(new Callback<GraphicDTO>() {
 
-        api.getGraphicData(selectedSilo.getId(), sdf.format(startDate.getTime()), sdf.format(endDate.getTime())).enqueue(new Callback<GraphicDTO>() {
-
-            @Override
-            public void onResponse(Call<GraphicDTO> call, Response<GraphicDTO> response) {
-                if (response.isSuccessful()) {
-                    drawerInteraction.changeFragment(new GraphicalReportFragment(response.body()));
-
+                @Override
+                public void onResponse(Call<GraphicDTO> call, Response<GraphicDTO> response) {
+                    if (response.isSuccessful()) {
+                        drawerInteraction.changeFragment(new GraphicalReportFragment(response.body()));
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<GraphicDTO> call, Throwable t) {
-            }
-        });
+
+                @Override
+                public void onFailure(Call<GraphicDTO> call, Throwable t) {
+                }
+            });
+        }
     }
+
 }

@@ -11,14 +11,15 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import usjt.graincare.models.EmailPasswordDTO;
+import usjt.graincare.models.Farm;
 import usjt.graincare.models.GraphicDTO;
 import usjt.graincare.models.Sensor;
 import usjt.graincare.models.SensorHistory;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
-import usjt.graincare.rest.ReportDTO;
-import usjt.graincare.rest.SiloHistoryDTO;
-import usjt.graincare.rest.SiloPredictionDTO;
+import usjt.graincare.models.ReportDTO;
+import usjt.graincare.models.SiloHistoryDTO;
+import usjt.graincare.models.SiloPredictionDTO;
 
 public interface GrainCareApi {
 
@@ -76,6 +77,14 @@ public interface GrainCareApi {
             @Path("siloId") Long siloID,
             @Query("startDate") String startDate,
             @Query("endDate") String endDate
+    );
+
+    @GET("/user/farms")
+    Call<List<Farm>> listFarms();
+
+    @GET("/farm/{farmId}/silos")
+    Call<List<SiloHistory>> listSilosHistorybyFarm(
+            @Path("farmId") Long farmId
     );
 
     @FormUrlEncoded

@@ -83,12 +83,12 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void success() {
                 GrainDialog.showDialog(getContext(), "Pronto!", "Silo fechado com sucesso");
-                drawerInteraction.changeFragment(new SilosFragment());
+                drawerInteraction.changeFragment(new FarmFragment());
             }
 
             @Override
             public void invalidData() {
-                GrainDialog.showDialog(getContext(), "Erro", "Erro inválido");
+                GrainDialog.showDialog(getContext(), "Dados", "Verifique se os dados foram digitados corretamente.");
             }
 
             @Override

@@ -34,7 +34,7 @@ import usjt.graincare.models.Grao;
 import usjt.graincare.models.Silo;
 import usjt.graincare.models.SiloHistory;
 import usjt.graincare.rest.GrainCareRestGenerator;
-import usjt.graincare.rest.SiloPredictionDTO;
+import usjt.graincare.models.SiloPredictionDTO;
 import usjt.graincare.service.SiloService;
 import usjt.graincare.silo.SiloChangedCallback;
 import usjt.graincare.util.GrainDialog;
@@ -76,7 +76,6 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
             @Override
             public void onClick(View view) {
                 changeFragment(siloId, grao);
-
             }
         });
     }

@@ -35,7 +35,10 @@ public class SilosFragment extends Fragment {
 
         GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
 
-        api.listSilosHistoryFechados().enqueue(new Callback<List<SiloHistory>>() {
+        Bundle bundle = this.getArguments();
+        Long farmId = bundle.getLong("farmId");
+
+        api.listSilosHistorybyFarm(farmId).enqueue(new Callback<List<SiloHistory>>() {
             @Override
             public void onResponse(Call<List<SiloHistory>> call, Response<List<SiloHistory>> response) {
                 if (response.isSuccessful()) {
@@ -45,9 +48,9 @@ public class SilosFragment extends Fragment {
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);
                     return;
+                } else {
+                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
                 }
-                Integer t = response.code();
-                GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
             }
 
             @Override

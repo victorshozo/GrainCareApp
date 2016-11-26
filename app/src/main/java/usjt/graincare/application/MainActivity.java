@@ -35,6 +35,7 @@ import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.adapters.NavigationAdapter;
 import usjt.graincare.adapters.SiloAdapter;
+import usjt.graincare.fragments.FarmFragment;
 import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.SiloHistory;
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements DrawerInteraction
 
 
         FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
-        fragTransaction.replace(R.id.frameLayout_content, new SilosFragment());
+        fragTransaction.replace(R.id.frameLayout_content, new FarmFragment());
         fragTransaction.commit();
         if (!isNetworkStatusAvailable(getApplicationContext())) {
             GrainDialog.showDialog(getApplicationContext(), "Conexão", "Habilite a internet para poder usar o aplicativo.");
@@ -217,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements DrawerInteraction
     public void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayout_content, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
         //toolbarTitle.setText(title);
         drawerLayout.closeDrawer(lt_drawer_content);

@@ -11,7 +11,7 @@ import usjt.graincare.models.Sensor;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Silo;
 import usjt.graincare.rest.GrainCareRestGenerator;
-import usjt.graincare.rest.SiloHistoryDTO;
+import usjt.graincare.models.SiloHistoryDTO;
 import usjt.graincare.silo.SiloChangedCallback;
 
 public class SiloService {

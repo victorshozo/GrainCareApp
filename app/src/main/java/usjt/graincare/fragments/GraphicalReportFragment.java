@@ -104,31 +104,11 @@ public class GraphicalReportFragment extends Fragment {
         // the labels that should be drawn on the XAxis
 
 //        final String[] quarters = new String[]{"1", "2", "3", "4", "5", "6", "7"};
-        final String[] days = new String[(int)report.getDays()];
-        int day = 0;
-        for (int count = 0; count < report.getDays(); count++) {
-            days[count] = Integer.toString(day + 1);
-            day++;
-        }
-
-        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return days[(int) value];
-            }
-
-            // we don't draw numbers, so no decimal digits needed
-            @Override
-            public int getDecimalDigits() {
-                return 0;
-            }
-        };
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(Typeface.MONOSPACE);
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-        xAxis.setValueFormatter(formatter);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTypeface(Typeface.MONOSPACE);

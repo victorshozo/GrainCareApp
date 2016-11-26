@@ -19,7 +19,7 @@ import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.rest.GrainCareRestGenerator;
-import usjt.graincare.rest.ReportDTO;
+import usjt.graincare.models.ReportDTO;
 import usjt.graincare.util.GrainDialog;
 
 public class SimplifiedReportFragment extends Fragment {

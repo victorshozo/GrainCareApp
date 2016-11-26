@@ -41,6 +41,10 @@ public class SensorsFragment extends Fragment {
         api.listSensorBySilo(siloId).enqueue(new Callback<List<SensorHistory>>() {
             @Override
             public void onResponse(Call<List<SensorHistory>> call, Response<List<SensorHistory>> response) {
+                if(response.body().size() == 0)
+                {
+                    GrainCareSnackBar.show(rootView, "Ainda não foi enviado nenhum dados dos sensores cadastrados", Snackbar.LENGTH_LONG);
+                }
                 if (response.isSuccessful()) {
                     SensorAdapter adapter = new SensorAdapter(response.body(), graoMaxTemperature, getContext());
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
