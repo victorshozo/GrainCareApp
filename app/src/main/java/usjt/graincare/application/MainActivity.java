@@ -218,7 +218,6 @@ public class MainActivity extends AppCompatActivity implements DrawerInteraction
     public void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayout_content, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
         //toolbarTitle.setText(title);
         drawerLayout.closeDrawer(lt_drawer_content);
