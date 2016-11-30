@@ -49,6 +49,9 @@ public class SiloCloseFragment extends Fragment {
     final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
     View rootView;
     private DrawerInteraction drawerInteraction;
+    @Deprecated
+    public SiloCloseFragment() {
+    }
 
     public SiloCloseFragment(DrawerInteraction drawerInteraction) {
         this.drawerInteraction = drawerInteraction;
@@ -129,7 +132,7 @@ public class SiloCloseFragment extends Fragment {
             public void onResponse(Call<List<Sensor>> call, Response<List<Sensor>> response) {
                 if (response.isSuccessful()) {
                     if (response.body().isEmpty()) {
-                        GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
+                        GrainDialog.showDialog(getContext().getApplicationContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
                         drawerInteraction.changeFragment(new FarmFragment());
                         return;
                     } else {

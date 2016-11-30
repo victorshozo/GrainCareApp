@@ -77,21 +77,21 @@ public class GraphicalReportFragment extends Fragment {
 
         LineData data = new LineData(dataSets);
         chart.setData(data);
-        chart.animateX(3000, Easing.EasingOption.EaseInOutSine);
-        chart.animateY(3000, Easing.EasingOption.EaseInOutSine);
+        chart.animateX(3000, Easing.EasingOption.Linear);
+        chart.animateY(3000, Easing.EasingOption.Linear);
         chart.setNoDataTextTypeface(Typeface.MONOSPACE);
         chart.setNoDataText("Não há dados para o periodo selecionado");
         chart.setDrawGridBackground(true);
 
         final List<String> numbers = new ArrayList<>();
         for (int i = 0; i < report.getDays(); i++) {
-            numbers.add(i + "");
+            numbers.add(i+1 + "");
         }
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return numbers.get((int) value - 1);
+                return numbers.get((int) (value -1));
             }
 
             // we don't draw numbers, so no decimal digits needed

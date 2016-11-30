@@ -41,7 +41,7 @@ public class SilosFragment extends Fragment {
         api.listSilosHistorybyFarm(farmId).enqueue(new Callback<List<SiloHistory>>() {
             @Override
             public void onResponse(Call<List<SiloHistory>> call, Response<List<SiloHistory>> response) {
-                if(response.body().size() ==0){
+                if(response.body().isEmpty()){
                     GrainCareSnackBar.show(rootView, "Ainda não existem nenhum silo fechado para esta fazenda.", Snackbar.LENGTH_LONG);
                 }
                 if (response.isSuccessful()) {
