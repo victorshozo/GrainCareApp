@@ -40,6 +40,8 @@ import usjt.graincare.service.SiloService;
 import usjt.graincare.silo.SiloChangedCallback;
 import usjt.graincare.util.GrainDialog;
 
+import static usjt.graincare.util.GrainCareConfig.MONITOR_FLOW;
+
 public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo> {
 
     private final SiloService siloService;
@@ -246,7 +248,7 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         args.putDouble("graoMaxTemperature", grao.getMaxTemperature());
         fragment.setArguments(args);
 
-        drawerInteration.changeFragment(fragment);
+        drawerInteration.changeFragment(fragment, MONITOR_FLOW);
     }
 
 }

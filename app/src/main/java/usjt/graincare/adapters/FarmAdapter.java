@@ -25,6 +25,8 @@ import usjt.graincare.models.Farm;
 import usjt.graincare.rest.GrainCareRestGenerator;
 import usjt.graincare.util.GrainCareConfig;
 
+import static usjt.graincare.util.GrainCareConfig.MONITOR_FLOW;
+
 public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.ViewHolderFarm> {
 
     private DrawerInteraction drawerInteraction;
@@ -93,6 +95,6 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.ViewHolderFarm
         args.putLong("farmId", farmId);
         fragment.setArguments(args);
 
-        drawerInteraction.changeFragment(fragment, GrainCareConfig.FARM_TAG);
+        drawerInteraction.changeFragment(fragment, MONITOR_FLOW);
     }
 }

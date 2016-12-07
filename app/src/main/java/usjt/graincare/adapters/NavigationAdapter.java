@@ -41,7 +41,7 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.Na
             @Override
             public void onClick(View v) {
                 Fragment newFragment = items[position].getFragment(drawerInteraction);
-                drawerInteraction.changeFragment(newFragment);
+                drawerInteraction.changeFragment(newFragment, newFragment.getTag());
             }
         });
     }

@@ -35,6 +35,7 @@ import static java.util.Arrays.asList;
 import static usjt.graincare.models.GrainType.MILHO;
 import static usjt.graincare.models.GrainType.SOJA;
 import static usjt.graincare.models.GrainType.SORGO;
+import static usjt.graincare.util.GrainCareConfig.CLOSE_FLOW;
 
 public class SiloCloseFragment extends Fragment {
 
@@ -86,7 +87,7 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void success() {
                 GrainDialog.showDialog(getContext(), "Pronto!", "Silo fechado com sucesso");
-                drawerInteraction.changeFragment(new FarmFragment(drawerInteraction));
+                drawerInteraction.changeFragment(new FarmFragment(drawerInteraction), CLOSE_FLOW);
             }
 
             @Override
@@ -108,7 +109,7 @@ public class SiloCloseFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().isEmpty()) {
                         GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem silos disponíveis para o cadastro.");
-                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction));
+                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction),CLOSE_FLOW);
                         return;
                     }
 
@@ -133,7 +134,7 @@ public class SiloCloseFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().isEmpty()) {
                         GrainDialog.showDialog(getContext().getApplicationContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
-                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction));
+                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction), CLOSE_FLOW);
                         return;
                     }
                     ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());

@@ -37,6 +37,7 @@ import usjt.graincare.util.GrainDialog;
 import static java.util.Arrays.asList;
 import static usjt.graincare.models.GrainType.MILHO;
 import static usjt.graincare.models.GrainType.SOJA;
+import static usjt.graincare.util.GrainCareConfig.REPORT_FLOW;
 
 public class ReportFragment extends Fragment {
 
@@ -98,7 +99,7 @@ public class ReportFragment extends Fragment {
             reportService.getReport(selectedSilo, startDate, endDate, new ReportCallback() {
                 @Override
                 public void success(ReportDTO report) {
-                    drawerInteraction.changeFragment(new SimplifiedReportFragment(report));
+                    drawerInteraction.changeFragment(new SimplifiedReportFragment(report), REPORT_FLOW);
                 }
 
                 @Override
@@ -138,7 +139,7 @@ public class ReportFragment extends Fragment {
                         if (response.body().getDays() == 0) {
                             GrainDialog.showDialog(getContext(), "Dados", "Não existem dados para o periodo pesquisado.");
                         } else {
-                            drawerInteraction.changeFragment(new GraphicalReportFragment(response.body()));
+                            drawerInteraction.changeFragment(new GraphicalReportFragment(response.body()), REPORT_FLOW);
 
                         }
                     }else {
