@@ -17,7 +17,6 @@ public class GrainCareRestGenerator {
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     private static ReceivedCookieInterceptor receivedCookie = new ReceivedCookieInterceptor();
     private static AddCookieInterceptor addCookie = new AddCookieInterceptor();
-    private static InternetStatusInterceptor internetStatus = new InternetStatusInterceptor();
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

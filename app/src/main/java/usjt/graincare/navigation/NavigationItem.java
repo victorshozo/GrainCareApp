@@ -14,7 +14,7 @@ public enum NavigationItem {
     HOME("Inicio", R.mipmap.ic_silo) {
         @Override
         public Fragment getFragment(DrawerInteraction drawerInteraction) {
-            return new FarmFragment();
+            return new FarmFragment(drawerInteraction);
         }
     },
     CLOSE_SILO("Fechar silo", R.mipmap.ic_add_new_silo) {

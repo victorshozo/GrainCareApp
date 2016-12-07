@@ -18,7 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.adapters.FarmAdapter;
+import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
+import usjt.graincare.application.MainActivity;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Farm;
 import usjt.graincare.rest.GrainCareRestGenerator;
@@ -27,6 +29,12 @@ public class FarmFragment extends Fragment {
 
     @BindView(R.id.RecyclerListFarms)
     RecyclerView recyclerView;
+
+    private DrawerInteraction drawerInteraction;
+
+    public FarmFragment(DrawerInteraction drawerInteraction) {
+        this.drawerInteraction = drawerInteraction;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +46,7 @@ public class FarmFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Farm>> call, Response<List<Farm>> response) {
                 if (response.isSuccessful()) {
-                    FarmAdapter adapter = new FarmAdapter(response.body(), getContext());
+                    FarmAdapter adapter = new FarmAdapter(drawerInteraction, response.body(), getContext());
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setHasFixedSize(false);
                     recyclerView.setLayoutManager(layoutManager);

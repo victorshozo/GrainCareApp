@@ -16,20 +16,24 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import usjt.graincare.R;
+import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.MainActivity;
 import usjt.graincare.fragments.SensorsFragment;
 import usjt.graincare.fragments.SilosFragment;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.Farm;
 import usjt.graincare.rest.GrainCareRestGenerator;
+import usjt.graincare.util.GrainCareConfig;
 
 public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.ViewHolderFarm> {
+
+    private DrawerInteraction drawerInteraction;
     private List<Farm> farms = Collections.emptyList();
     private Context context;
-    private final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
     private Long farmId;
 
-    public FarmAdapter(List<Farm> farms, Context context) {
+    public FarmAdapter(DrawerInteraction drawerInteraction, List<Farm> farms, Context context) {
+        this.drawerInteraction = drawerInteraction;
         this.farms = farms;
         this.context = context;
     }
@@ -84,15 +88,11 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.ViewHolderFarm
     }
 
     private void changeFragment(Long farmId) {
-        SilosFragment fragment = new SilosFragment();
+        SilosFragment fragment = new SilosFragment(drawerInteraction);
         Bundle args = new Bundle();
         args.putLong("farmId", farmId);
         fragment.setArguments(args);
-        if (context == null)
-            return;
-        if (context instanceof MainActivity) {
-            MainActivity mainActivity = (MainActivity) context;
-            mainActivity.switchContent(fragment);
-        }
+
+        drawerInteraction.changeFragment(fragment, GrainCareConfig.FARM_TAG);
     }
 }

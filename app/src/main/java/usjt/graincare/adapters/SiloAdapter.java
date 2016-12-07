@@ -26,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import usjt.graincare.R;
+import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.application.MainActivity;
 import usjt.graincare.fragments.SensorsFragment;
@@ -42,13 +43,15 @@ import usjt.graincare.util.GrainDialog;
 public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo> {
 
     private final SiloService siloService;
+    private DrawerInteraction drawerInteration;
     private List<SiloHistory> silos = Collections.emptyList();
     private Context context;
     private final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
     private View view;
     private Long siloId;
 
-    public SiloAdapter(List<SiloHistory> silos, Context context) {
+    public SiloAdapter(DrawerInteraction drawerInteration, List<SiloHistory> silos, Context context) {
+        this.drawerInteration = drawerInteration;
         this.silos = silos;
         this.context = context;
         this.siloService = new SiloService();
@@ -242,12 +245,8 @@ public class SiloAdapter extends RecyclerView.Adapter<SiloAdapter.ViewHolderSilo
         args.putLong("siloId", siloId);
         args.putDouble("graoMaxTemperature", grao.getMaxTemperature());
         fragment.setArguments(args);
-        if (context == null)
-            return;
-        if (context instanceof MainActivity) {
-            MainActivity mainActivity = (MainActivity) context;
-            mainActivity.switchContent(fragment);
-        }
+
+        drawerInteration.changeFragment(fragment);
     }
 
 }

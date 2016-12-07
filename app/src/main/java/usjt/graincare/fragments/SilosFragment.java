@@ -18,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.adapters.SiloAdapter;
+import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.SiloHistory;
@@ -27,6 +28,12 @@ public class SilosFragment extends Fragment {
 
     @BindView(R.id.RecyclerListSilos)
     RecyclerView recyclerView;
+
+    private DrawerInteraction drawerInteration;
+
+    public SilosFragment(DrawerInteraction drawerInteration) {
+        this.drawerInteration = drawerInteration;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,16 +48,15 @@ public class SilosFragment extends Fragment {
         api.listSilosHistorybyFarm(farmId).enqueue(new Callback<List<SiloHistory>>() {
             @Override
             public void onResponse(Call<List<SiloHistory>> call, Response<List<SiloHistory>> response) {
-                if(response.body().isEmpty()){
+                if(response.body() == null || response.body().isEmpty()){
                     GrainCareSnackBar.show(rootView, "Ainda não existem nenhum silo fechado para esta fazenda.", Snackbar.LENGTH_LONG);
                 }
                 if (response.isSuccessful()) {
-                    SiloAdapter adapter = new SiloAdapter(response.body(), getContext());
+                    SiloAdapter adapter = new SiloAdapter(drawerInteration, response.body(), getContext());
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     recyclerView.setHasFixedSize(false);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);
-                    return;
                 } else {
                     GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
                 }

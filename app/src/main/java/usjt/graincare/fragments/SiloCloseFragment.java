@@ -86,7 +86,7 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void success() {
                 GrainDialog.showDialog(getContext(), "Pronto!", "Silo fechado com sucesso");
-                drawerInteraction.changeFragment(new FarmFragment());
+                drawerInteraction.changeFragment(new FarmFragment(drawerInteraction));
             }
 
             @Override
@@ -108,12 +108,12 @@ public class SiloCloseFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().isEmpty()) {
                         GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem silos disponíveis para o cadastro.");
-                        drawerInteraction.changeFragment(new FarmFragment());
+                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction));
                         return;
-                    } else {
-                        ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
-                        spSilo.setAdapter(adapterSilos);
                     }
+
+                    ArrayAdapter<Silo> adapterSilos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
+                    spSilo.setAdapter(adapterSilos);
                 } else {
                     GrainCareSnackBar.show(rootView, "Não foi possivel listar os silos", Snackbar.LENGTH_SHORT);
                 }
@@ -133,12 +133,11 @@ public class SiloCloseFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().isEmpty()) {
                         GrainDialog.showDialog(getContext().getApplicationContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
-                        drawerInteraction.changeFragment(new FarmFragment());
+                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction));
                         return;
-                    } else {
-                        ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
-                        spSensors.setAdapter(adapterSensor);
                     }
+                    ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
+                    spSensors.setAdapter(adapterSensor);
 
                 } else {
                     GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores.", Snackbar.LENGTH_SHORT);

@@ -1,5 +1,6 @@
 package usjt.graincare.application;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -86,48 +87,10 @@ public class MainActivity extends AppCompatActivity implements DrawerInteraction
 
 
         FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
-        fragTransaction.replace(R.id.frameLayout_content, new FarmFragment());
+        fragTransaction.replace(R.id.frameLayout_content, new FarmFragment(this));
         fragTransaction.commit();
         if (!isNetworkStatusAvailable(getApplicationContext())) {
             GrainDialog.showDialog(getApplicationContext(), "Conexão", "Habilite a internet para poder usar o aplicativo.");
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        FrameLayout fl = (FrameLayout) findViewById(R.id.frameLayout_content);
-        if (fl.getChildCount() == 1) {
-            super.onBackPressed();
-            if (fl.getChildCount() == 0) {
-                new AlertDialog.Builder(this)
-                        .setTitle("Close App?")
-                        .setMessage("Do you really want to close this beautiful app?")
-                        .setPositiveButton("YES",
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                        finish();
-                                    }
-                                })
-                        .setNegativeButton("NO",
-                                new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                                        int which) {
-                                    }
-                                }).show();
-                // load your first Fragment here
-            }
-        } else if (fl.getChildCount() == 0) {
-
-            FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
-            fragTransaction.replace(R.id.frameLayout_content, new SilosFragment());
-            fragTransaction.commit();
-        } else {
-            super.onBackPressed();
         }
     }
 
@@ -145,11 +108,21 @@ public class MainActivity extends AppCompatActivity implements DrawerInteraction
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public void switchContent(Fragment fragment) {
+    /*public void switchContent(Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout_content, fragment);
         ft.addToBackStack(null);
         ft.commit();
+    }*/
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager manager = getFragmentManager();
+        if (manager.getBackStackEntryCount() > 0) {
+            manager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public static boolean isNetworkStatusAvailable(Context context) {
@@ -215,9 +188,11 @@ public class MainActivity extends AppCompatActivity implements DrawerInteraction
     }
 
     @Override
-    public void changeFragment(Fragment fragment) {
+    public void changeFragment(Fragment fragment, String tag) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frameLayout_content, fragment);
+
+        transaction.addToBackStack(tag);
+        transaction.replace(R.id.frameLayout_content, fragment, tag);
         transaction.commit();
         //toolbarTitle.setText(title);
         drawerLayout.closeDrawer(lt_drawer_content);
