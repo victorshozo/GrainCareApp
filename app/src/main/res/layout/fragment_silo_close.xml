@@ -46,23 +46,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <usjt.graincare.application.GrainCareTextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sensores"
+                android:text="Lista de Sensores"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
-            <Spinner
-                android:id="@+id/spinner_sensors"
-                android:layout_width="0dp"
+            <usjt.graincare.application.GrainCareTextView
+                android:id="@+id/list_sensors"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:spinnerMode="dropdown" />
+                android:textColor="#cfcfcf"
+                android:textSize="20sp"
+                android:padding="5sp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_select_sensors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selecione..."
+                android:background="@color/white"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                />
+
 
         </LinearLayout>
 

@@ -1,5 +1,8 @@
 package usjt.graincare.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +25,6 @@ import retrofit2.Response;
 import usjt.graincare.R;
 import usjt.graincare.application.DrawerInteraction;
 import usjt.graincare.application.GrainCareSnackBar;
-import usjt.graincare.application.MainActivity;
 import usjt.graincare.json.GrainCareApi;
 import usjt.graincare.models.GrainType;
 import usjt.graincare.models.Sensor;
@@ -42,14 +45,18 @@ public class SiloCloseFragment extends Fragment {
     private static final SiloService siloService = new SiloService();
     @BindView(R.id.spinner_silo)
     Spinner spSilo;
-    @BindView(R.id.spinner_sensors)
-    Spinner spSensors;
     @BindView(R.id.spinner_graos)
     Spinner spGrao;
+    @BindView(R.id.list_sensors)
+    TextView tvSensors;
 
+    final List<Integer> listSensors = null;
     final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
+    final List<Integer> tempListSensor = null;
+    final String tvFinal = null;
     View rootView;
     private DrawerInteraction drawerInteraction;
+
     @Deprecated
     public SiloCloseFragment() {
     }
@@ -64,7 +71,6 @@ public class SiloCloseFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         listAvailableSilos();
-        listAvailableSensors();
 
         ArrayAdapter<GrainType> adapterGrao = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, asList(MILHO, SOJA, SORGO));
         spGrao.setAdapter(adapterGrao);
@@ -72,17 +78,14 @@ public class SiloCloseFragment extends Fragment {
         return rootView;
     }
 
+
     @OnClick(R.id.bt_confirm_register)
     public void confirmRegister() {
 
-        //Calendar selectedDate = new GregorianCalendar(datePicker.getYear(), datePicker.getMonth() + 1, datePicker.getDayOfMonth());
         Silo selectedSilo = (Silo) spSilo.getSelectedItem();
-        Sensor selectedSensor = (Sensor) spSensors.getSelectedItem();
         GrainType selectedGrainType = (GrainType) spGrao.getSelectedItem();
         List<Sensor> selectedSensors = new ArrayList<>();
-        selectedSensors.add(selectedSensor);
-        //siloService.close(selectedSilo, selectedSensors, selectedGrainType, selectedDate, new SiloChangedCallback()
-        siloService.close(selectedSilo, selectedSensors, selectedGrainType, new SiloChangedCallback() {
+        siloService.close(selectedSilo, listSensors, selectedGrainType, new SiloChangedCallback() {
 
             @Override
             public void success() {
@@ -102,6 +105,38 @@ public class SiloCloseFragment extends Fragment {
         });
     }
 
+    @OnClick(R.id.btn_select_sensors)
+    public void sensorsSelectors() {
+        listAvailableSensors();
+        android.app.AlertDialog alert = new AlertDialog.Builder(getActivity())
+                .setTitle("Seletor de Silos")
+                .setMultiChoiceItems(listSensors.size(), null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            public void onClick(DialogInterface dialog, int item, boolean isChecked) {
+                            tempListSensor.add(listSensors.get(item));
+                            }
+                        })
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        for (int count = 0; count < tempListSensor.size(); count++) {
+                            String tvFinal = new StringBuilder().append(tempListSensor.get(count)).append(",").toString();
+                        }
+                        tvSensors.setText(tvFinal);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+        TextView tvMessage = (TextView) alert.findViewById(android.R.id.message);
+        Typeface face = Typeface.createFromAsset(getActivity().getResources().getAssets(), "fonts/museo-sans.ttf");
+        tvMessage.setTypeface(face);
+        alert.show();
+    }
+
+    //Preencher comboboxes
     public void listAvailableSilos() {
         api.listSilosAbertos().enqueue(new Callback<List<Silo>>() {
             @Override
@@ -109,7 +144,7 @@ public class SiloCloseFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.body().isEmpty()) {
                         GrainDialog.showDialog(getContext(), "Disponibilidade", "Não existem silos disponíveis para o cadastro.");
-                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction),CLOSE_FLOW);
+                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction), CLOSE_FLOW);
                         return;
                     }
 
@@ -137,8 +172,10 @@ public class SiloCloseFragment extends Fragment {
                         drawerInteraction.changeFragment(new FarmFragment(drawerInteraction), CLOSE_FLOW);
                         return;
                     }
-                    ArrayAdapter<Sensor> adapterSensor = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, response.body());
-                    spSensors.setAdapter(adapterSensor);
+                    for (Sensor sensor : response.body()
+                            ) {
+                        listSensors.add(sensor.getId().intValue());
+                    }
 
                 } else {
                     GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores.", Snackbar.LENGTH_SHORT);

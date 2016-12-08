@@ -22,10 +22,10 @@ public class SiloService {
         api = GrainCareRestGenerator.create(GrainCareApi.class);
     }
 
-    public void close(Silo silo, List<Sensor> sensors, GrainType grainType, final SiloChangedCallback callback) {
+    public void close(Silo silo, List<Integer> sensors, GrainType grainType, final SiloChangedCallback callback) {
         List<Long> beaconsId = new ArrayList<>();
-        for (Sensor sensor : sensors) {
-            beaconsId.add(sensor.getId());
+        for (int count =0; count < sensors.size(); count ++) {
+            beaconsId.add(sensors.get(count).longValue());
         }
 
         SiloHistoryDTO siloHistoryDTO = new SiloHistoryDTO(silo.getId(), beaconsId, grainType);

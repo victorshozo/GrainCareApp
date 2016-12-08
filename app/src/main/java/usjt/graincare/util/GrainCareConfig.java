@@ -8,5 +8,5 @@ public class GrainCareConfig {
     public static final String MONITOR_FLOW = "MONITOR";
     public static final String REPORT_FLOW = "REPORT";
     public static final String CLOSE_FLOW = "CLOSE";
-    public static final String BASE_URL = "http://"+DEV+":8080";
+    public static final String BASE_URL = "http://"+DEV_home+":8080";
 }
