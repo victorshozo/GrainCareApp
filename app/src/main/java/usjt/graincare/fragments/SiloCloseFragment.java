@@ -51,9 +51,11 @@ public class SiloCloseFragment extends Fragment {
     TextView tvSensors;
 
     final List<Integer> listSensors = null;
-    final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
-    final List<Integer> tempListSensor = null;
+    List<Integer> list = null;
     final String tvFinal = null;
+    final String[] tv_listSensors = null;
+
+    final GrainCareApi api = GrainCareRestGenerator.create(GrainCareApi.class);
     View rootView;
     private DrawerInteraction drawerInteraction;
 
@@ -84,7 +86,8 @@ public class SiloCloseFragment extends Fragment {
 
         Silo selectedSilo = (Silo) spSilo.getSelectedItem();
         GrainType selectedGrainType = (GrainType) spGrao.getSelectedItem();
-        List<Sensor> selectedSensors = new ArrayList<>();
+        List<Integer> selectedSensors = new ArrayList<>();
+        selectedSensors.addAll(list);
         siloService.close(selectedSilo, listSensors, selectedGrainType, new SiloChangedCallback() {
 
             @Override
@@ -107,25 +110,27 @@ public class SiloCloseFragment extends Fragment {
 
     @OnClick(R.id.btn_select_sensors)
     public void sensorsSelectors() {
-        listAvailableSensors();
-        android.app.AlertDialog alert = new AlertDialog.Builder(getActivity())
+        fillSensorsList();
+        list = null;
+    android.app.AlertDialog alert = new AlertDialog.Builder(getActivity())
                 .setTitle("Seletor de Silos")
-                .setMultiChoiceItems(listSensors.size(), null,
+                .setMultiChoiceItems(tv_listSensors, null,
                         new DialogInterface.OnMultiChoiceClickListener() {
                             public void onClick(DialogInterface dialog, int item, boolean isChecked) {
-                            tempListSensor.add(listSensors.get(item));
+                            list.add(Integer.valueOf(tv_listSensors[item]));
                             }
                         })
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        for (int count = 0; count < tempListSensor.size(); count++) {
-                            String tvFinal = new StringBuilder().append(tempListSensor.get(count)).append(",").toString();
+                        for (int count = 0; count < list.size(); count++) {
+                            String tvFinal = new StringBuilder().append(list.get(count)).append(",").toString();
                         }
                         tvSensors.setText(tvFinal);
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        list = null;
                         dialog.cancel();
                     }
                 })
@@ -134,6 +139,34 @@ public class SiloCloseFragment extends Fragment {
         Typeface face = Typeface.createFromAsset(getActivity().getResources().getAssets(), "fonts/museo-sans.ttf");
         tvMessage.setTypeface(face);
         alert.show();
+    }
+
+    private void fillSensorsList() {
+        api.listAvailablesSensors().enqueue(new Callback<List<Sensor>>() {
+            @Override
+            public void onResponse(Call<List<Sensor>> call, Response<List<Sensor>> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().isEmpty()) {
+                        GrainDialog.showDialog(getContext().getApplicationContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
+                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction), CLOSE_FLOW);
+                        return;
+                    }
+                    for (int count = 0; count < response.body().size(); count++)
+                    {
+                        tv_listSensors[count] = response.body().get(count).getId().toString();
+                    }
+                } else {
+                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores.", Snackbar.LENGTH_SHORT);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Sensor>> call, Throwable t) {
+                GrainCareSnackBar.show(rootView, "Problemas de conexão com o servidor.", Snackbar.LENGTH_SHORT);
+
+            }
+        });
     }
 
     //Preencher comboboxes
@@ -158,35 +191,6 @@ public class SiloCloseFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Silo>> call, Throwable t) {
                 GrainCareSnackBar.show(rootView, "Problemas de conexão com o servidor.", Snackbar.LENGTH_SHORT);
-            }
-        });
-    }
-
-    public void listAvailableSensors() {
-        api.listAvailablesSensors().enqueue(new Callback<List<Sensor>>() {
-            @Override
-            public void onResponse(Call<List<Sensor>> call, Response<List<Sensor>> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().isEmpty()) {
-                        GrainDialog.showDialog(getContext().getApplicationContext(), "Disponibilidade", "Não existem sensores disponíveis para o cadastro.");
-                        drawerInteraction.changeFragment(new FarmFragment(drawerInteraction), CLOSE_FLOW);
-                        return;
-                    }
-                    for (Sensor sensor : response.body()
-                            ) {
-                        listSensors.add(sensor.getId().intValue());
-                    }
-
-                } else {
-                    GrainCareSnackBar.show(rootView, "Não foi possivel listar os sensores.", Snackbar.LENGTH_SHORT);
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Sensor>> call, Throwable t) {
-                GrainCareSnackBar.show(rootView, "Problemas de conexão com o servidor.", Snackbar.LENGTH_SHORT);
-
             }
         });
     }
